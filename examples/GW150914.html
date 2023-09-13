@@ -1,0 +1,1723 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>EX3: GW150914 &#8212; Funnel</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/GW150914';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="EX2: CBC-GW Injection" href="lvk_injection.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Funnel
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="linear_regression.html">EX1: Linear regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lvk_injection.html">EX2: CBC-GW Injection</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">EX3: GW150914</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fexamples/GW150914.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/examples/GW150914.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>EX3: GW150914</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-gw150914-posterior-nested-sampling-lnz">Load GW150914 posterior + Nested Sampling LnZ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-fi-lnz">Compute FI LnZ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-downsampled-posterior-sample-for-speed">Using a downsampled posterior sample for speed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-full-posterior-sample-but-a-few-refernce-points">Using the full posterior sample but a few refernce points</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="ex3-gw150914">
+<h1>EX3: GW150914<a class="headerlink" href="#ex3-gw150914" title="Permalink to this heading">#</a></h1>
+<p>In this example we load an LVK posterior from zenodo and compute the FI evidence for the CBC model.</p>
+<p>Download posteriors from <a class="reference external" href="https://zenodo.org/record/6513631/files/IGWN-GWTC2p1-v2-GW150914_095045_PEDataRelease_mixed_cosmo.h5?download=1">zenodo</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">h5py</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">funnel.plotting</span> <span class="kn">import</span> <span class="n">plot_fi_evidence_results</span>
+<span class="kn">from</span> <span class="nn">funnel.fi_core</span> <span class="kn">import</span> <span class="n">get_fi_lnz_list</span>
+<span class="kn">import</span> <span class="nn">shutil</span><span class="o">,</span> <span class="nn">os</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="load-gw150914-posterior-nested-sampling-lnz">
+<h2>Load GW150914 posterior + Nested Sampling LnZ<a class="headerlink" href="#load-gw150914-posterior-nested-sampling-lnz" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="c1"># load the LVK posterior</span>
+<span class="n">FPATH</span> <span class="o">=</span> <span class="s1">&#39;IGWN-GWTC2p1-v2-GW150914_095045_PEDataRelease_mixed_cosmo.h5&#39;</span>
+
+<span class="n">LVK_data</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;LVK_data&quot;</span><span class="p">,</span> <span class="s2">&quot;posterior, lnz, lnz_err, lnBF&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">load_lvk_data</span><span class="p">(</span><span class="n">fpath</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">fpath</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">sampling_params</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;C01:IMRPhenomXPHM/priors/analytic&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="c1"># remove mass_1, mass_2 (as we already have chirp_mass, mass_ratio)</span>
+        <span class="n">sampling_params</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sampling_params</span> <span class="k">if</span> <span class="n">p</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;mass_1&#39;</span><span class="p">,</span> <span class="s1">&#39;mass_2&#39;</span><span class="p">]]</span>
+        <span class="n">sampler_data</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;C01:IMRPhenomXPHM/meta_data/sampler&#39;</span><span class="p">]</span>
+
+        <span class="n">lnz</span><span class="p">,</span> <span class="n">lnz_err</span> <span class="o">=</span>  <span class="n">sampler_data</span><span class="p">[</span><span class="s1">&#39;ln_evidence&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">sampler_data</span><span class="p">[</span><span class="s1">&#39;ln_evidence_error&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">lnBF</span> <span class="o">=</span> <span class="n">sampler_data</span><span class="p">[</span><span class="s1">&#39;ln_bayes_factor&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">post</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;C01:IMRPhenomXPHM&#39;</span><span class="p">][</span><span class="s1">&#39;posterior_samples&#39;</span><span class="p">][()]</span>
+        <span class="n">post</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="n">name</span><span class="p">:</span> <span class="n">post</span><span class="p">[</span><span class="n">name</span><span class="p">][:]</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">post</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">names</span><span class="p">})</span>
+        <span class="n">post</span> <span class="o">=</span> <span class="n">post</span><span class="p">[</span><span class="n">sampling_params</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;log_likelihood&#39;</span><span class="p">,</span> <span class="s1">&#39;log_prior&#39;</span><span class="p">]]</span>
+        <span class="c1"># only keep parameters with more than one unique value (ie drop deltas)</span>
+        <span class="n">post</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">post</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">LVK_data</span><span class="p">(</span><span class="n">post</span><span class="p">,</span> <span class="n">lnz</span><span class="p">,</span> <span class="n">lnz_err</span><span class="p">,</span> <span class="n">lnBF</span><span class="p">)</span>
+
+
+<span class="n">GW150914_data</span> <span class="o">=</span> <span class="n">load_lvk_data</span><span class="p">(</span><span class="n">FPATH</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_configs</span><span class="p">(</span><span class="n">fpath</span><span class="p">):</span>
+    <span class="n">configs_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">fpath</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">configs</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;C01:IMRPhenomXPHM/meta_data/meta_data&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">configs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">[()][</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">if</span> <span class="s1">&#39;marginalization&#39;</span> <span class="ow">in</span> <span class="n">k</span><span class="p">:</span>
+                <span class="n">configs_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+    <span class="n">configs_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span><span class="n">configs_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">configs_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())}</span>
+    <span class="n">df</span><span class="o">=</span>  <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">configs_dict</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;vals&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+
+<span class="n">configs</span> <span class="o">=</span> <span class="n">get_configs</span><span class="p">(</span><span class="n">FPATH</span><span class="p">)</span>
+<span class="n">configs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>vals</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>distance_marginalization</th>
+      <td>b'True'</td>
+    </tr>
+    <tr>
+      <th>phase_marginalization</th>
+      <td>b'False'</td>
+    </tr>
+    <tr>
+      <th>time_marginalization</th>
+      <td>b'True'</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="c1"># GW</span>
+<span class="c1"># 150914_data.posterior.columns WITHOUT log_likelihood and log_prior</span>
+<span class="n">sampling_params</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">GW150914_data</span><span class="o">.</span><span class="n">posterior</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span><span class="o">-</span><span class="nb">set</span><span class="p">([</span><span class="s1">&#39;log_likelihood&#39;</span><span class="p">,</span> <span class="s1">&#39;log_prior&#39;</span><span class="p">])</span>
+
+<span class="n">cbc_params</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;CBC PARAMS:&quot;</span><span class="p">)</span>
+<span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">sampling_params</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s1">&#39;calib&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="s2">&quot;)&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="n">cbc_params</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;CALIB PARAMS:&quot;</span><span class="p">)</span>
+<span class="n">calib_params</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">sampling_params</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s1">&#39;calib&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="s2">&quot;)&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="n">calib_params</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CBC PARAMS:
+1 ) a_1
+2 ) a_2
+3 ) azimuth
+4 ) chirp_mass
+5 ) geocent_time
+6 ) luminosity_distance
+7 ) mass_ratio
+8 ) phase
+9 ) phi_12
+10 ) phi_jl
+11 ) psi
+12 ) theta_jn
+13 ) tilt_1
+14 ) tilt_2
+15 ) time_jitter
+16 ) zenith
+CALIB PARAMS:
+1 ) recalib_H1_amplitude_0
+2 ) recalib_H1_amplitude_1
+3 ) recalib_H1_amplitude_2
+4 ) recalib_H1_amplitude_3
+5 ) recalib_H1_amplitude_4
+6 ) recalib_H1_amplitude_5
+7 ) recalib_H1_amplitude_6
+8 ) recalib_H1_amplitude_7
+9 ) recalib_H1_amplitude_8
+10 ) recalib_H1_amplitude_9
+11 ) recalib_H1_phase_0
+12 ) recalib_H1_phase_1
+13 ) recalib_H1_phase_2
+14 ) recalib_H1_phase_3
+15 ) recalib_H1_phase_4
+16 ) recalib_H1_phase_5
+17 ) recalib_H1_phase_6
+18 ) recalib_H1_phase_7
+19 ) recalib_H1_phase_8
+20 ) recalib_H1_phase_9
+21 ) recalib_L1_amplitude_0
+22 ) recalib_L1_amplitude_1
+23 ) recalib_L1_amplitude_2
+24 ) recalib_L1_amplitude_3
+25 ) recalib_L1_amplitude_4
+26 ) recalib_L1_amplitude_5
+27 ) recalib_L1_amplitude_6
+28 ) recalib_L1_amplitude_7
+29 ) recalib_L1_amplitude_8
+30 ) recalib_L1_amplitude_9
+31 ) recalib_L1_phase_0
+32 ) recalib_L1_phase_1
+33 ) recalib_L1_phase_2
+34 ) recalib_L1_phase_3
+35 ) recalib_L1_phase_4
+36 ) recalib_L1_phase_5
+37 ) recalib_L1_phase_6
+38 ) recalib_L1_phase_7
+39 ) recalib_L1_phase_8
+40 ) recalib_L1_phase_9
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">FPATH</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">skipped</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;C01:IMRPhenomXPHM/priors/analytic&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">if</span> <span class="s2">&quot;DeltaFunction&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">[()]):</span>
+        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">count</span><span class="si">:</span><span class="s2">2d</span><span class="si">}</span><span class="s2">) </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">v</span><span class="p">[()]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">skipped</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SKIP) </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">:  </span><span class="si">{</span><span class="n">v</span><span class="p">[()]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">skipped</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 1) a_1: [b&quot;Uniform(minimum=0, maximum=0.99, name=&#39;a_1&#39;, latex_label=&#39;$a_1$&#39;, unit=None, boundary=None)&quot;]
+ 2) a_2: [b&quot;Uniform(minimum=0, maximum=0.99, name=&#39;a_2&#39;, latex_label=&#39;$a_2$&#39;, unit=None, boundary=None)&quot;]
+ 3) azimuth: [b&quot;Uniform(minimum=0, maximum=6.283185307179586, name=None, latex_label=&#39;$\\\\epsilon$&#39;, unit=None, boundary=&#39;periodic&#39;)&quot;]
+ 4) chirp_mass: [b&quot;UniformInComponentsChirpMass(minimum=21.418182160215295, maximum=41.97447913941358, name=&#39;chirp_mass&#39;, latex_label=&#39;$\\\\mathcal{M}$&#39;, unit=&#39;$M_{\\\\odot}$&#39;, boundary=None)&quot;]
+ 5) geocent_time: [b&quot;Uniform(minimum=1126259462.2910001, maximum=1126259462.491, name=&#39;geocent_time&#39;, latex_label=&#39;$t_c$&#39;, unit=&#39;$s$&#39;, boundary=None)&quot;]
+ 6) luminosity_distance: [b&quot;PowerLaw(alpha=2, minimum=10, maximum=10000, name=&#39;luminosity_distance&#39;, latex_label=&#39;$d_L$&#39;, unit=&#39;Mpc&#39;, boundary=None)&quot;]
+ 7) mass_1: [b&quot;Constraint(minimum=1, maximum=1000, name=&#39;mass_1&#39;, latex_label=&#39;$m_1$&#39;, unit=None)&quot;]
+ 8) mass_2: [b&quot;Constraint(minimum=1, maximum=1000, name=&#39;mass_2&#39;, latex_label=&#39;$m_2$&#39;, unit=None)&quot;]
+ 9) mass_ratio: [b&quot;UniformInComponentsMassRatio(minimum=0.05, maximum=1.0, name=&#39;mass_ratio&#39;, latex_label=&#39;$q$&#39;, unit=None, boundary=None)&quot;]
+10) phase: [b&quot;Uniform(minimum=0, maximum=6.283185307179586, name=&#39;phase&#39;, latex_label=&#39;$\\\\phi$&#39;, unit=None, boundary=&#39;periodic&#39;)&quot;]
+11) phi_12: [b&quot;Uniform(minimum=0, maximum=6.283185307179586, name=&#39;phi_12&#39;, latex_label=&#39;$\\\\Delta\\\\phi$&#39;, unit=None, boundary=&#39;periodic&#39;)&quot;]
+12) phi_jl: [b&quot;Uniform(minimum=0, maximum=6.283185307179586, name=&#39;phi_jl&#39;, latex_label=&#39;$\\\\phi_{JL}$&#39;, unit=None, boundary=&#39;periodic&#39;)&quot;]
+13) psi: [b&quot;Uniform(minimum=0, maximum=3.141592653589793, name=&#39;psi&#39;, latex_label=&#39;$\\\\psi$&#39;, unit=None, boundary=&#39;periodic&#39;)&quot;]
+14) recalib_H1_amplitude_0: [b&quot;Gaussian(mu=0.0022497139999999582, sigma=0.032482292999999995, name=&#39;recalib_H1_amplitude_0&#39;, latex_label=&#39;$A^H1_0$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+15) recalib_H1_amplitude_1: [b&quot;Gaussian(mu=-0.0022525476996070083, sigma=0.03909717651863342, name=&#39;recalib_H1_amplitude_1&#39;, latex_label=&#39;$A^H1_1$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+16) recalib_H1_amplitude_2: [b&quot;Gaussian(mu=0.004632777733005889, sigma=0.04078174073734512, name=&#39;recalib_H1_amplitude_2&#39;, latex_label=&#39;$A^H1_2$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+17) recalib_H1_amplitude_3: [b&quot;Gaussian(mu=0.003987700439142069, sigma=0.03287682593561539, name=&#39;recalib_H1_amplitude_3&#39;, latex_label=&#39;$A^H1_3$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+18) recalib_H1_amplitude_4: [b&quot;Gaussian(mu=0.0018107999614999065, sigma=0.01936965624646965, name=&#39;recalib_H1_amplitude_4&#39;, latex_label=&#39;$A^H1_4$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+19) recalib_H1_amplitude_5: [b&quot;Gaussian(mu=0.003528123018086278, sigma=0.012591404744135145, name=&#39;recalib_H1_amplitude_5&#39;, latex_label=&#39;$A^H1_5$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+20) recalib_H1_amplitude_6: [b&quot;Gaussian(mu=-0.0018296964612414133, sigma=0.01075481852283716, name=&#39;recalib_H1_amplitude_6&#39;, latex_label=&#39;$A^H1_6$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+21) recalib_H1_amplitude_7: [b&quot;Gaussian(mu=-0.005059244326670863, sigma=0.008407555954093059, name=&#39;recalib_H1_amplitude_7&#39;, latex_label=&#39;$A^H1_7$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+22) recalib_H1_amplitude_8: [b&quot;Gaussian(mu=-0.0010763014001435082, sigma=0.01391150436119593, name=&#39;recalib_H1_amplitude_8&#39;, latex_label=&#39;$A^H1_8$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+23) recalib_H1_amplitude_9: [b&quot;Gaussian(mu=-0.0017064540000000237, sigma=0.016027046000000045, name=&#39;recalib_H1_amplitude_9&#39;, latex_label=&#39;$A^H1_9$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+24) recalib_H1_phase_0: [b&quot;Gaussian(mu=-0.009355752999999998, sigma=0.030123145, name=&#39;recalib_H1_phase_0&#39;, latex_label=&#39;$\\\\phi^H1_0$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+25) recalib_H1_phase_1: [b&quot;Gaussian(mu=0.0050309026057799855, sigma=0.04177354702981138, name=&#39;recalib_H1_phase_1&#39;, latex_label=&#39;$\\\\phi^H1_1$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+26) recalib_H1_phase_2: [b&quot;Gaussian(mu=0.0043774230879091115, sigma=0.045027737962814354, name=&#39;recalib_H1_phase_2&#39;, latex_label=&#39;$\\\\phi^H1_2$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+27) recalib_H1_phase_3: [b&quot;Gaussian(mu=-0.0023545243645386326, sigma=0.036339899119904644, name=&#39;recalib_H1_phase_3&#39;, latex_label=&#39;$\\\\phi^H1_3$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+28) recalib_H1_phase_4: [b&quot;Gaussian(mu=-0.00444209518471385, sigma=0.032837260835226936, name=&#39;recalib_H1_phase_4&#39;, latex_label=&#39;$\\\\phi^H1_4$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+29) recalib_H1_phase_5: [b&quot;Gaussian(mu=-0.006872683631006688, sigma=0.02806419946997496, name=&#39;recalib_H1_phase_5&#39;, latex_label=&#39;$\\\\phi^H1_5$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+30) recalib_H1_phase_6: [b&quot;Gaussian(mu=-0.01508554971905464, sigma=0.022470973360749408, name=&#39;recalib_H1_phase_6&#39;, latex_label=&#39;$\\\\phi^H1_6$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+31) recalib_H1_phase_7: [b&quot;Gaussian(mu=-0.009105656795490394, sigma=0.0186470280190447, name=&#39;recalib_H1_phase_7&#39;, latex_label=&#39;$\\\\phi^H1_7$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+32) recalib_H1_phase_8: [b&quot;Gaussian(mu=-0.01327344249855343, sigma=0.019250972190353967, name=&#39;recalib_H1_phase_8&#39;, latex_label=&#39;$\\\\phi^H1_8$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+33) recalib_H1_phase_9: [b&quot;Gaussian(mu=-0.006712540999999999, sigma=0.020072625, name=&#39;recalib_H1_phase_9&#39;, latex_label=&#39;$\\\\phi^H1_9$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+34) recalib_L1_amplitude_0: [b&quot;Gaussian(mu=0.005476730999999901, sigma=0.08406088199999993, name=&#39;recalib_L1_amplitude_0&#39;, latex_label=&#39;$A^L1_0$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+35) recalib_L1_amplitude_1: [b&quot;Gaussian(mu=-0.012104387120680028, sigma=0.07651583147867605, name=&#39;recalib_L1_amplitude_1&#39;, latex_label=&#39;$A^L1_1$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+36) recalib_L1_amplitude_2: [b&quot;Gaussian(mu=-0.013219120050478253, sigma=0.06508029899775643, name=&#39;recalib_L1_amplitude_2&#39;, latex_label=&#39;$A^L1_2$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+37) recalib_L1_amplitude_3: [b&quot;Gaussian(mu=-0.006657329180423924, sigma=0.05665180922845485, name=&#39;recalib_L1_amplitude_3&#39;, latex_label=&#39;$A^L1_3$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+38) recalib_L1_amplitude_4: [b&quot;Gaussian(mu=-0.0026286630232402308, sigma=0.05041154190241824, name=&#39;recalib_L1_amplitude_4&#39;, latex_label=&#39;$A^L1_4$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+39) recalib_L1_amplitude_5: [b&quot;Gaussian(mu=-0.008989482013408759, sigma=0.0391433695986004, name=&#39;recalib_L1_amplitude_5&#39;, latex_label=&#39;$A^L1_5$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+40) recalib_L1_amplitude_6: [b&quot;Gaussian(mu=-0.0112041341409286, sigma=0.02176964617289734, name=&#39;recalib_L1_amplitude_6&#39;, latex_label=&#39;$A^L1_6$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+41) recalib_L1_amplitude_7: [b&quot;Gaussian(mu=-0.007323119754866439, sigma=0.01662038622968457, name=&#39;recalib_L1_amplitude_7&#39;, latex_label=&#39;$A^L1_7$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+42) recalib_L1_amplitude_8: [b&quot;Gaussian(mu=-0.007118273569718694, sigma=0.017534092484121667, name=&#39;recalib_L1_amplitude_8&#39;, latex_label=&#39;$A^L1_8$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+43) recalib_L1_amplitude_9: [b&quot;Gaussian(mu=-0.00654931000000003, sigma=0.018560549000000037, name=&#39;recalib_L1_amplitude_9&#39;, latex_label=&#39;$A^L1_9$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+44) recalib_L1_phase_0: [b&quot;Gaussian(mu=-0.027121368999999992, sigma=0.065822439, name=&#39;recalib_L1_phase_0&#39;, latex_label=&#39;$\\\\phi^L1_0$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+45) recalib_L1_phase_1: [b&quot;Gaussian(mu=-0.015666055283929895, sigma=0.06971337917415898, name=&#39;recalib_L1_phase_1&#39;, latex_label=&#39;$\\\\phi^L1_1$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+46) recalib_L1_phase_2: [b&quot;Gaussian(mu=-0.0021521761445731018, sigma=0.06846083085274324, name=&#39;recalib_L1_phase_2&#39;, latex_label=&#39;$\\\\phi^L1_2$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+47) recalib_L1_phase_3: [b&quot;Gaussian(mu=0.0022536976421022887, sigma=0.06194252192559962, name=&#39;recalib_L1_phase_3&#39;, latex_label=&#39;$\\\\phi^L1_3$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+48) recalib_L1_phase_4: [b&quot;Gaussian(mu=-0.002461783883218465, sigma=0.048859883075223744, name=&#39;recalib_L1_phase_4&#39;, latex_label=&#39;$\\\\phi^L1_4$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+49) recalib_L1_phase_5: [b&quot;Gaussian(mu=-0.0067988571593666286, sigma=0.03330895148538794, name=&#39;recalib_L1_phase_5&#39;, latex_label=&#39;$\\\\phi^L1_5$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+50) recalib_L1_phase_6: [b&quot;Gaussian(mu=0.0015671495057928866, sigma=0.0194164413063868, name=&#39;recalib_L1_phase_6&#39;, latex_label=&#39;$\\\\phi^L1_6$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+51) recalib_L1_phase_7: [b&quot;Gaussian(mu=0.0016729416638600334, sigma=0.013796249113051186, name=&#39;recalib_L1_phase_7&#39;, latex_label=&#39;$\\\\phi^L1_7$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+52) recalib_L1_phase_8: [b&quot;Gaussian(mu=0.003950310144720625, sigma=0.014338015652101466, name=&#39;recalib_L1_phase_8&#39;, latex_label=&#39;$\\\\phi^L1_8$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+53) recalib_L1_phase_9: [b&quot;Gaussian(mu=0.008061858000000002, sigma=0.015019266, name=&#39;recalib_L1_phase_9&#39;, latex_label=&#39;$\\\\phi^L1_9$&#39;, unit=None, boundary=&#39;reflective&#39;)&quot;]
+54) theta_jn: [b&quot;Sine(minimum=0, maximum=3.141592653589793, name=&#39;theta_jn&#39;, latex_label=&#39;$\\\\theta_{JN}$&#39;, unit=None, boundary=None)&quot;]
+55) tilt_1: [b&quot;Sine(minimum=0, maximum=3.141592653589793, name=&#39;tilt_1&#39;, latex_label=&#39;$\\\\theta_1$&#39;, unit=None, boundary=None)&quot;]
+56) tilt_2: [b&quot;Sine(minimum=0, maximum=3.141592653589793, name=&#39;tilt_2&#39;, latex_label=&#39;$\\\\theta_2$&#39;, unit=None, boundary=None)&quot;]
+57) time_jitter: [b&quot;Uniform(minimum=-0.00048828125, maximum=0.00048828125, name=None, latex_label=None, unit=None, boundary=&#39;periodic&#39;)&quot;]
+58) zenith: [b&quot;Sine(minimum=0, maximum=3.141592653589793, name=None, latex_label=&#39;$\\\\kappa$&#39;, unit=None, boundary=None)&quot;]
+SKIP) recalib_H1_frequency_0:  [b&quot;DeltaFunction(peak=19.999999999999996, name=&#39;recalib_H1_frequency_0&#39;, latex_label=&#39;$f^H1_0$&#39;, unit=None)&quot;]
+SKIP) recalib_H1_frequency_1:  [b&quot;DeltaFunction(peak=30.514434824844255, name=&#39;recalib_H1_frequency_1&#39;, latex_label=&#39;$f^H1_1$&#39;, unit=None)&quot;]
+SKIP) recalib_H1_frequency_2:  [b&quot;DeltaFunction(peak=46.55653663398341, name=&#39;recalib_H1_frequency_2&#39;, latex_label=&#39;$f^H1_2$&#39;, unit=None)&quot;]
+SKIP) recalib_H1_frequency_3:  [b&quot;DeltaFunction(peak=71.03232013940804, name=&#39;recalib_H1_frequency_3&#39;, latex_label=&#39;$f^H1_3$&#39;, unit=None)&quot;]
+SKIP) recalib_H1_frequency_4:  [b&quot;DeltaFunction(peak=108.37555516757195, name=&#39;recalib_H1_frequency_4&#39;, latex_label=&#39;$f^H1_4$&#39;, unit=None)&quot;]
+SKIP) recalib_H1_frequency_5:  [b&quot;DeltaFunction(peak=165.35094073835938, name=&#39;recalib_H1_frequency_5&#39;, latex_label=&#39;$f^H1_5$&#39;, unit=None)&quot;]
+SKIP) recalib_H1_frequency_6:  [b&quot;DeltaFunction(peak=252.27952521936786, name=&#39;recalib_H1_frequency_6&#39;, latex_label=&#39;$f^H1_6$&#39;, unit=None)&quot;]
+SKIP) recalib_H1_frequency_7:  [b&quot;DeltaFunction(peak=384.9083564974527, name=&#39;recalib_H1_frequency_7&#39;, latex_label=&#39;$f^H1_7$&#39;, unit=None)&quot;]
+SKIP) recalib_H1_frequency_8:  [b&quot;DeltaFunction(peak=587.2630478939719, name=&#39;recalib_H1_frequency_8&#39;, latex_label=&#39;$f^H1_8$&#39;, unit=None)&quot;]
+SKIP) recalib_H1_frequency_9:  [b&quot;DeltaFunction(peak=895.9999999999999, name=&#39;recalib_H1_frequency_9&#39;, latex_label=&#39;$f^H1_9$&#39;, unit=None)&quot;]
+SKIP) recalib_L1_frequency_0:  [b&quot;DeltaFunction(peak=19.999999999999996, name=&#39;recalib_L1_frequency_0&#39;, latex_label=&#39;$f^L1_0$&#39;, unit=None)&quot;]
+SKIP) recalib_L1_frequency_1:  [b&quot;DeltaFunction(peak=30.514434824844255, name=&#39;recalib_L1_frequency_1&#39;, latex_label=&#39;$f^L1_1$&#39;, unit=None)&quot;]
+SKIP) recalib_L1_frequency_2:  [b&quot;DeltaFunction(peak=46.55653663398341, name=&#39;recalib_L1_frequency_2&#39;, latex_label=&#39;$f^L1_2$&#39;, unit=None)&quot;]
+SKIP) recalib_L1_frequency_3:  [b&quot;DeltaFunction(peak=71.03232013940804, name=&#39;recalib_L1_frequency_3&#39;, latex_label=&#39;$f^L1_3$&#39;, unit=None)&quot;]
+SKIP) recalib_L1_frequency_4:  [b&quot;DeltaFunction(peak=108.37555516757195, name=&#39;recalib_L1_frequency_4&#39;, latex_label=&#39;$f^L1_4$&#39;, unit=None)&quot;]
+SKIP) recalib_L1_frequency_5:  [b&quot;DeltaFunction(peak=165.35094073835938, name=&#39;recalib_L1_frequency_5&#39;, latex_label=&#39;$f^L1_5$&#39;, unit=None)&quot;]
+SKIP) recalib_L1_frequency_6:  [b&quot;DeltaFunction(peak=252.27952521936786, name=&#39;recalib_L1_frequency_6&#39;, latex_label=&#39;$f^L1_6$&#39;, unit=None)&quot;]
+SKIP) recalib_L1_frequency_7:  [b&quot;DeltaFunction(peak=384.9083564974527, name=&#39;recalib_L1_frequency_7&#39;, latex_label=&#39;$f^L1_7$&#39;, unit=None)&quot;]
+SKIP) recalib_L1_frequency_8:  [b&quot;DeltaFunction(peak=587.2630478939719, name=&#39;recalib_L1_frequency_8&#39;, latex_label=&#39;$f^L1_8$&#39;, unit=None)&quot;]
+SKIP) recalib_L1_frequency_9:  [b&quot;DeltaFunction(peak=895.9999999999999, name=&#39;recalib_L1_frequency_9&#39;, latex_label=&#39;$f^L1_9$&#39;, unit=None)&quot;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Posterior shape: </span><span class="si">{</span><span class="n">GW150914_data</span><span class="o">.</span><span class="n">posterior</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;LnZ: </span><span class="si">{</span><span class="n">GW150914_data</span><span class="o">.</span><span class="n">lnz</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> +/- </span><span class="si">{</span><span class="n">GW150914_data</span><span class="o">.</span><span class="n">lnz_err</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;LnBF: </span><span class="si">{</span><span class="n">GW150914_data</span><span class="o">.</span><span class="n">lnBF</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">GW150914_data</span><span class="o">.</span><span class="n">posterior</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Posterior shape: (147634, 58)
+LnZ: -6984.67 +/- 0.14
+LnBF: 303.45
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>a_1</th>
+      <td>9.242101e-01</td>
+      <td>6.473688e-01</td>
+      <td>2.056780e-01</td>
+      <td>7.112512e-01</td>
+      <td>2.506404e-01</td>
+    </tr>
+    <tr>
+      <th>a_2</th>
+      <td>3.310924e-01</td>
+      <td>3.133050e-01</td>
+      <td>8.750084e-01</td>
+      <td>4.800071e-03</td>
+      <td>2.271518e-01</td>
+    </tr>
+    <tr>
+      <th>azimuth</th>
+      <td>3.278707e+00</td>
+      <td>2.602855e+00</td>
+      <td>2.715020e+00</td>
+      <td>2.380721e+00</td>
+      <td>2.783846e+00</td>
+    </tr>
+    <tr>
+      <th>chirp_mass</th>
+      <td>2.918072e+01</td>
+      <td>2.995305e+01</td>
+      <td>3.143389e+01</td>
+      <td>3.074103e+01</td>
+      <td>3.127060e+01</td>
+    </tr>
+    <tr>
+      <th>geocent_time</th>
+      <td>1.126259e+09</td>
+      <td>1.126259e+09</td>
+      <td>1.126259e+09</td>
+      <td>1.126259e+09</td>
+      <td>1.126259e+09</td>
+    </tr>
+    <tr>
+      <th>luminosity_distance</th>
+      <td>3.237332e+02</td>
+      <td>5.109554e+02</td>
+      <td>5.009286e+02</td>
+      <td>5.780114e+02</td>
+      <td>5.871190e+02</td>
+    </tr>
+    <tr>
+      <th>mass_ratio</th>
+      <td>7.879585e-01</td>
+      <td>8.641748e-01</td>
+      <td>8.520294e-01</td>
+      <td>9.803410e-01</td>
+      <td>9.301303e-01</td>
+    </tr>
+    <tr>
+      <th>phase</th>
+      <td>3.840744e+00</td>
+      <td>4.337254e+00</td>
+      <td>1.757881e+00</td>
+      <td>4.723087e+00</td>
+      <td>5.542601e+00</td>
+    </tr>
+    <tr>
+      <th>phi_12</th>
+      <td>5.394340e+00</td>
+      <td>3.868170e+00</td>
+      <td>2.916934e+00</td>
+      <td>4.591901e+00</td>
+      <td>6.435515e-01</td>
+    </tr>
+    <tr>
+      <th>phi_jl</th>
+      <td>1.210051e+00</td>
+      <td>2.486261e-02</td>
+      <td>5.576937e+00</td>
+      <td>9.338661e-01</td>
+      <td>6.019726e+00</td>
+    </tr>
+    <tr>
+      <th>psi</th>
+      <td>1.800080e+00</td>
+      <td>7.571376e-01</td>
+      <td>1.272124e+00</td>
+      <td>8.861790e-01</td>
+      <td>2.418739e+00</td>
+    </tr>
+    <tr>
+      <th>recalib_H1_amplitude_0</th>
+      <td>2.999532e-02</td>
+      <td>-5.472740e-03</td>
+      <td>6.900000e-03</td>
+      <td>6.081133e-03</td>
+      <td>4.977923e-03</td>
+    </tr>
+    <tr>
+      <th>recalib_H1_amplitude_1</th>
+      <td>-3.383615e-02</td>
+      <td>-5.474793e-02</td>
+      <td>1.200648e-02</td>
+      <td>-4.799967e-02</td>
+      <td>6.687969e-03</td>
+    </tr>
+    <tr>
+      <th>recalib_H1_amplitude_2</th>
+      <td>-1.688680e-02</td>
+      <td>2.209578e-02</td>
+      <td>6.758393e-02</td>
+      <td>1.357331e-02</td>
+      <td>2.604320e-02</td>
+    </tr>
+    <tr>
+      <th>recalib_H1_amplitude_3</th>
+      <td>1.698306e-02</td>
+      <td>3.626471e-02</td>
+      <td>-1.131780e-02</td>
+      <td>-1.152776e-02</td>
+      <td>-4.927244e-02</td>
+    </tr>
+    <tr>
+      <th>recalib_H1_amplitude_4</th>
+      <td>-3.305150e-02</td>
+      <td>1.121430e-02</td>
+      <td>5.399314e-03</td>
+      <td>2.998931e-03</td>
+      <td>-1.089422e-02</td>
+    </tr>
+    <tr>
+      <th>recalib_H1_amplitude_5</th>
+      <td>7.041142e-03</td>
+      <td>-1.582923e-02</td>
+      <td>-1.287890e-02</td>
+      <td>-1.776959e-03</td>
+      <td>-1.428993e-02</td>
+    </tr>
+    <tr>
+      <th>recalib_H1_amplitude_6</th>
+      <td>6.394128e-04</td>
+      <td>8.274103e-03</td>
+      <td>-1.444985e-02</td>
+      <td>-1.033461e-02</td>
+      <td>-5.928833e-03</td>
+    </tr>
+    <tr>
+      <th>recalib_H1_amplitude_7</th>
+      <td>-1.628103e-02</td>
+      <td>1.094559e-02</td>
+      <td>-1.589106e-02</td>
+      <td>-7.269532e-04</td>
+      <td>-1.055759e-02</td>
+    </tr>
+    <tr>
+      <th>recalib_H1_amplitude_8</th>
+      <td>-1.309187e-02</td>
+      <td>-2.280925e-03</td>
+      <td>4.110290e-03</td>
+      <td>-9.604852e-03</td>
+      <td>3.810975e-03</td>
+    </tr>
+    <tr>
+      <th>recalib_H1_amplitude_9</th>
+      <td>3.221316e-02</td>
+      <td>-1.607438e-02</td>
+      <td>2.675564e-02</td>
+      <td>1.992964e-03</td>
+      <td>7.210042e-03</td>
+    </tr>
+    <tr>
+      <th>recalib_H1_phase_0</th>
+      <td>-2.719320e-02</td>
+      <td>-4.060107e-02</td>
+      <td>-7.166049e-03</td>
+      <td>6.323885e-03</td>
+      <td>-1.256244e-01</td>
+    </tr>
+    <tr>
+      <th>recalib_H1_phase_1</th>
+      <td>-1.345580e-02</td>
+      <td>5.485112e-02</td>
+      <td>-6.924302e-02</td>
+      <td>8.663208e-02</td>
+      <td>-2.985714e-02</td>
+    </tr>
+    <tr>
+      <th>recalib_H1_phase_2</th>
+      <td>7.148825e-02</td>
+      <td>9.037495e-03</td>
+      <td>-2.528264e-02</td>
+      <td>3.690566e-02</td>
+      <td>-1.084741e-03</td>
+    </tr>
+    <tr>
+      <th>recalib_H1_phase_3</th>
+      <td>5.833606e-02</td>
+      <td>-1.235240e-04</td>
+      <td>4.403403e-02</td>
+      <td>1.949062e-03</td>
+      <td>-4.622115e-02</td>
+    </tr>
+    <tr>
+      <th>recalib_H1_phase_4</th>
+      <td>-1.974057e-02</td>
+      <td>4.740506e-02</td>
+      <td>2.063412e-02</td>
+      <td>-3.390864e-02</td>
+      <td>2.773227e-02</td>
+    </tr>
+    <tr>
+      <th>recalib_H1_phase_5</th>
+      <td>-4.427238e-03</td>
+      <td>-4.936114e-03</td>
+      <td>-4.498003e-04</td>
+      <td>-2.420854e-02</td>
+      <td>-2.673151e-02</td>
+    </tr>
+    <tr>
+      <th>recalib_H1_phase_6</th>
+      <td>2.205619e-02</td>
+      <td>-1.312319e-02</td>
+      <td>-3.284825e-02</td>
+      <td>3.316393e-03</td>
+      <td>-8.395785e-04</td>
+    </tr>
+    <tr>
+      <th>recalib_H1_phase_7</th>
+      <td>1.259316e-03</td>
+      <td>-1.696564e-02</td>
+      <td>-1.007685e-02</td>
+      <td>-3.100947e-02</td>
+      <td>2.684205e-03</td>
+    </tr>
+    <tr>
+      <th>recalib_H1_phase_8</th>
+      <td>1.409629e-02</td>
+      <td>9.934225e-03</td>
+      <td>-6.075666e-03</td>
+      <td>2.741046e-02</td>
+      <td>1.409607e-03</td>
+    </tr>
+    <tr>
+      <th>recalib_H1_phase_9</th>
+      <td>7.438222e-03</td>
+      <td>1.741232e-02</td>
+      <td>-1.067432e-02</td>
+      <td>-1.260970e-02</td>
+      <td>4.605238e-03</td>
+    </tr>
+    <tr>
+      <th>recalib_L1_amplitude_0</th>
+      <td>-1.149459e-01</td>
+      <td>-1.533687e-01</td>
+      <td>5.256302e-02</td>
+      <td>-4.926279e-03</td>
+      <td>2.115813e-01</td>
+    </tr>
+    <tr>
+      <th>recalib_L1_amplitude_1</th>
+      <td>-4.511059e-02</td>
+      <td>-4.943587e-02</td>
+      <td>9.095780e-02</td>
+      <td>3.852026e-03</td>
+      <td>-1.819107e-01</td>
+    </tr>
+    <tr>
+      <th>recalib_L1_amplitude_2</th>
+      <td>-7.530716e-02</td>
+      <td>8.390149e-02</td>
+      <td>-4.031972e-02</td>
+      <td>-1.972729e-02</td>
+      <td>6.843934e-02</td>
+    </tr>
+    <tr>
+      <th>recalib_L1_amplitude_3</th>
+      <td>-4.488562e-02</td>
+      <td>4.857405e-02</td>
+      <td>1.939737e-02</td>
+      <td>-3.916733e-05</td>
+      <td>1.209214e-01</td>
+    </tr>
+    <tr>
+      <th>recalib_L1_amplitude_4</th>
+      <td>-4.366417e-02</td>
+      <td>-3.900651e-02</td>
+      <td>-5.958842e-02</td>
+      <td>-7.124533e-02</td>
+      <td>5.328298e-02</td>
+    </tr>
+    <tr>
+      <th>recalib_L1_amplitude_5</th>
+      <td>3.566428e-02</td>
+      <td>-4.372492e-02</td>
+      <td>5.438995e-02</td>
+      <td>2.581318e-02</td>
+      <td>-7.917951e-03</td>
+    </tr>
+    <tr>
+      <th>recalib_L1_amplitude_6</th>
+      <td>-3.862231e-03</td>
+      <td>-2.591929e-02</td>
+      <td>-4.370625e-02</td>
+      <td>2.947175e-03</td>
+      <td>-3.395698e-02</td>
+    </tr>
+    <tr>
+      <th>recalib_L1_amplitude_7</th>
+      <td>-5.773761e-03</td>
+      <td>-4.311472e-03</td>
+      <td>4.900587e-03</td>
+      <td>-1.826212e-02</td>
+      <td>-1.684315e-02</td>
+    </tr>
+    <tr>
+      <th>recalib_L1_amplitude_8</th>
+      <td>9.266035e-04</td>
+      <td>-1.677954e-02</td>
+      <td>-3.511803e-02</td>
+      <td>-6.485830e-03</td>
+      <td>-2.241593e-02</td>
+    </tr>
+    <tr>
+      <th>recalib_L1_amplitude_9</th>
+      <td>1.614393e-02</td>
+      <td>-2.712452e-02</td>
+      <td>1.511530e-02</td>
+      <td>3.721168e-03</td>
+      <td>-3.419746e-02</td>
+    </tr>
+    <tr>
+      <th>recalib_L1_phase_0</th>
+      <td>2.737868e-02</td>
+      <td>-4.073929e-03</td>
+      <td>6.091229e-02</td>
+      <td>-2.545232e-02</td>
+      <td>-1.465972e-01</td>
+    </tr>
+    <tr>
+      <th>recalib_L1_phase_1</th>
+      <td>5.689561e-02</td>
+      <td>-1.122678e-02</td>
+      <td>5.452316e-02</td>
+      <td>-1.197389e-02</td>
+      <td>-1.613542e-01</td>
+    </tr>
+    <tr>
+      <th>recalib_L1_phase_2</th>
+      <td>-3.519969e-03</td>
+      <td>-8.114218e-02</td>
+      <td>-3.653476e-02</td>
+      <td>-5.637367e-02</td>
+      <td>-6.982944e-02</td>
+    </tr>
+    <tr>
+      <th>recalib_L1_phase_3</th>
+      <td>-6.189141e-02</td>
+      <td>2.536081e-02</td>
+      <td>-1.243102e-01</td>
+      <td>7.364353e-02</td>
+      <td>-2.765010e-02</td>
+    </tr>
+    <tr>
+      <th>recalib_L1_phase_4</th>
+      <td>4.976252e-02</td>
+      <td>-4.251552e-02</td>
+      <td>-1.996706e-02</td>
+      <td>-3.091622e-02</td>
+      <td>6.611963e-02</td>
+    </tr>
+    <tr>
+      <th>recalib_L1_phase_5</th>
+      <td>2.161828e-02</td>
+      <td>-3.238076e-02</td>
+      <td>9.706364e-03</td>
+      <td>-5.364514e-02</td>
+      <td>-5.986921e-03</td>
+    </tr>
+    <tr>
+      <th>recalib_L1_phase_6</th>
+      <td>-3.086198e-04</td>
+      <td>6.332725e-03</td>
+      <td>-2.956626e-03</td>
+      <td>-1.210257e-02</td>
+      <td>-5.876330e-03</td>
+    </tr>
+    <tr>
+      <th>recalib_L1_phase_7</th>
+      <td>7.216118e-03</td>
+      <td>-3.571173e-03</td>
+      <td>2.202440e-03</td>
+      <td>-9.887829e-03</td>
+      <td>9.418501e-04</td>
+    </tr>
+    <tr>
+      <th>recalib_L1_phase_8</th>
+      <td>-8.043966e-03</td>
+      <td>1.301929e-03</td>
+      <td>5.764206e-03</td>
+      <td>5.924480e-03</td>
+      <td>-1.411924e-02</td>
+    </tr>
+    <tr>
+      <th>recalib_L1_phase_9</th>
+      <td>1.215333e-02</td>
+      <td>-7.934553e-03</td>
+      <td>-2.742098e-03</td>
+      <td>1.089411e-02</td>
+      <td>1.026025e-02</td>
+    </tr>
+    <tr>
+      <th>theta_jn</th>
+      <td>2.775318e+00</td>
+      <td>2.660558e+00</td>
+      <td>2.493798e+00</td>
+      <td>2.967835e+00</td>
+      <td>3.074509e+00</td>
+    </tr>
+    <tr>
+      <th>tilt_1</th>
+      <td>1.913304e+00</td>
+      <td>1.841044e+00</td>
+      <td>2.365895e+00</td>
+      <td>1.672429e+00</td>
+      <td>1.373358e+00</td>
+    </tr>
+    <tr>
+      <th>tilt_2</th>
+      <td>1.676054e+00</td>
+      <td>1.839976e+00</td>
+      <td>1.369656e+00</td>
+      <td>6.271606e-01</td>
+      <td>1.525285e+00</td>
+    </tr>
+    <tr>
+      <th>time_jitter</th>
+      <td>2.283661e-04</td>
+      <td>3.247132e-04</td>
+      <td>1.200043e-04</td>
+      <td>-2.701632e-04</td>
+      <td>4.351720e-04</td>
+    </tr>
+    <tr>
+      <th>zenith</th>
+      <td>2.326161e+00</td>
+      <td>2.334247e+00</td>
+      <td>2.345314e+00</td>
+      <td>2.369513e+00</td>
+      <td>2.339495e+00</td>
+    </tr>
+    <tr>
+      <th>log_likelihood</th>
+      <td>3.223043e+02</td>
+      <td>3.203015e+02</td>
+      <td>3.206540e+02</td>
+      <td>3.242657e+02</td>
+      <td>3.227294e+02</td>
+    </tr>
+    <tr>
+      <th>log_prior</th>
+      <td>7.693796e+01</td>
+      <td>7.862083e+01</td>
+      <td>7.603158e+01</td>
+      <td>8.132604e+01</td>
+      <td>6.226660e+01</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>NOTE: the <code class="docutils literal notranslate"><span class="pre">log-likelihood</span></code> column is actually the <code class="docutils literal notranslate"><span class="pre">lnl-noise</span> <span class="pre">Lnl</span></code> (the <code class="docutils literal notranslate"><span class="pre">log-likelihood-ratio</span></code>).</p>
+</section>
+<section id="compute-fi-lnz">
+<h2>Compute FI LnZ<a class="headerlink" href="#compute-fi-lnz" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run_fi_computer</span><span class="p">(</span><span class="n">CBC_data</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">frac_samp</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">n_ref_points</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">outdir</span><span class="o">=</span><span class="s1">&#39;out_inj_downsampled&#39;</span><span class="p">,</span> <span class="n">clean</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="p">):</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">outdir</span><span class="p">)</span> <span class="ow">and</span> <span class="n">clean</span><span class="p">:</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">outdir</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">outdir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">n_total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">CBC_data</span><span class="o">.</span><span class="n">posterior</span><span class="p">)</span>
+    <span class="n">n_samp</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">n_total</span> <span class="o">*</span> <span class="n">frac_samp</span><span class="p">)</span>
+
+    <span class="n">post</span> <span class="o">=</span> <span class="n">CBC_data</span><span class="o">.</span><span class="n">posterior</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span>
+        <span class="n">n_samp</span><span class="p">,</span>
+        <span class="n">weights</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">CBC_data</span><span class="o">.</span><span class="n">posterior</span><span class="o">.</span><span class="n">log_likelihood</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using </span><span class="si">{</span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">frac_samp</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">% of posterior, and </span><span class="si">{</span><span class="n">n_ref_points</span><span class="si">}</span><span class="s2"> reference points.&quot;</span><span class="p">)</span>
+    <span class="n">lnzs</span><span class="p">,</span> <span class="n">r_vals</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">get_fi_lnz_list</span><span class="p">(</span>
+        <span class="n">post</span><span class="p">[</span><span class="n">params</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;log_likelihood&#39;</span><span class="p">,</span> <span class="s1">&#39;log_prior&#39;</span><span class="p">]],</span>
+        <span class="n">num_ref_params</span><span class="o">=</span><span class="n">n_ref_points</span><span class="p">,</span>
+        <span class="n">r_vals</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">geomspace</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mf">1e4</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+        <span class="n">cache_fn</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">outdir</span><span class="si">}</span><span class="s1">/lnzs.npz&#39;</span><span class="p">,</span>
+        <span class="n">weight_samples_by_lnl</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">lnzs</span><span class="p">,</span> <span class="n">r_vals</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="using-a-downsampled-posterior-sample-for-speed">
+<h3>Using a downsampled posterior sample for speed<a class="headerlink" href="#using-a-downsampled-posterior-sample-for-speed" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">parms</span> <span class="o">=</span> <span class="n">sampling_params</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c1"># remove geocent_time</span>
+<span class="n">parms</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;geocent_time&#39;</span><span class="p">)</span>
+<span class="n">parms</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;luminosity_distance&#39;</span><span class="p">)</span>
+<span class="n">parms</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;time_jitter&#39;</span><span class="p">)</span>
+<span class="n">parms</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">parms</span><span class="p">)</span>
+
+<span class="n">OUTDIR</span> <span class="o">=</span> <span class="s1">&#39;out_GW150914_downsampled&#39;</span>
+<span class="n">CLEAN</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">lnzs</span><span class="p">,</span> <span class="n">r_vals</span> <span class="o">=</span> <span class="n">run_fi_computer</span><span class="p">(</span><span class="n">GW150914_data</span><span class="p">,</span> <span class="n">parms</span><span class="p">,</span> <span class="n">outdir</span><span class="o">=</span><span class="n">OUTDIR</span><span class="p">,</span> <span class="n">clean</span><span class="o">=</span><span class="n">CLEAN</span><span class="p">,</span> <span class="n">n_ref_points</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">frac_samp</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">plt_kwgs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lnzs</span><span class="o">=</span><span class="n">lnzs</span><span class="p">,</span> <span class="n">r_vals</span><span class="o">=</span><span class="n">r_vals</span><span class="p">,</span><span class="n">sampling_lnz</span><span class="o">=</span><span class="p">[</span><span class="n">GW150914_data</span><span class="o">.</span><span class="n">lnBF</span><span class="p">])</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plot_fi_evidence_results</span><span class="p">(</span><span class="o">**</span><span class="n">plt_kwgs</span><span class="p">,</span> <span class="n">plot_all_lnzs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;lnBF&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>|<span class=" -Color -Color-Blue">funnel</span>|INFO| <span class=" -Color -Color-Green">Calculating FI LnZ with 10 reference points and a posterior of size:(14763, 53)</span> 
+|<span class=" -Color -Color-Blue">funnel</span>|INFO| <span class=" -Color -Color-Green">Posterior columns:</span>
+<span class=" -Color -Color-Green">a_1</span>
+<span class=" -Color -Color-Green">a_2</span>
+<span class=" -Color -Color-Green">azimuth</span>
+<span class=" -Color -Color-Green">chirp_mass</span>
+<span class=" -Color -Color-Green">log_likelihood</span>
+<span class=" -Color -Color-Green">log_prior</span>
+<span class=" -Color -Color-Green">mass_ratio</span>
+<span class=" -Color -Color-Green">phase</span>
+<span class=" -Color -Color-Green">phi_12</span>
+<span class=" -Color -Color-Green">phi_jl</span>
+<span class=" -Color -Color-Green">psi</span>
+<span class=" -Color -Color-Green">recalib_H1_amplitude_0</span>
+<span class=" -Color -Color-Green">recalib_H1_amplitude_1</span>
+<span class=" -Color -Color-Green">recalib_H1_amplitude_2</span>
+<span class=" -Color -Color-Green">recalib_H1_amplitude_3</span>
+<span class=" -Color -Color-Green">recalib_H1_amplitude_4</span>
+<span class=" -Color -Color-Green">recalib_H1_amplitude_5</span>
+<span class=" -Color -Color-Green">recalib_H1_amplitude_6</span>
+<span class=" -Color -Color-Green">recalib_H1_amplitude_7</span>
+<span class=" -Color -Color-Green">recalib_H1_amplitude_8</span>
+<span class=" -Color -Color-Green">recalib_H1_amplitude_9</span>
+<span class=" -Color -Color-Green">recalib_H1_phase_0</span>
+<span class=" -Color -Color-Green">recalib_H1_phase_1</span>
+<span class=" -Color -Color-Green">recalib_H1_phase_2</span>
+<span class=" -Color -Color-Green">recalib_H1_phase_3</span>
+<span class=" -Color -Color-Green">recalib_H1_phase_4</span>
+<span class=" -Color -Color-Green">recalib_H1_phase_5</span>
+<span class=" -Color -Color-Green">recalib_H1_phase_6</span>
+<span class=" -Color -Color-Green">recalib_H1_phase_7</span>
+<span class=" -Color -Color-Green">recalib_H1_phase_8</span>
+<span class=" -Color -Color-Green">recalib_H1_phase_9</span>
+<span class=" -Color -Color-Green">recalib_L1_amplitude_0</span>
+<span class=" -Color -Color-Green">recalib_L1_amplitude_1</span>
+<span class=" -Color -Color-Green">recalib_L1_amplitude_2</span>
+<span class=" -Color -Color-Green">recalib_L1_amplitude_3</span>
+<span class=" -Color -Color-Green">recalib_L1_amplitude_4</span>
+<span class=" -Color -Color-Green">recalib_L1_amplitude_5</span>
+<span class=" -Color -Color-Green">recalib_L1_amplitude_6</span>
+<span class=" -Color -Color-Green">recalib_L1_amplitude_7</span>
+<span class=" -Color -Color-Green">recalib_L1_amplitude_8</span>
+<span class=" -Color -Color-Green">recalib_L1_amplitude_9</span>
+<span class=" -Color -Color-Green">recalib_L1_phase_0</span>
+<span class=" -Color -Color-Green">recalib_L1_phase_1</span>
+<span class=" -Color -Color-Green">recalib_L1_phase_2</span>
+<span class=" -Color -Color-Green">recalib_L1_phase_3</span>
+<span class=" -Color -Color-Green">recalib_L1_phase_4</span>
+<span class=" -Color -Color-Green">recalib_L1_phase_5</span>
+<span class=" -Color -Color-Green">recalib_L1_phase_6</span>
+<span class=" -Color -Color-Green">recalib_L1_phase_7</span>
+<span class=" -Color -Color-Green">recalib_L1_phase_8</span>
+<span class=" -Color -Color-Green">recalib_L1_phase_9</span>
+<span class=" -Color -Color-Green">theta_jn</span>
+<span class=" -Color -Color-Green">tilt_1</span>
+<span class=" -Color -Color-Green">tilt_2</span>
+<span class=" -Color -Color-Green">zenith</span> 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Using 10.00% of posterior, and 10 reference points.
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "d733544b3ef94f739bf5e3fe85c1d03c"}</script><img alt="../_images/229345c673d92428d60dc201ca2f484a3a935d6de1ebd4be3a0fb419f9ec8ad2.png" src="../_images/229345c673d92428d60dc201ca2f484a3a935d6de1ebd4be3a0fb419f9ec8ad2.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">plt_kwgs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lnzs</span><span class="o">=</span><span class="n">lnzs</span><span class="p">,</span> <span class="n">r_vals</span><span class="o">=</span><span class="n">r_vals</span><span class="p">,</span><span class="n">sampling_lnz</span><span class="o">=</span><span class="p">[</span><span class="n">GW150914_data</span><span class="o">.</span><span class="n">lnBF</span><span class="p">])</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plot_fi_evidence_results</span><span class="p">(</span><span class="o">**</span><span class="n">plt_kwgs</span><span class="p">,</span> <span class="n">plot_all_lnzs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;lnBF&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/d46c21c68e5234b770f922179af61cd83464a15bf3cb0a0fa0b4f932e0da0efe.png" src="../_images/d46c21c68e5234b770f922179af61cd83464a15bf3cb0a0fa0b4f932e0da0efe.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">plt_kwgs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lnzs</span><span class="o">=</span><span class="n">lnzs</span><span class="p">,</span> <span class="n">r_vals</span><span class="o">=</span><span class="n">r_vals</span><span class="p">,</span><span class="n">sampling_lnz</span><span class="o">=</span><span class="p">[</span><span class="n">GW150914_data</span><span class="o">.</span><span class="n">lnBF</span><span class="p">])</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plot_fi_evidence_results</span><span class="p">(</span><span class="o">**</span><span class="n">plt_kwgs</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;lnBF&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/7431bc76980f9a0916105e299d62dab0c52eebc18d7bc5ee68a44ac307412c96.png" src="../_images/7431bc76980f9a0916105e299d62dab0c52eebc18d7bc5ee68a44ac307412c96.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">plt_kwgs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lnzs</span><span class="o">=</span><span class="n">lnzs</span><span class="p">,</span> <span class="n">r_vals</span><span class="o">=</span><span class="n">r_vals</span><span class="p">,</span><span class="n">sampling_lnz</span><span class="o">=</span><span class="p">[</span><span class="n">GW150914_data</span><span class="o">.</span><span class="n">lnBF</span><span class="p">])</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plot_fi_evidence_results</span><span class="p">(</span><span class="o">**</span><span class="n">plt_kwgs</span><span class="p">,</span> <span class="n">plot_all_lnzs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;lnBF&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/38ced40abfcd2deb0c2b26ee0e07c7026ed1ff8410a5855fa7a7d0f02da2d6b7.png" src="../_images/38ced40abfcd2deb0c2b26ee0e07c7026ed1ff8410a5855fa7a7d0f02da2d6b7.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="c1"># OLD</span>
+<span class="n">plt_kwgs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lnzs</span><span class="o">=</span><span class="n">lnzs</span><span class="p">,</span> <span class="n">r_vals</span><span class="o">=</span><span class="n">r_vals</span><span class="p">,</span><span class="n">sampling_lnz</span><span class="o">=</span><span class="p">[</span><span class="n">GW150914_data</span><span class="o">.</span><span class="n">lnBF</span><span class="p">])</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plot_fi_evidence_results</span><span class="p">(</span><span class="o">**</span><span class="n">plt_kwgs</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;lnBF&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c99ba539ea659fb68417a9ed8fe90375cf8fd38c64eec6e6357e67215134f68c.png" src="../_images/c99ba539ea659fb68417a9ed8fe90375cf8fd38c64eec6e6357e67215134f68c.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">OUTDIR</span> <span class="o">=</span> <span class="s1">&#39;out_GW150914_downsampled_no_calib&#39;</span>
+<span class="n">CLEAN</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">OUTDIR</span><span class="p">)</span> <span class="ow">and</span> <span class="n">CLEAN</span><span class="p">:</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">OUTDIR</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">OUTDIR</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+
+
+
+<span class="c1"># USING DOWNSAMPLED POSTERIOR SAMPLES</span>
+<span class="n">N_SAMP</span> <span class="o">=</span> <span class="mi">10000</span>
+<span class="n">N_REF_POINTS</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="n">GW150914_data</span><span class="o">.</span><span class="n">posterior</span><span class="o">.</span><span class="n">log_likelihood</span> <span class="o">-</span> <span class="n">GW150914_data</span><span class="o">.</span><span class="n">posterior</span><span class="o">.</span><span class="n">log_likelihood</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+<span class="n">post</span> <span class="o">=</span> <span class="n">GW150914_data</span><span class="o">.</span><span class="n">posterior</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">N_SAMP</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using </span><span class="si">{</span><span class="mi">100</span><span class="o">*</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">post</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">GW150914_data</span><span class="o">.</span><span class="n">posterior</span><span class="p">))</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">% of posterior samples, and trying out </span><span class="si">{</span><span class="n">N_REF_POINTS</span><span class="si">}</span><span class="s2"> reference points.&quot;</span><span class="p">)</span>
+
+<span class="c1"># post = post.drop(columns=calib_params)</span>
+
+<span class="n">lnzs</span><span class="p">,</span> <span class="n">r_vals</span><span class="p">,</span> <span class="n">fi_samps</span> <span class="o">=</span> <span class="n">get_fi_lnz_list</span><span class="p">(</span>
+    <span class="n">post</span><span class="p">,</span>
+    <span class="n">num_ref_params</span><span class="o">=</span><span class="n">N_REF_POINTS</span><span class="p">,</span>
+    <span class="n">r_vals</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">geomspace</span><span class="p">(</span><span class="mf">1e2</span><span class="p">,</span> <span class="mf">1e5</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+    <span class="n">cache_fn</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">OUTDIR</span><span class="si">}</span><span class="s1">/lnzs.npz&#39;</span><span class="p">,</span>
+    <span class="n">weight_samples_by_lnl</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">plt_kwgs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lnzs</span><span class="o">=</span><span class="n">lnzs</span><span class="p">,</span> <span class="n">r_vals</span><span class="o">=</span><span class="n">r_vals</span><span class="p">,</span><span class="n">sampling_lnz</span><span class="o">=</span><span class="p">[</span><span class="n">GW150914_data</span><span class="o">.</span><span class="n">lnBF</span><span class="p">])</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plot_fi_evidence_results</span><span class="p">(</span><span class="o">**</span><span class="n">plt_kwgs</span><span class="p">,</span> <span class="n">plot_all_lnzs</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">plt_kwgs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">.1</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;lnBF&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>|<span class=" -Color -Color-Blue">funnel</span>|INFO| <span class=" -Color -Color-Green">Calculating FI LnZ with 10 reference points and a posterior of size: (10000, 55)</span> 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Using 6.77% of posterior samples, and trying out 10 reference points.
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "04a2bf2af7b7444980d70c02cd37ae4e"}</script><img alt="../_images/4a3eadc50e6dc23cc3ddb2a11f3aedbd8897f259f48a49032521fa2aa309d495.png" src="../_images/4a3eadc50e6dc23cc3ddb2a11f3aedbd8897f259f48a49032521fa2aa309d495.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">funnel.plotting</span> <span class="kn">import</span> <span class="n">plot_corner_and_mark_samples</span>
+
+<span class="n">p</span> <span class="o">=</span>  <span class="n">GW150914_data</span><span class="o">.</span><span class="n">posterior</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">log_likelihood</span> <span class="o">-</span> <span class="n">p</span><span class="o">.</span><span class="n">log_likelihood</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+<span class="n">samp</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="n">cbc_params</span><span class="p">]</span>
+<span class="n">fi_samps</span> <span class="o">=</span> <span class="n">samp</span><span class="p">[</span><span class="n">cbc_params</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plot_corner_and_mark_samples</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">fi_samps</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b3e4f3a902b24581fa9e03a4d09bb129a8c34dc44c0b365015a5e6f2424b1ed6.png" src="../_images/b3e4f3a902b24581fa9e03a4d09bb129a8c34dc44c0b365015a5e6f2424b1ed6.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">sampling_params</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;a_1&#39;,
+ &#39;a_2&#39;,
+ &#39;azimuth&#39;,
+ &#39;chirp_mass&#39;,
+ &#39;geocent_time&#39;,
+ &#39;luminosity_distance&#39;,
+ &#39;mass_ratio&#39;,
+ &#39;phase&#39;,
+ &#39;phi_12&#39;,
+ &#39;phi_jl&#39;,
+ &#39;psi&#39;,
+ &#39;recalib_H1_amplitude_0&#39;,
+ &#39;recalib_H1_amplitude_1&#39;,
+ &#39;recalib_H1_amplitude_2&#39;,
+ &#39;recalib_H1_amplitude_3&#39;,
+ &#39;recalib_H1_amplitude_4&#39;,
+ &#39;recalib_H1_amplitude_5&#39;,
+ &#39;recalib_H1_amplitude_6&#39;,
+ &#39;recalib_H1_amplitude_7&#39;,
+ &#39;recalib_H1_amplitude_8&#39;,
+ &#39;recalib_H1_amplitude_9&#39;,
+ &#39;recalib_H1_phase_0&#39;,
+ &#39;recalib_H1_phase_1&#39;,
+ &#39;recalib_H1_phase_2&#39;,
+ &#39;recalib_H1_phase_3&#39;,
+ &#39;recalib_H1_phase_4&#39;,
+ &#39;recalib_H1_phase_5&#39;,
+ &#39;recalib_H1_phase_6&#39;,
+ &#39;recalib_H1_phase_7&#39;,
+ &#39;recalib_H1_phase_8&#39;,
+ &#39;recalib_H1_phase_9&#39;,
+ &#39;recalib_L1_amplitude_0&#39;,
+ &#39;recalib_L1_amplitude_1&#39;,
+ &#39;recalib_L1_amplitude_2&#39;,
+ &#39;recalib_L1_amplitude_3&#39;,
+ &#39;recalib_L1_amplitude_4&#39;,
+ &#39;recalib_L1_amplitude_5&#39;,
+ &#39;recalib_L1_amplitude_6&#39;,
+ &#39;recalib_L1_amplitude_7&#39;,
+ &#39;recalib_L1_amplitude_8&#39;,
+ &#39;recalib_L1_amplitude_9&#39;,
+ &#39;recalib_L1_phase_0&#39;,
+ &#39;recalib_L1_phase_1&#39;,
+ &#39;recalib_L1_phase_2&#39;,
+ &#39;recalib_L1_phase_3&#39;,
+ &#39;recalib_L1_phase_4&#39;,
+ &#39;recalib_L1_phase_5&#39;,
+ &#39;recalib_L1_phase_6&#39;,
+ &#39;recalib_L1_phase_7&#39;,
+ &#39;recalib_L1_phase_8&#39;,
+ &#39;recalib_L1_phase_9&#39;,
+ &#39;theta_jn&#39;,
+ &#39;tilt_1&#39;,
+ &#39;tilt_2&#39;,
+ &#39;zenith&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="using-the-full-posterior-sample-but-a-few-refernce-points">
+<h3>Using the full posterior sample but a few refernce points<a class="headerlink" href="#using-the-full-posterior-sample-but-a-few-refernce-points" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">OUTDIR</span> <span class="o">=</span> <span class="s1">&#39;out_GW150914&#39;</span>
+<span class="n">CLEAN</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">OUTDIR</span><span class="p">)</span> <span class="ow">and</span> <span class="n">CLEAN</span><span class="p">:</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">OUTDIR</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">OUTDIR</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">N_REF_POINTS</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">post</span> <span class="o">=</span> <span class="n">GW150914_data</span><span class="o">.</span><span class="n">posterior</span>
+<span class="n">lnzs</span><span class="p">,</span> <span class="n">r_vals</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">get_fi_lnz_list</span><span class="p">(</span>
+    <span class="n">post</span><span class="p">,</span>
+    <span class="n">num_ref_params</span><span class="o">=</span><span class="n">N_REF_POINTS</span><span class="p">,</span>
+    <span class="n">r_vals</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">geomspace</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mf">1e5</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+    <span class="n">cache_fn</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">OUTDIR</span><span class="si">}</span><span class="s1">/lnzs.npz&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>|<span class=" -Color -Color-Blue">funnel</span>|INFO| <span class=" -Color -Color-Green">Calculating FI LnZ with 10 reference points and a posterior of size: (147634, 55)</span> 
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "00b0e8bd0a744381a1917c837083b3f6"}</script><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">line</span> <span class="mi">9</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">N_REF_POINTS</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">post</span> <span class="o">=</span> <span class="n">GW150914_data</span><span class="o">.</span><span class="n">posterior</span>
+<span class="ne">----&gt; </span><span class="mi">9</span> <span class="n">lnzs</span><span class="p">,</span> <span class="n">r_vals</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">get_fi_lnz_list</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span>     <span class="n">post</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span>     <span class="n">num_ref_params</span><span class="o">=</span><span class="n">N_REF_POINTS</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span>     <span class="n">r_vals</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">geomspace</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mf">1e5</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span>     <span class="n">cache_fn</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">OUTDIR</span><span class="si">}</span><span class="s1">/lnzs.npz&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="p">)</span>
+
+<span class="nn">File ~/Documents/projects/funnel/src/funnel/fi_core.py:142,</span> in <span class="ni">get_fi_lnz_list</span><span class="nt">(posterior_samples, r_vals, num_ref_params, weight_samples_by_lnl, cache_fn)</span>
+<span class="g g-Whitespace">    </span><span class="mi">135</span> <span class="n">post_mask</span> <span class="o">=</span> <span class="n">get_post_mask</span><span class="p">(</span><span class="n">post</span><span class="p">,</span> <span class="n">refi</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">136</span> <span class="n">fi_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">137</span>     <span class="n">posterior_samples</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="n">post_mask</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">138</span>     <span class="n">ref_samp</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="n">refi</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">139</span>     <span class="n">ref_lnpri</span><span class="o">=</span><span class="n">ln_pri</span><span class="p">[</span><span class="n">refi</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">140</span>     <span class="n">ref_lnl</span><span class="o">=</span><span class="n">ln_lnl</span><span class="p">[</span><span class="n">refi</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">141</span> <span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">142</span> <span class="n">lnzs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">fi_ln_evidence</span><span class="p">(</span><span class="o">**</span><span class="n">fi_kwargs</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">ri</span><span class="p">)</span> <span class="k">for</span> <span class="n">ri</span> <span class="ow">in</span> <span class="n">r_vals</span><span class="p">])</span>
+<span class="g g-Whitespace">    </span><span class="mi">143</span> <span class="n">median_lnzs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">lnzs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="g g-Whitespace">    </span><span class="mi">146</span> <span class="n">pbar</span><span class="o">.</span><span class="n">set_postfix_str</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;FI LnZ: </span><span class="si">{</span><span class="n">med_</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nn">File ~/Documents/projects/funnel/src/funnel/fi_core.py:142,</span> in <span class="ni">&lt;listcomp&gt;</span><span class="nt">(.0)</span>
+<span class="g g-Whitespace">    </span><span class="mi">135</span> <span class="n">post_mask</span> <span class="o">=</span> <span class="n">get_post_mask</span><span class="p">(</span><span class="n">post</span><span class="p">,</span> <span class="n">refi</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">136</span> <span class="n">fi_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">137</span>     <span class="n">posterior_samples</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="n">post_mask</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">138</span>     <span class="n">ref_samp</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="n">refi</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">139</span>     <span class="n">ref_lnpri</span><span class="o">=</span><span class="n">ln_pri</span><span class="p">[</span><span class="n">refi</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">140</span>     <span class="n">ref_lnl</span><span class="o">=</span><span class="n">ln_lnl</span><span class="p">[</span><span class="n">refi</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">141</span> <span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">142</span> <span class="n">lnzs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">fi_ln_evidence</span><span class="p">(</span><span class="o">**</span><span class="n">fi_kwargs</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">ri</span><span class="p">)</span> <span class="k">for</span> <span class="n">ri</span> <span class="ow">in</span> <span class="n">r_vals</span><span class="p">])</span>
+<span class="g g-Whitespace">    </span><span class="mi">143</span> <span class="n">median_lnzs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">lnzs</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="g g-Whitespace">    </span><span class="mi">146</span> <span class="n">pbar</span><span class="o">.</span><span class="n">set_postfix_str</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;FI LnZ: </span><span class="si">{</span><span class="n">med_</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nn">File ~/Documents/projects/funnel/src/funnel/fi_core.py:62,</span> in <span class="ni">fi_ln_evidence</span><span class="nt">(posterior_samples, ref_samp, r, ref_lnpri, ref_lnl)</span>
+<span class="g g-Whitespace">     </span><span class="mi">43</span> <span class="k">def</span> <span class="nf">fi_ln_evidence</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">44</span>     <span class="n">posterior_samples</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">45</span>     <span class="n">ref_samp</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">48</span>     <span class="n">ref_lnl</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">49</span> <span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">50</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">51</span><span class="sd">     Returns the approx log-evidence of some posterior samples (using a reference parameter value).</span>
+<span class="g g-Whitespace">     </span><span class="mi">52</span><span class="sd">     The approximation is based on the &#39;density estimation&#39; method described in</span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">     </span><span class="mi">60</span><span class="sd">     :return: The log of the approximated log-evidence</span>
+<span class="g g-Whitespace">     </span><span class="mi">61</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">---&gt; </span><span class="mi">62</span>     <span class="n">approx_ln_post</span> <span class="o">=</span> <span class="n">fi_ln_posterior</span><span class="p">(</span><span class="n">posterior_samples</span><span class="p">,</span> <span class="n">ref_samp</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">63</span>     <span class="k">return</span> <span class="n">ref_lnpri</span> <span class="o">+</span> <span class="n">ref_lnl</span> <span class="o">-</span> <span class="n">approx_ln_post</span>
+
+<span class="nn">File ~/Documents/projects/funnel/src/funnel/fi_core.py:35,</span> in <span class="ni">fi_ln_posterior</span><span class="nt">(posterior_samples, reference_sample, r)</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span> <span class="c1"># patricio&#39;s suggestion</span>
+<span class="g g-Whitespace">     </span><span class="mi">30</span> <span class="c1"># different r for each parameter</span>
+<span class="g g-Whitespace">     </span><span class="mi">31</span> <span class="c1"># max_diff = np.nanmax(diff_from_ref, axis=0)</span>
+<span class="g g-Whitespace">     </span><span class="mi">32</span> <span class="c1"># r = np.pi/max_diff</span>
+<span class="g g-Whitespace">     </span><span class="mi">33</span> <span class="c1"># r is now a vector</span>
+<span class="g g-Whitespace">     </span><span class="mi">34</span> <span class="n">sin_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">r</span> <span class="o">*</span> <span class="n">diff_from_ref</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">35</span> <span class="n">sum_res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanprod</span><span class="p">(</span><span class="n">sin_diff</span> <span class="o">/</span> <span class="n">diff_from_ref</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="g g-Whitespace">     </span><span class="mi">36</span> <span class="n">n_samp</span><span class="p">,</span> <span class="n">n_dim</span> <span class="o">=</span> <span class="n">posterior_samples</span><span class="o">.</span><span class="n">shape</span>
+<span class="g g-Whitespace">     </span><span class="mi">37</span> <span class="n">const</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">n_samp</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">n_dim</span><span class="p">))</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">plt_kwgs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lnzs</span><span class="o">=</span><span class="n">lnzs</span><span class="p">,</span> <span class="n">r_vals</span><span class="o">=</span><span class="n">r_vals</span><span class="p">,</span><span class="n">sampling_lnz</span><span class="o">=</span><span class="p">[</span><span class="n">GW150914_data</span><span class="o">.</span><span class="n">lnBF</span><span class="p">])</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plot_fi_evidence_results</span><span class="p">(</span><span class="o">**</span><span class="n">plt_kwgs</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;lnBF&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b5be6669a7be93f5af56b5e7f6e046a396e6f50dca268d645879a248c197769c.png" src="../_images/b5be6669a7be93f5af56b5e7f6e046a396e6f50dca268d645879a248c197769c.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plot_fi_evidence_results</span><span class="p">(</span><span class="o">**</span><span class="n">plt_kwgs</span><span class="p">,</span> <span class="n">plot_all_lnzs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plt_kwgs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;lnBF&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/e8f7a40f39912b1460fff107b9040632d03d364df27291df2f67e4ce50ab2559.png" src="../_images/e8f7a40f39912b1460fff107b9040632d03d364df27291df2f67e4ce50ab2559.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./examples"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lvk_injection.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">EX2: CBC-GW Injection</p>
+      </div>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-gw150914-posterior-nested-sampling-lnz">Load GW150914 posterior + Nested Sampling LnZ</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-fi-lnz">Compute FI LnZ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-a-downsampled-posterior-sample-for-speed">Using a downsampled posterior sample for speed</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-full-posterior-sample-but-a-few-refernce-points">Using the full posterior sample but a few refernce points</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Avi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
