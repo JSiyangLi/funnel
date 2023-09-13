@@ -1,0 +1,946 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>EX2: Lartillot’s Model &#8212; Funnel</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/lartillot';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="EX2: CBC-GW Injection" href="lvk_injection.html" />
+    <link rel="prev" title="EX1: Linear regression" href="linear_regression.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Funnel
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="linear_regression.html">EX1: Linear regression</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">EX2: Lartillot’s Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lvk_injection.html">EX2: CBC-GW Injection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GW150914.html">EX3: GW150914</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fexamples/lartillot.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/examples/lartillot.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>EX2: Lartillot’s Model</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="ex2-lartillot-s-model">
+<h1>EX2: Lartillot’s Model<a class="headerlink" href="#ex2-lartillot-s-model" title="Permalink to this heading">#</a></h1>
+<p>Equation for Lartillot model</p>
+<p><span class="math notranslate nohighlight">\(p(\theta|d)= \frac{p(d|\theta)p(\theta)}{p(d)}\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;matrixStats&quot;</span><span class="p">)</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;mvtnorm&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing package into ‘/home/avaj040/R/x86_64-pc-linux-gnu-library/4.3’
+(as ‘lib’ is unspecified)
+
+Installing package into ‘/home/avaj040/R/x86_64-pc-linux-gnu-library/4.3’
+(as ‘lib’ is unspecified)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">42</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">matrixStats</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">mvtnorm</span><span class="p">)</span>
+
+<span class="n">inflation</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span>
+<span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1e3</span>
+<span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.01</span>
+<span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span>
+<span class="n">R</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">40</span>
+<span class="n">Rt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2000</span>
+<span class="n">Re</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">360</span>
+<span class="n">tau</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">exp</span><span class="p">(</span><span class="m">-7.25</span><span class="p">)</span>
+<span class="n">eta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">exp</span><span class="p">(</span><span class="m">-7.75</span><span class="p">)</span>
+
+<span class="n">target.mean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">)</span>
+<span class="n">target.var</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">diag</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="o">/</span><span class="p">(</span><span class="n">v</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">),</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">)</span>
+
+<span class="n">log.true.c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">function</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="m">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">v</span><span class="p">))</span><span class="w"> </span><span class="c1"># this formula is given right after (58) in Lartillot.</span>
+<span class="p">}</span>
+<span class="n">ltrue.c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">log.true.c</span><span class="p">(</span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">)</span>
+
+<span class="c1">###### delete later</span>
+<span class="n">likelihood</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">function</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">)</span>
+
+
+<span class="n">epanechnikov.results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">triangle.results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">doubleexp.results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">norm.results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">simulation.results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="m">300</span><span class="p">)</span>
+<span class="n">ptm</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">proc.time</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># joint density of data and parameter</span>
+<span class="n">g</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">function</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">){</span>
+<span class="w">  </span><span class="n">like</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="nf">sum</span><span class="p">(</span><span class="n">theta</span><span class="o">^</span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="m">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">v</span><span class="p">)</span>
+<span class="w">  </span><span class="n">prior</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="nf">dnorm</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">log</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">T</span><span class="p">))</span>
+<span class="w">  </span><span class="nf">return</span><span class="p">(</span><span class="n">like</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">prior</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># we choose to evaluate the posterior density at 0</span>
+<span class="nf">for </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">300</span><span class="p">){</span>
+<span class="w">  </span><span class="nf">if </span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">1</span><span class="p">){</span>
+<span class="w">    </span><span class="c1"># FI</span>
+<span class="w">    </span><span class="n">target.sample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">rnorm</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">sd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">sqrt</span><span class="p">(</span><span class="n">target.var</span><span class="p">))</span>
+
+<span class="w">    </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">sin</span><span class="p">(</span><span class="n">R</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">target.sample</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">target.sample</span>
+<span class="w">    </span><span class="n">post.dens</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kc">pi</span><span class="p">)</span>
+<span class="w">    </span><span class="n">lpriorlike</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">g</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">)</span>
+<span class="w">    </span><span class="n">simulation.results</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lpriorlike</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="n">post.dens</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1"># normal-FI</span>
+<span class="w">    </span><span class="n">post.dens</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">mean</span><span class="p">(</span><span class="nf">dnorm</span><span class="p">(</span><span class="n">target.sample</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">sd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">tau</span><span class="p">))</span>
+<span class="w">    </span><span class="n">norm.results</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lpriorlike</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="n">post.dens</span><span class="p">)</span>
+<span class="w">    </span><span class="c1"># double-exponential-FI</span>
+<span class="w">    </span><span class="n">post.dens</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">mean</span><span class="p">(</span><span class="nf">dcauchy</span><span class="p">(</span><span class="n">target.sample</span><span class="p">,</span><span class="w"> </span><span class="n">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">scale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">eta</span><span class="p">))</span>
+<span class="w">    </span><span class="n">doubleexp.results</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lpriorlike</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="n">post.dens</span><span class="p">)</span>
+<span class="w">    </span><span class="c1"># triangle-kernel-FI</span>
+<span class="w">    </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">Rt</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">target.sample</span><span class="o">^</span><span class="m">2</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nf">cos</span><span class="p">(</span><span class="n">Rt</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">target.sample</span><span class="p">)))</span>
+<span class="w">    </span><span class="n">post.dens</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kc">pi</span><span class="o">^</span><span class="n">p</span><span class="p">)</span>
+<span class="w">    </span><span class="n">triangle.results</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lpriorlike</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="n">post.dens</span><span class="p">)</span>
+<span class="w">    </span><span class="c1"># Epanechnikov-kernel-FI</span>
+<span class="w">    </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="m">-2</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">Re</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">target.sample</span><span class="o">^</span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">cos</span><span class="p">(</span><span class="n">Re</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">target.sample</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="m">2</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">Re</span><span class="o">^</span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="o">-</span><span class="n">target.sample</span><span class="o">^</span><span class="m">3</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">sin</span><span class="p">(</span><span class="n">Re</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">target.sample</span><span class="p">))</span>
+<span class="w">    </span><span class="n">post.dens</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kc">pi</span><span class="o">^</span><span class="n">p</span><span class="p">)</span>
+<span class="w">    </span><span class="n">epanechnikov.results</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lpriorlike</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="n">post.dens</span><span class="p">)</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nf">if </span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="m">2</span><span class="p">){</span>
+<span class="w">    </span><span class="n">target.sample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">rnorm</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">sd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">sqrt</span><span class="p">(</span><span class="n">v</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">v</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">)))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">inflation</span>
+<span class="w">    </span><span class="n">target.sample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">matrix</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="n">target.sample</span><span class="p">),</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">byrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">T</span><span class="p">)</span>
+<span class="w">    </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">abs</span><span class="p">(</span><span class="nf">rowProds</span><span class="p">(</span><span class="nf">sin</span><span class="p">(</span><span class="n">R</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">target.sample</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">target.sample</span><span class="p">))</span><span class="w"> </span><span class="c1"># multiplying together different dimensions</span>
+<span class="w">    </span><span class="n">post.dens</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kc">pi</span><span class="o">^</span><span class="n">p</span><span class="p">)</span>
+<span class="w">    </span><span class="n">lpriorlike</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">g</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">),</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">)</span>
+<span class="w">    </span><span class="n">simulation.results</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lpriorlike</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="n">post.dens</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1"># normal-FI</span>
+<span class="w">    </span><span class="n">post.dens</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">mean</span><span class="p">(</span><span class="nf">dmvnorm</span><span class="p">(</span><span class="n">target.sample</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="p">),</span><span class="w"> </span><span class="n">sigma</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">diag</span><span class="p">(</span><span class="m">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">tau</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">)))</span>
+<span class="w">    </span><span class="n">lpriorlike</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">g</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">)</span>
+<span class="w">    </span><span class="n">norm.results</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lpriorlike</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="n">post.dens</span><span class="p">)</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nf">print</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;iteration&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">))</span>
+<span class="p">}</span>
+<span class="nf">proc.time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ptm</span>
+<span class="nf">mean</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">simulation.results</span><span class="p">))</span>
+<span class="nf">mean</span><span class="p">(</span><span class="n">simulation.results</span><span class="p">)</span>
+<span class="nf">sd</span><span class="p">(</span><span class="n">simulation.results</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nf">sqrt</span><span class="p">(</span><span class="m">300</span><span class="p">)</span>
+<span class="n">square.diff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">simulation.results</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="n">ltrue.c</span><span class="p">,</span><span class="w"> </span><span class="m">300</span><span class="p">))</span><span class="o">^</span><span class="m">2</span>
+<span class="p">(</span><span class="m">1</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">300</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">square.diff</span><span class="p">)</span>
+
+<span class="nf">png</span><span class="p">(</span><span class="s">&quot;GFIcase4_R.png&quot;</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="nf">density</span><span class="p">(</span><span class="n">simulation.results</span><span class="p">),</span><span class="w"> </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;estimates of marginal likelihood&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="n">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;The Fourier Integral Estimates&quot;</span><span class="p">)</span>
+<span class="nf">abline</span><span class="p">(</span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ltrue.c</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;red&quot;</span><span class="p">)</span>
+<span class="nf">mtext</span><span class="p">(</span><span class="nf">substitute</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;R = &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">),</span>
+<span class="w">                 </span><span class="nf">list</span><span class="p">(</span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R</span><span class="p">)),</span>
+<span class="w">      </span><span class="n">side</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;blue&quot;</span><span class="p">)</span>
+<span class="c1">#legend(&quot;topright&quot;, legend = c(&quot;density of estimates&quot;, &quot;true value&quot;), col = c(&quot;black&quot;, &quot;red&quot;), lwd = 2, lty = 1)</span>
+
+<span class="nf">plot</span><span class="p">(</span><span class="nf">density</span><span class="p">(</span><span class="n">norm.results</span><span class="p">),</span><span class="w"> </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;estimates of marginal likelihood&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="n">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;The normal-kernel Fourier Integral Estimates&quot;</span><span class="p">)</span>
+<span class="nf">abline</span><span class="p">(</span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ltrue.c</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;red&quot;</span><span class="p">)</span>
+<span class="nf">mtext</span><span class="p">(</span><span class="nf">substitute</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;tau = &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">),</span>
+<span class="w">                 </span><span class="nf">list</span><span class="p">(</span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tau</span><span class="p">)),</span>
+<span class="w">      </span><span class="n">side</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;blue&quot;</span><span class="p">)</span>
+
+<span class="nf">plot</span><span class="p">(</span><span class="nf">density</span><span class="p">(</span><span class="n">doubleexp.results</span><span class="p">),</span><span class="w"> </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;estimates of marginal likelihood&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="n">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;The Cauchy-kernel Fourier Integral Estimates&quot;</span><span class="p">)</span>
+<span class="nf">abline</span><span class="p">(</span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ltrue.c</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;red&quot;</span><span class="p">)</span>
+<span class="nf">mtext</span><span class="p">(</span><span class="nf">substitute</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;eta = &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">),</span>
+<span class="w">                 </span><span class="nf">list</span><span class="p">(</span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">eta</span><span class="p">)),</span>
+<span class="w">      </span><span class="n">side</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;blue&quot;</span><span class="p">)</span>
+
+<span class="nf">plot</span><span class="p">(</span><span class="nf">density</span><span class="p">(</span><span class="n">triangle.results</span><span class="p">),</span><span class="w"> </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;estimates of marginal likelihood&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="n">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;The triangular-kernel Fourier Integral Estimates&quot;</span><span class="p">)</span>
+<span class="nf">abline</span><span class="p">(</span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ltrue.c</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;red&quot;</span><span class="p">)</span>
+<span class="nf">mtext</span><span class="p">(</span><span class="nf">substitute</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;R = &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">),</span>
+<span class="w">                 </span><span class="nf">list</span><span class="p">(</span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rt</span><span class="p">)),</span>
+<span class="w">      </span><span class="n">side</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;blue&quot;</span><span class="p">)</span>
+
+<span class="nf">plot</span><span class="p">(</span><span class="nf">density</span><span class="p">(</span><span class="n">epanechnikov.results</span><span class="p">),</span><span class="w"> </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;estimates of marginal likelihood&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="n">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;The Epanechnikov-kernel Fourier Integral Estimates&quot;</span><span class="p">)</span>
+<span class="nf">abline</span><span class="p">(</span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ltrue.c</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;red&quot;</span><span class="p">)</span>
+<span class="nf">mtext</span><span class="p">(</span><span class="nf">substitute</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;R = &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">),</span>
+<span class="w">                 </span><span class="nf">list</span><span class="p">(</span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Re</span><span class="p">)),</span>
+<span class="w">      </span><span class="n">side</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;blue&quot;</span><span class="p">)</span>
+<span class="nf">dev.off</span><span class="p">()</span>
+
+<span class="nf">mean</span><span class="p">(</span><span class="n">norm.results</span><span class="p">)</span>
+<span class="nf">sd</span><span class="p">(</span><span class="n">norm.results</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nf">sqrt</span><span class="p">(</span><span class="m">300</span><span class="p">)</span>
+<span class="nf">mean</span><span class="p">(</span><span class="n">doubleexp.results</span><span class="p">)</span>
+<span class="nf">sd</span><span class="p">(</span><span class="n">doubleexp.results</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nf">sqrt</span><span class="p">(</span><span class="m">300</span><span class="p">)</span>
+<span class="nf">mean</span><span class="p">(</span><span class="n">triangle.results</span><span class="p">)</span>
+<span class="nf">sd</span><span class="p">(</span><span class="n">triangle.results</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nf">sqrt</span><span class="p">(</span><span class="m">300</span><span class="p">)</span>
+<span class="nf">mean</span><span class="p">(</span><span class="n">epanechnikov.results</span><span class="p">)</span>
+<span class="nf">sd</span><span class="p">(</span><span class="n">epanechnikov.results</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nf">sqrt</span><span class="p">(</span><span class="m">300</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] &quot;iteration1&quot;
+[1] &quot;iteration2&quot;
+[1] &quot;iteration3&quot;
+[1] &quot;iteration4&quot;
+[1] &quot;iteration5&quot;
+[1] &quot;iteration6&quot;
+[1] &quot;iteration7&quot;
+[1] &quot;iteration8&quot;
+[1] &quot;iteration9&quot;
+[1] &quot;iteration10&quot;
+[1] &quot;iteration11&quot;
+[1] &quot;iteration12&quot;
+[1] &quot;iteration13&quot;
+[1] &quot;iteration14&quot;
+[1] &quot;iteration15&quot;
+[1] &quot;iteration16&quot;
+[1] &quot;iteration17&quot;
+[1] &quot;iteration18&quot;
+[1] &quot;iteration19&quot;
+[1] &quot;iteration20&quot;
+[1] &quot;iteration21&quot;
+[1] &quot;iteration22&quot;
+[1] &quot;iteration23&quot;
+[1] &quot;iteration24&quot;
+[1] &quot;iteration25&quot;
+[1] &quot;iteration26&quot;
+[1] &quot;iteration27&quot;
+[1] &quot;iteration28&quot;
+[1] &quot;iteration29&quot;
+[1] &quot;iteration30&quot;
+[1] &quot;iteration31&quot;
+[1] &quot;iteration32&quot;
+[1] &quot;iteration33&quot;
+[1] &quot;iteration34&quot;
+[1] &quot;iteration35&quot;
+[1] &quot;iteration36&quot;
+[1] &quot;iteration37&quot;
+[1] &quot;iteration38&quot;
+[1] &quot;iteration39&quot;
+[1] &quot;iteration40&quot;
+[1] &quot;iteration41&quot;
+[1] &quot;iteration42&quot;
+[1] &quot;iteration43&quot;
+[1] &quot;iteration44&quot;
+[1] &quot;iteration45&quot;
+[1] &quot;iteration46&quot;
+[1] &quot;iteration47&quot;
+[1] &quot;iteration48&quot;
+[1] &quot;iteration49&quot;
+[1] &quot;iteration50&quot;
+[1] &quot;iteration51&quot;
+[1] &quot;iteration52&quot;
+[1] &quot;iteration53&quot;
+[1] &quot;iteration54&quot;
+[1] &quot;iteration55&quot;
+[1] &quot;iteration56&quot;
+[1] &quot;iteration57&quot;
+[1] &quot;iteration58&quot;
+[1] &quot;iteration59&quot;
+[1] &quot;iteration60&quot;
+[1] &quot;iteration61&quot;
+[1] &quot;iteration62&quot;
+[1] &quot;iteration63&quot;
+[1] &quot;iteration64&quot;
+[1] &quot;iteration65&quot;
+[1] &quot;iteration66&quot;
+[1] &quot;iteration67&quot;
+[1] &quot;iteration68&quot;
+[1] &quot;iteration69&quot;
+[1] &quot;iteration70&quot;
+[1] &quot;iteration71&quot;
+[1] &quot;iteration72&quot;
+[1] &quot;iteration73&quot;
+[1] &quot;iteration74&quot;
+[1] &quot;iteration75&quot;
+[1] &quot;iteration76&quot;
+[1] &quot;iteration77&quot;
+[1] &quot;iteration78&quot;
+[1] &quot;iteration79&quot;
+[1] &quot;iteration80&quot;
+[1] &quot;iteration81&quot;
+[1] &quot;iteration82&quot;
+[1] &quot;iteration83&quot;
+[1] &quot;iteration84&quot;
+[1] &quot;iteration85&quot;
+[1] &quot;iteration86&quot;
+[1] &quot;iteration87&quot;
+[1] &quot;iteration88&quot;
+[1] &quot;iteration89&quot;
+[1] &quot;iteration90&quot;
+[1] &quot;iteration91&quot;
+[1] &quot;iteration92&quot;
+[1] &quot;iteration93&quot;
+[1] &quot;iteration94&quot;
+[1] &quot;iteration95&quot;
+[1] &quot;iteration96&quot;
+[1] &quot;iteration97&quot;
+[1] &quot;iteration98&quot;
+[1] &quot;iteration99&quot;
+[1] &quot;iteration100&quot;
+[1] &quot;iteration101&quot;
+[1] &quot;iteration102&quot;
+[1] &quot;iteration103&quot;
+[1] &quot;iteration104&quot;
+[1] &quot;iteration105&quot;
+[1] &quot;iteration106&quot;
+[1] &quot;iteration107&quot;
+[1] &quot;iteration108&quot;
+[1] &quot;iteration109&quot;
+[1] &quot;iteration110&quot;
+[1] &quot;iteration111&quot;
+[1] &quot;iteration112&quot;
+[1] &quot;iteration113&quot;
+[1] &quot;iteration114&quot;
+[1] &quot;iteration115&quot;
+[1] &quot;iteration116&quot;
+[1] &quot;iteration117&quot;
+[1] &quot;iteration118&quot;
+[1] &quot;iteration119&quot;
+[1] &quot;iteration120&quot;
+[1] &quot;iteration121&quot;
+[1] &quot;iteration122&quot;
+[1] &quot;iteration123&quot;
+[1] &quot;iteration124&quot;
+[1] &quot;iteration125&quot;
+[1] &quot;iteration126&quot;
+[1] &quot;iteration127&quot;
+[1] &quot;iteration128&quot;
+[1] &quot;iteration129&quot;
+[1] &quot;iteration130&quot;
+[1] &quot;iteration131&quot;
+[1] &quot;iteration132&quot;
+[1] &quot;iteration133&quot;
+[1] &quot;iteration134&quot;
+[1] &quot;iteration135&quot;
+[1] &quot;iteration136&quot;
+[1] &quot;iteration137&quot;
+[1] &quot;iteration138&quot;
+[1] &quot;iteration139&quot;
+[1] &quot;iteration140&quot;
+[1] &quot;iteration141&quot;
+[1] &quot;iteration142&quot;
+[1] &quot;iteration143&quot;
+[1] &quot;iteration144&quot;
+[1] &quot;iteration145&quot;
+[1] &quot;iteration146&quot;
+[1] &quot;iteration147&quot;
+[1] &quot;iteration148&quot;
+[1] &quot;iteration149&quot;
+[1] &quot;iteration150&quot;
+[1] &quot;iteration151&quot;
+[1] &quot;iteration152&quot;
+[1] &quot;iteration153&quot;
+[1] &quot;iteration154&quot;
+[1] &quot;iteration155&quot;
+[1] &quot;iteration156&quot;
+[1] &quot;iteration157&quot;
+[1] &quot;iteration158&quot;
+[1] &quot;iteration159&quot;
+[1] &quot;iteration160&quot;
+[1] &quot;iteration161&quot;
+[1] &quot;iteration162&quot;
+[1] &quot;iteration163&quot;
+[1] &quot;iteration164&quot;
+[1] &quot;iteration165&quot;
+[1] &quot;iteration166&quot;
+[1] &quot;iteration167&quot;
+[1] &quot;iteration168&quot;
+[1] &quot;iteration169&quot;
+[1] &quot;iteration170&quot;
+[1] &quot;iteration171&quot;
+[1] &quot;iteration172&quot;
+[1] &quot;iteration173&quot;
+[1] &quot;iteration174&quot;
+[1] &quot;iteration175&quot;
+[1] &quot;iteration176&quot;
+[1] &quot;iteration177&quot;
+[1] &quot;iteration178&quot;
+[1] &quot;iteration179&quot;
+[1] &quot;iteration180&quot;
+[1] &quot;iteration181&quot;
+[1] &quot;iteration182&quot;
+[1] &quot;iteration183&quot;
+[1] &quot;iteration184&quot;
+[1] &quot;iteration185&quot;
+[1] &quot;iteration186&quot;
+[1] &quot;iteration187&quot;
+[1] &quot;iteration188&quot;
+[1] &quot;iteration189&quot;
+[1] &quot;iteration190&quot;
+[1] &quot;iteration191&quot;
+[1] &quot;iteration192&quot;
+[1] &quot;iteration193&quot;
+[1] &quot;iteration194&quot;
+[1] &quot;iteration195&quot;
+[1] &quot;iteration196&quot;
+[1] &quot;iteration197&quot;
+[1] &quot;iteration198&quot;
+[1] &quot;iteration199&quot;
+[1] &quot;iteration200&quot;
+[1] &quot;iteration201&quot;
+[1] &quot;iteration202&quot;
+[1] &quot;iteration203&quot;
+[1] &quot;iteration204&quot;
+[1] &quot;iteration205&quot;
+[1] &quot;iteration206&quot;
+[1] &quot;iteration207&quot;
+[1] &quot;iteration208&quot;
+[1] &quot;iteration209&quot;
+[1] &quot;iteration210&quot;
+[1] &quot;iteration211&quot;
+[1] &quot;iteration212&quot;
+[1] &quot;iteration213&quot;
+[1] &quot;iteration214&quot;
+[1] &quot;iteration215&quot;
+[1] &quot;iteration216&quot;
+[1] &quot;iteration217&quot;
+[1] &quot;iteration218&quot;
+[1] &quot;iteration219&quot;
+[1] &quot;iteration220&quot;
+[1] &quot;iteration221&quot;
+[1] &quot;iteration222&quot;
+[1] &quot;iteration223&quot;
+[1] &quot;iteration224&quot;
+[1] &quot;iteration225&quot;
+[1] &quot;iteration226&quot;
+[1] &quot;iteration227&quot;
+[1] &quot;iteration228&quot;
+[1] &quot;iteration229&quot;
+[1] &quot;iteration230&quot;
+[1] &quot;iteration231&quot;
+[1] &quot;iteration232&quot;
+[1] &quot;iteration233&quot;
+[1] &quot;iteration234&quot;
+[1] &quot;iteration235&quot;
+[1] &quot;iteration236&quot;
+[1] &quot;iteration237&quot;
+[1] &quot;iteration238&quot;
+[1] &quot;iteration239&quot;
+[1] &quot;iteration240&quot;
+[1] &quot;iteration241&quot;
+[1] &quot;iteration242&quot;
+[1] &quot;iteration243&quot;
+[1] &quot;iteration244&quot;
+[1] &quot;iteration245&quot;
+[1] &quot;iteration246&quot;
+[1] &quot;iteration247&quot;
+[1] &quot;iteration248&quot;
+[1] &quot;iteration249&quot;
+[1] &quot;iteration250&quot;
+[1] &quot;iteration251&quot;
+[1] &quot;iteration252&quot;
+[1] &quot;iteration253&quot;
+[1] &quot;iteration254&quot;
+[1] &quot;iteration255&quot;
+[1] &quot;iteration256&quot;
+[1] &quot;iteration257&quot;
+[1] &quot;iteration258&quot;
+[1] &quot;iteration259&quot;
+[1] &quot;iteration260&quot;
+[1] &quot;iteration261&quot;
+[1] &quot;iteration262&quot;
+[1] &quot;iteration263&quot;
+[1] &quot;iteration264&quot;
+[1] &quot;iteration265&quot;
+[1] &quot;iteration266&quot;
+[1] &quot;iteration267&quot;
+[1] &quot;iteration268&quot;
+[1] &quot;iteration269&quot;
+[1] &quot;iteration270&quot;
+[1] &quot;iteration271&quot;
+[1] &quot;iteration272&quot;
+[1] &quot;iteration273&quot;
+[1] &quot;iteration274&quot;
+[1] &quot;iteration275&quot;
+[1] &quot;iteration276&quot;
+[1] &quot;iteration277&quot;
+[1] &quot;iteration278&quot;
+[1] &quot;iteration279&quot;
+[1] &quot;iteration280&quot;
+[1] &quot;iteration281&quot;
+[1] &quot;iteration282&quot;
+[1] &quot;iteration283&quot;
+[1] &quot;iteration284&quot;
+[1] &quot;iteration285&quot;
+[1] &quot;iteration286&quot;
+[1] &quot;iteration287&quot;
+[1] &quot;iteration288&quot;
+[1] &quot;iteration289&quot;
+[1] &quot;iteration290&quot;
+[1] &quot;iteration291&quot;
+[1] &quot;iteration292&quot;
+[1] &quot;iteration293&quot;
+[1] &quot;iteration294&quot;
+[1] &quot;iteration295&quot;
+[1] &quot;iteration296&quot;
+[1] &quot;iteration297&quot;
+[1] &quot;iteration298&quot;
+[1] &quot;iteration299&quot;
+[1] &quot;iteration300&quot;
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   user  system elapsed 
+  0.604   0.020 120.926 
+</pre></div>
+</div>
+<div class="output text_html">0</div><div class="output text_html">-2.30334101718324</div><div class="output text_html">0.00260494982243339</div><div class="output text_html">0.00204674530626065</div><div class="output text_html"><strong>png:</strong> 2</div><div class="output text_html">-2.30096404267195</div><div class="output text_html">0.00907076937971787</div><div class="output text_html">-2.29863432626151</div><div class="output text_html">0.0177615086442737</div><div class="output text_html">-2.29307714070162</div><div class="output text_html">0.0130000283642092</div><div class="output text_html">-2.30428848256149</div><div class="output text_html">0.00702147549591139</div></div>
+</div>
+<p><img alt="GFIcase4_R.png" src="examples/GFIcase4_R.png" /></p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "r"
+        },
+        kernelOptions: {
+            name: "ir",
+            path: "./examples"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'ir'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="linear_regression.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">EX1: Linear regression</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lvk_injection.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">EX2: CBC-GW Injection</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Avi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
