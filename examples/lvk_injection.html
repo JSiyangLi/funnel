@@ -65,7 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="EX3: GW150914" href="GW150914.html" />
-    <link rel="prev" title="EX2: Lartillot’s Model" href="lartillot.html" />
+    <link rel="prev" title="LnZ comparison" href="lnz_comparison.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -159,6 +159,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="linear_regression.html">EX1: Linear regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lartillot.html">EX2: Lartillot’s Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lnz_comparison.html">LnZ comparison</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">EX2: CBC-GW Injection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="GW150914.html">EX3: GW150914</a></li>
 </ul>
@@ -383,7 +384,7 @@ document.write(`
 <p>In this example we load an LVK posterior from zenodo and compute the FI evidence for the CBC model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span> <span class="n">load_ext</span> <span class="n">autoreload</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span> <span class="n">load_ext</span> <span class="n">autoreload</span>
 <span class="o">%</span> <span class="n">autoreload</span> <span class="mi">2</span>
 <span class="o">%</span> <span class="n">matplotlib</span> <span class="n">inline</span>
 </pre></div>
@@ -397,7 +398,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">bilby</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">bilby</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">shutil</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
@@ -424,7 +425,7 @@ document.write(`
 <h3>Nested sampling LnZ Calculation<a class="headerlink" href="#nested-sampling-lnz-calculation" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">bilby_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;bilby&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bilby_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;bilby&quot;</span><span class="p">)</span>
 <span class="n">bilby_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">CRITICAL</span><span class="p">)</span>
 
 <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;injection&quot;</span>
@@ -520,7 +521,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">plot_corner</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">plot_corner</span><span class="p">()</span>
 <span class="n">post</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">posterior</span><span class="p">[[</span><span class="s1">&#39;mass_ratio&#39;</span><span class="p">,</span> <span class="s1">&#39;chirp_mass&#39;</span><span class="p">,</span> <span class="s1">&#39;log_prior&#39;</span><span class="p">,</span> <span class="s1">&#39;log_likelihood&#39;</span><span class="p">]]</span>
 <span class="n">lnz</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">log_evidence</span>
 <span class="n">lnz_err</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">log_evidence_err</span>
@@ -534,7 +535,7 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;lnZ = </span><span class="si">{</span><span class="n">lnz</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> +/- </span><span class="si">{</span><span class="n">lnz_err</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;lnZ = </span><span class="si">{</span><span class="n">lnz</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> +/- </span><span class="si">{</span><span class="n">lnz_err</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;lnBF = </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">log_bayes_factor</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -553,7 +554,7 @@ So, this time instead of computing the FI LnZ, we will compute the FI LnBF.</p>
 <h3>Compute FI evidence<a class="headerlink" href="#compute-fi-evidence" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">lnz_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">OUTDIR</span><span class="si">}</span><span class="s2">/lnz.npz&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lnz_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">OUTDIR</span><span class="si">}</span><span class="s2">/lnz.npz&quot;</span>
 <span class="n">lnzs</span><span class="p">,</span> <span class="n">r_vals</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">get_fi_lnz_list</span><span class="p">(</span><span class="n">post</span><span class="p">,</span> <span class="n">r_vals</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">geomspace</span><span class="p">(</span><span class="mf">1e1</span><span class="p">,</span> <span class="mf">2e5</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span> <span class="n">num_ref_params</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">cache_fn</span><span class="o">=</span><span class="n">lnz_file</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -562,11 +563,11 @@ So, this time instead of computing the FI LnZ, we will compute the FI LnBF.</p>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>|<span class=" -Color -Color-Blue">funnel</span>|INFO| <span class=" -Color -Color-Green">Calculating FI LnZ with 100 reference points and a posterior of size: (2653, 2)</span> 
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "43cf2918cc014fcea2daf9cd62fc5356"}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "43cf2918cc014fcea2daf9cd62fc5356", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">plt_kwgs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lnzs</span><span class="o">=</span><span class="n">lnzs</span><span class="p">,</span> <span class="n">r_vals</span><span class="o">=</span><span class="n">r_vals</span><span class="p">,</span> <span class="n">sampling_lnz</span><span class="o">=</span><span class="p">[</span><span class="n">result</span><span class="o">.</span><span class="n">log_bayes_factor</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt_kwgs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lnzs</span><span class="o">=</span><span class="n">lnzs</span><span class="p">,</span> <span class="n">r_vals</span><span class="o">=</span><span class="n">r_vals</span><span class="p">,</span> <span class="n">sampling_lnz</span><span class="o">=</span><span class="p">[</span><span class="n">result</span><span class="o">.</span><span class="n">log_bayes_factor</span><span class="p">])</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plot_fi_evidence_results</span><span class="p">(</span><span class="o">**</span><span class="n">plt_kwgs</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;ln BF&quot;</span><span class="p">);</span>
@@ -579,7 +580,7 @@ So, this time instead of computing the FI LnZ, we will compute the FI LnBF.</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plot_fi_evidence_results</span><span class="p">(</span><span class="o">**</span><span class="n">plt_kwgs</span><span class="p">,</span> <span class="n">plot_all_lnzs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plot_ci</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plot_fi_evidence_results</span><span class="p">(</span><span class="o">**</span><span class="n">plt_kwgs</span><span class="p">,</span> <span class="n">plot_all_lnzs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plot_ci</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;ln BF&quot;</span><span class="p">);</span>
@@ -603,7 +604,7 @@ So, this time instead of computing the FI LnZ, we will compute the FI LnBF.</p>
 Link to result: <a class="reference external" href="https://zenodo.org/record/7884973">https://zenodo.org/record/7884973</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">bilby</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">bilby</span>
 
 <span class="c1"># load the LVK posterior</span>
 <span class="n">FPATH</span> <span class="o">=</span> <span class="s1">&#39;128_cpus_v1_0_result.hdf5&#39;</span>
@@ -629,7 +630,7 @@ Link to result: <a class="reference external" href="https://zenodo.org/record/78
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Posterior shape: </span><span class="si">{</span><span class="n">CBC_data</span><span class="o">.</span><span class="n">posterior</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Posterior shape: </span><span class="si">{</span><span class="n">CBC_data</span><span class="o">.</span><span class="n">posterior</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;LnZ: </span><span class="si">{</span><span class="n">CBC_data</span><span class="o">.</span><span class="n">lnz</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> +/- </span><span class="si">{</span><span class="n">CBC_data</span><span class="o">.</span><span class="n">lnz_err</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;LnBF: </span><span class="si">{</span><span class="n">CBC_data</span><span class="o">.</span><span class="n">lnBF</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="n">CBC_data</span><span class="o">.</span><span class="n">posterior</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
@@ -813,7 +814,7 @@ LnBF: 56.96249503300896
 <h3>Compute FI LnZ<a class="headerlink" href="#compute-fi-lnz" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run_fi_computer</span><span class="p">(</span><span class="n">CBC_data</span><span class="p">,</span> <span class="n">frac_samp</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">n_ref_points</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">outdir</span><span class="o">=</span><span class="s1">&#39;out_inj_downsampled&#39;</span><span class="p">,</span> <span class="n">clean</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run_fi_computer</span><span class="p">(</span><span class="n">CBC_data</span><span class="p">,</span> <span class="n">frac_samp</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">n_ref_points</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">outdir</span><span class="o">=</span><span class="s1">&#39;out_inj_downsampled&#39;</span><span class="p">,</span> <span class="n">clean</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">outdir</span><span class="p">)</span> <span class="ow">and</span> <span class="n">clean</span><span class="p">:</span>
         <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">outdir</span><span class="p">)</span>
     <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">outdir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -843,7 +844,7 @@ LnBF: 56.96249503300896
 <h4>Using a downsampled posterior<a class="headerlink" href="#using-a-downsampled-posterior" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">OUTDIR</span> <span class="o">=</span> <span class="s1">&#39;out_inj_downsampled&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">OUTDIR</span> <span class="o">=</span> <span class="s1">&#39;out_inj_downsampled&#39;</span>
 <span class="n">CLEAN</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="n">lnzs</span><span class="p">,</span> <span class="n">r_vals</span> <span class="o">=</span> <span class="n">run_fi_computer</span><span class="p">(</span><span class="n">CBC_data</span><span class="p">,</span> <span class="n">frac_samp</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">n_ref_points</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">outdir</span><span class="o">=</span><span class="n">OUTDIR</span><span class="p">,</span> <span class="n">clean</span><span class="o">=</span><span class="n">CLEAN</span><span class="p">)</span>
 </pre></div>
@@ -857,7 +858,7 @@ LnBF: 56.96249503300896
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">plt_kwgs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lnzs</span><span class="o">=</span><span class="n">lnzs</span><span class="p">,</span> <span class="n">r_vals</span><span class="o">=</span><span class="n">r_vals</span><span class="p">,</span> <span class="n">sampling_lnz</span><span class="o">=</span><span class="p">[</span><span class="n">CBC_data</span><span class="o">.</span><span class="n">lnBF</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt_kwgs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lnzs</span><span class="o">=</span><span class="n">lnzs</span><span class="p">,</span> <span class="n">r_vals</span><span class="o">=</span><span class="n">r_vals</span><span class="p">,</span> <span class="n">sampling_lnz</span><span class="o">=</span><span class="p">[</span><span class="n">CBC_data</span><span class="o">.</span><span class="n">lnBF</span><span class="p">])</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plot_fi_evidence_results</span><span class="p">(</span><span class="o">**</span><span class="n">plt_kwgs</span><span class="p">,</span> <span class="n">plot_all_lnzs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plt_kwgs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.01</span><span class="p">))</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;lnBF&quot;</span><span class="p">);</span>
 </pre></div>
@@ -869,7 +870,7 @@ LnBF: 56.96249503300896
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">histogram_fi_lnzs</span><span class="p">(</span><span class="n">lnzs</span><span class="p">,</span> <span class="n">rvals</span><span class="p">,</span> <span class="n">rval_threshold</span><span class="p">,</span> <span class="n">true</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">histogram_fi_lnzs</span><span class="p">(</span><span class="n">lnzs</span><span class="p">,</span> <span class="n">rvals</span><span class="p">,</span> <span class="n">rval_threshold</span><span class="p">,</span> <span class="n">true</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">rvals</span> <span class="o">-</span> <span class="n">rval_threshold</span><span class="p">))</span>
     <span class="n">lnz</span> <span class="o">=</span> <span class="n">lnzs</span><span class="p">[:,</span> <span class="n">idx</span><span class="p">:]</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;%samples above </span><span class="si">{</span><span class="n">rval_threshold</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">lnz</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">lnzs</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -894,7 +895,7 @@ LnBF: 56.96249503300896
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plot_fi_evidence_results</span><span class="p">(</span><span class="o">**</span><span class="n">plt_kwgs</span><span class="p">,</span> <span class="n">plot_all_lnzs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plot_ci</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">plt_kwgs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.01</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plot_fi_evidence_results</span><span class="p">(</span><span class="o">**</span><span class="n">plt_kwgs</span><span class="p">,</span> <span class="n">plot_all_lnzs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plot_ci</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">plt_kwgs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.01</span><span class="p">))</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;lnBF&quot;</span><span class="p">);</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mf">1e4</span><span class="p">,</span> <span class="mf">1e6</span><span class="p">);</span>
@@ -911,7 +912,7 @@ LnBF: 56.96249503300896
 <h4>Using full posterior sample (fewer reference points)<a class="headerlink" href="#using-full-posterior-sample-fewer-reference-points" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">OUTDIR</span> <span class="o">=</span> <span class="s1">&#39;out_inj2&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">OUTDIR</span> <span class="o">=</span> <span class="s1">&#39;out_inj2&#39;</span>
 <span class="n">CLEAN</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="n">lnzs</span><span class="p">,</span> <span class="n">r_vals</span> <span class="o">=</span> <span class="n">run_fi_computer</span><span class="p">(</span><span class="n">CBC_data</span><span class="p">,</span> <span class="n">frac_samp</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_ref_points</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">outdir</span><span class="o">=</span><span class="n">OUTDIR</span><span class="p">,</span> <span class="n">clean</span><span class="o">=</span><span class="n">CLEAN</span><span class="p">)</span>
 </pre></div>
@@ -924,11 +925,11 @@ LnBF: 56.96249503300896
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Using 100.00% of posterior, and 1000 reference points.
 </pre></div>
 </div>
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "cbfb5977542d4aa98e8947c67ffe500d"}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "cbfb5977542d4aa98e8947c67ffe500d", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">plt_kwgs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lnzs</span><span class="o">=</span><span class="n">lnzs</span><span class="p">,</span> <span class="n">r_vals</span><span class="o">=</span><span class="n">r_vals</span><span class="p">,</span> <span class="n">sampling_lnz</span><span class="o">=</span><span class="p">[</span><span class="n">CBC_data</span><span class="o">.</span><span class="n">lnBF</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt_kwgs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lnzs</span><span class="o">=</span><span class="n">lnzs</span><span class="p">,</span> <span class="n">r_vals</span><span class="o">=</span><span class="n">r_vals</span><span class="p">,</span> <span class="n">sampling_lnz</span><span class="o">=</span><span class="p">[</span><span class="n">CBC_data</span><span class="o">.</span><span class="n">lnBF</span><span class="p">])</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plot_fi_evidence_results</span><span class="p">(</span><span class="o">**</span><span class="n">plt_kwgs</span><span class="p">,</span> <span class="n">plot_all_lnzs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plt_kwgs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.01</span><span class="p">))</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;lnBF&quot;</span><span class="p">);</span>
 </pre></div>
@@ -975,12 +976,12 @@ LnBF: 56.96249503300896
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="lartillot.html"
+       href="lnz_comparison.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">EX2: Lartillot’s Model</p>
+        <p class="prev-next-title">LnZ comparison</p>
       </div>
     </a>
     <a class="right-next"
