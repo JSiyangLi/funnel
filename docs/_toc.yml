@@ -2,5 +2,6 @@ format: jb-book
 root: index
 chapters:
   - file: examples/linear_regression
+  - file: examples/lartillot
   - file: examples/lvk_injection
   - file: examples/GW150914
