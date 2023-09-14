@@ -29,8 +29,11 @@ def violin_plot_of_lnzs_for_each_d():
     # different panel for each dimension
     fig, ax = plt.subplots(1, 3, figsize=(8, 5))
     for i, d in enumerate([1, 20, 100]):
+        dat = data[data["dim"] == d]["ns_lnz"]
+        if len(dat) == 0:
+            continue
         ax[i].violinplot(
-            data[data["dim"] == d]["ns_lnz"],
+            dat,
             quantiles=[0.16, 0.5, 0.84],
             showextrema=False,
         )
