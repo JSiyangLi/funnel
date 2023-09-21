@@ -1,9 +1,7 @@
 import bilby
-
-import bilby
 import matplotlib.pyplot as plt
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 
 def model(x, m0, c0, var0, var1, turning_point, **kwargs):
@@ -60,7 +58,7 @@ def estimate_best_r(r_vals, lnz_vals, n_steps=100):
         nsteps=n_steps,
         outdir='outdir',
         label='example',
-        clean=True,
+        clean=False,
         walkers=10,
     )
 

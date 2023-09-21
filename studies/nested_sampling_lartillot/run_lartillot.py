@@ -47,6 +47,12 @@ def true_lnz(v, dim):
 
 def nested_sampling_lnz(v, dim, label="", nlive=1000, checkpoint=False):
     likelihood = LartillotLikelihood(dim, v)
+
+    # test likelihood at 0,0,
+    likelihood.parameters = {f"x{i}": 0 for i in range(dim)}
+    print(f"lnL(0...) = {likelihood.log_likelihood()}")
+
+
     priors = get_prior(dim)
     clean = not checkpoint
     result = bilby.run_sampler(
@@ -105,6 +111,24 @@ def __checkpoint_data(data, outfile):
             f.write(f"{lnz} {lnz_err}\n")
 
 
+def test_lartillot(v, dim):
+    likelihood = LartillotLikelihood(dim, v)
+    likelihood.parameters = {f"x{i}": 0 for i in range(dim)}
+    print(f"lnL(0...) = {likelihood.log_likelihood()}")
+    likelihood.parameters = {f"x{i}": 1 for i in range(dim)}
+    print(f"lnL(1...) = {likelihood.log_likelihood()}")
+
+    prior = get_prior(dim)
+    # prior at 0
+    print(f"prior(0...) = {prior.ln_prob({f'x{i}': 0 for i in range(dim)})}")
+    # prior at 1
+    print(f"prior(1...) = {prior.ln_prob({f'x{i}': 1 for i in range(dim)})}")
+
+
+
+
+
+
 def main():
     args = parse_cli_args()
     print(f"Lartillot LnZ (v={args.v}, dim={args.dim}, seed={args.seed})")
@@ -113,6 +137,24 @@ def main():
     outfile = f"{OUTDIR}/lartillot_d{args.dim}_v{args.v}_seed{args.seed}.dat"
     __runner(args, outfile)
 
+#
+# if __name__ == "__main__":
+#     main()
+#
+#
+#
 
-if __name__ == "__main__":
-    main()
+
+# dim = 100
+# v = 0.01
+# likelihood = LartillotLikelihood(dim, v)
+#
+# # test likelihood at 0,0,
+# # update parameters for likelihood
+# likelihood.parameters = {f"x{i}": 0 for i in range(dim)}
+# print(f"lnL(0...) = {likelihood.log_likelihood()}")
+#
+# likelihood.parameters = {f"x{i}": 1 for i in range(dim)}
+# print(f"lnL(0...) = {likelihood.log_likelihood()}")
+
+test_lartillot(0.01, 100)

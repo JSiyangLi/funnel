@@ -10,7 +10,7 @@ plt.rcParams["ytick.major.size"] = 5
 plt.rcParams["ytick.right"] = True
 plt.rcParams["font.size"] = 15
 
-DATA = "out/nested_sampling_lnzs.dat"
+DATA = "nested_sampling_lnzs.dat"
 V = 0.01
 
 
@@ -38,7 +38,7 @@ def violin_plot_of_lnzs_for_each_d():
             showextrema=False,
         )
         # draw ornage line at true ln(Z)
-        ax[i].axhline(true_lnz(V, d), color="orange", ls="--", lw=1)
+        # ax[i].axhline(true_lnz(V, d), color="orange", ls="--", lw=1)
         ax[i].set_xticks([])
         # ax[i].set_xticks([1])
         if i == 0:
