@@ -1,0 +1,9 @@
+Package: FourierIntegral
+Type: Package
+Title: Fourier Integral marginal likelihood computation
+Version: 1.0
+Date: 2023-09-21
+Author: Siyang Li
+Maintainer: Siyang Li <jl1023@ic.ac.uk>
+Description: Computes marginal likelihoods of Bayesian models using the Fourier integral method.
+License: GPL2
