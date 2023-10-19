@@ -63,7 +63,7 @@ samp = function(steps, d, v, worst_llike, worst_obj){
 }
 
 ### Nested Sampling algorithm ###
-ns <- function(n=10, steps=50, d=5, v=0.1, max.iter=2000, tol=1e-04){
+ns <- function(n=10, steps=50, d=5, v=0.1, max.iter=2000, tol=0){
   
   # n       : number of active/live points in NS
   # steps   : number of metropolis steps to generate the new points in NS

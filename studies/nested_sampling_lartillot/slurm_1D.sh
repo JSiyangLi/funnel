@@ -3,7 +3,7 @@
 #SBATCH --job-name=lartillot_1d
 #SBATCH --output=logs/lartillot_1d.log
 #SBATCH --ntasks=1
-#SBATCH --time=00:50:00
+#SBATCH --time=00:20:00
 #SBATCH --mem=1GB
 #SBATCH --cpus-per-task=1
 
