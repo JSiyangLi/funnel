@@ -10,4 +10,4 @@
 
 module load gcc/11.3.0 openmpi/4.1.4 r/4.2.1
 
-Rscript ns_sim_study_fi.R 100 ${ARRAY_ARGS[$SLURM_ARRAY_TASK_ID]}
+Rscript ns_sim_study_fi.R -d 100 -s ${ARRAY_ARGS[$SLURM_ARRAY_TASK_ID]}

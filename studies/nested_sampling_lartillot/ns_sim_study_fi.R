@@ -148,25 +148,26 @@ main  <- function(d, seed)
 
 
 # get CLI args d and seed
-args <- commandArgs(trailingOnly = TRUE)
+library(optparse)
 
-# Check if two integer arguments were provided
-if (length(args) != 2) {
-  cat("Please provide exactly two integer command-line arguments.\n")
+# Define the command-line options
+option_list = list(
+  make_option(c("-d", "--d"), type = "integer", help = "Value for d"),
+  make_option(c("-s", "--seed"), type = "integer", help = "Random seed")
+)
+
+# Parse the command-line arguments
+opt <- parse_args(OptionParser(usage = "Usage: %prog [options]", option_list = option_list))
+
+# Check and use the provided options
+if (!is.null(opt$d) && !is.null(opt$seed)) {
+  cat("Value of d:", opt$d, "\n")
+  cat("Random seed:", opt$seed, "\n")
+  print(paste("Running NS d=", d, "seed=", seed));
+  main(d, seed);
+
 } else {
-  # Convert the arguments to integers
-  d <- as.integer(args[1])
-  seed <- as.integer(args[2])
-
-  # Check if the conversion was successful
-  if (is.na(d) || is.na(seed)) {
-    cat("Both arguments must be integers.\n")
-  } else {
-    # run main
-    print(paste("Running NS d=", d, "seed=", seed));
-    main(d, seed);
-  }
+  cat("Please provide both -d and -s options with integer values.\n")
 }
-
 
 
