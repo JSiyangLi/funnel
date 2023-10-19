@@ -162,7 +162,7 @@ opt <- parse_args(OptionParser(usage = "Usage: %prog [options]", option_list = o
 # Check and use the provided options
 if (!is.null(opt$d) && !is.null(opt$seed)) {
   cat("Running NS d=", opt$d, "seed=", opt$seed);
-  main(opt$d, seed);
+  main(opt$d, opt$seed);
 
 } else {
   cat("Please provide both -d and -s options with integer values.\n")
