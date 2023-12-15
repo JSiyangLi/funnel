@@ -3,7 +3,7 @@ import time
 
 import numpy as np
 
-from .logger import logger
+from logger import logger
 
 LNPRI_LNL_COL_NAMES = ["log_prior", "log_likelihood"]
 

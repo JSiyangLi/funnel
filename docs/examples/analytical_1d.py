@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 from bilby.core.prior import Normal
 from funnel.fi_core import get_fi_lnz_list
 from funnel.plotting import plot_fi_evidence_results
-from funnel.r_estimator import estimate_best_r,plot_two_part_model_samples_and_data
-
+from funnel.r_estimator import estimate_best_r, plot_two_part_model_samples_and_data
+from scipy.stats import multivariate_normal, cauchy, norm
 
 # Set seed for reproducibility
 np.random.seed(42)
@@ -27,9 +27,26 @@ log_true_c = (p / 2) * (np.log(v) - np.log(1 + v))
 
 PRIOR = Normal(0, 1)
 
+
+def log_prior(theta):
+    return norm.logpdf(theta, 0, 1)
+
+
 # Define the joint density of data and parameter
-def log_likelihood(theta:np.ndarray, v=0.01):
+def log_likelihood(theta: np.ndarray, v=0.01):
     return -np.power(theta, 2) / (2 * v)
+
+
+def generate_posterior(v=0.01):
+    posterior_samples = np.random.normal(scale=np.sqrt(v / (v + 1)), size=n)
+    ln_pri = log_prior(posterior_samples)
+    ln_lnl = log_likelihood(posterior_samples, v)
+    return pd.DataFrame(dict(
+        x=posterior_samples,
+        log_prior=ln_pri,
+        log_likelihood=ln_lnl,
+    ))
+
 
 # Initialize arrays for results
 epanechnikov_results = np.zeros(300)
@@ -38,45 +55,24 @@ doubleexp_results = np.zeros(300)
 norm_results = np.zeros(300)
 simulation_results = np.zeros(300)
 
-
-def generate_posterior(v=0.01):
-    x = np.random.normal(scale=np.sqrt(v/(v+1)), size=n)
-    ln_pri = PRIOR.ln_prob(x)
-    ln_lnl = log_likelihood(x, v)
-    return pd.DataFrame(dict(
-        x=x,
-        log_prior=ln_pri,
-        log_likelihood=ln_lnl,
-    ))
-
 posterior_samples = generate_posterior(v)
 
-
-
-
-
-
-results = get_fi_lnz_list(posterior_samples, r_vals=np.geomspace(1e-2, 1e5, 2000), num_ref_params=10,)
+results = get_fi_lnz_list(posterior_samples, r_vals=np.geomspace(1e-2, 1e5, 2000), num_ref_params=10, )
 lnzs, r_vals, samp = results
 plt_kwgs = dict(lnzs=lnzs, r_vals=r_vals, sampling_lnz=[log_true_c], )
-
 
 x = np.log(r_vals)
 change_point_posterior = estimate_best_r(x, lnzs[0], n_steps=500)
 
 fig = plot_fi_evidence_results(**plt_kwgs)
 ax = fig.axes[0]
-ax.axhline(np.median(change_point_posterior.posterior["lnz"]), color="tab:orange", linestyle="dashed", label="Estimated LnZ")
+ax.axhline(np.median(change_point_posterior.posterior["lnz"]), color="tab:orange", linestyle="dashed",
+           label="Estimated LnZ")
 fig.tight_layout()
 fig.savefig("GFIcase4.png")
 
-
-
 fig = plot_two_part_model_samples_and_data(change_point_posterior.posterior, x, lnzs[0])
 fig.savefig("changept.png")
-
-
-
 
 #
 #
