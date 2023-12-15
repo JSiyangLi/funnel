@@ -481,7 +481,7 @@ Installing package into ‘/home/avaj040/R/x86_64-pc-linux-gnu-library/4.3’
 <span class="w">    </span><span class="n">lpriorlike</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">g</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">)</span>
 <span class="w">    </span><span class="n">norm.results</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lpriorlike</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="n">post.dens</span><span class="p">)</span>
 <span class="w">  </span><span class="p">}</span>
-<span class="w">  </span><span class="nf">print</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;iteration&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">))</span>
+<span class="w">  </span><span class="c1">#print(paste0(&quot;iteration&quot;, i))</span>
 <span class="p">}</span>
 <span class="nf">proc.time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">ptm</span>
 <span class="nf">mean</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">simulation.results</span><span class="p">))</span>
