@@ -1,18 +1,18 @@
 """Core functions for Fourier Integration evidence approximation."""
 import os
+import sys
 
 import numpy as np
 import pandas as pd
 from tqdm.auto import trange
 from typing import Tuple
 
-from .logger import logger
-from .utils import get_post_mask
+from logger import logger
+from utils import get_post_mask
 # import numba
 #
 #
 # @numba.jit(parallel=True)
-
 def fi_ln_evidence(
     posterior_samples: np.ndarray,
     ref_samp: np.array,
