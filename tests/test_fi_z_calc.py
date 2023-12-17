@@ -90,6 +90,7 @@ def bilby_result(tmp_path):
     return result
 
 
+
 def test_fi_integration_plot(bilby_result, tmp_path):
     """Test the fi_integration_plot function."""
     lnz, lnzerr = bilby_result.log_evidence, bilby_result.log_evidence_err

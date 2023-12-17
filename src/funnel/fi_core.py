@@ -7,8 +7,8 @@ import pandas as pd
 from tqdm.auto import trange
 from typing import Tuple
 
-from logger import logger
-from utils import get_post_mask
+from .logger import logger
+from .utils import get_post_mask
 # import numba
 #
 #

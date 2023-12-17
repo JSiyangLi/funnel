@@ -8,7 +8,7 @@ from matplotlib.colors import ColorConverter
 
 import corner
 
-from fi_core import get_fi_lnz_list
+from .fi_core import get_fi_lnz_list
 
 rcParams.update({"xtick.major.pad": "7.0"})
 rcParams.update({"xtick.major.size": "7.5"})
