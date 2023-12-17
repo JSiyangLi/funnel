@@ -56,3 +56,11 @@ def violin_plot_of_lnzs_for_each_d():
 
 if __name__ == '__main__':
     violin_plot_of_lnzs_for_each_d()
+
+def scatter_plot_for_reference_vs_estimate():
+    plt.scatter(fa.simR_lpriorlike, fa.simR_results, marker='o', facecolors='none', edgecolors='b')
+    plt.xlabel("reference-point kernel value")
+    plt.ylabel("evidence estimate")
+    plt.title("Evidence estimate patterns on reference kernel value")
+    plt.show()
+
