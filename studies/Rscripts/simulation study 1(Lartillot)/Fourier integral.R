@@ -6,8 +6,8 @@ inflation <- 1
 iter <- 300
 n = 1e3
 v = 0.01
-p = 10
-R = 40
+p = 1
+R = 1000
 Rt = 2000
 Re = 360
 tau = exp(-7.25)
@@ -33,7 +33,7 @@ g = function(theta, v){
 }
 
 epanechnikov.results = triangle.results = doubleexp.results = norm.results = simulation.results = rep(NA, iter)
-simR_results = rep(NA, iter)
+simR_results = simR_lpriorlike = rep(NA, iter)
 ptm <- proc.time()
 # we choose to evaluate the posterior density at 0
 for (i in 1:iter){
@@ -99,8 +99,8 @@ if (p == 1) {
     
     a = sin(R * (evaluation_sample - ref)) / (evaluation_sample - ref)
     post.dens = abs(sum(a) / (n * pi))
-    lpriorlike = g(ref, v = v)
-    simR_results[j] = lpriorlike - log(post.dens)
+    simR_lpriorlike[j] = g(ref, v = v)
+    simR_results[j] = simR_lpriorlike[j] - log(post.dens)
     
     print(paste0("iteration", j))
   }
@@ -112,8 +112,8 @@ if (p == 1) {
     
     a = abs(rowProds(sin(R * (evaluation_sample - ref)) / (evaluation_sample - ref))) # multiplying together different dimensions
     post.dens = abs(sum(a)) / (n * pi^p)
-    lpriorlike = g(ref, v = v)
-    simR_results[j] = lpriorlike - log(post.dens)
+    simR_lpriorlike[j] = g(ref, v = v)
+    simR_results[j] = simR_lpriorlike[j] - log(post.dens)
     
     print(paste0("iteration", j))
   }
@@ -142,6 +142,10 @@ abline(v = ltrue.c, col = "red")
 mtext(substitute(paste("R = ", v), 
                  list(v = R)),
       side = 1, line = 4, col = "blue")
+
+plot(simR_lpriorlike, simR_results, pch = 19,
+     xlab = "reference kernel value", ylab = "marginal likelihood estimate",
+     main = "Marginal likelihood vs. reference", sub = "R too large")
 
 plot(density(norm.results), xlab = "estimates of marginal likelihood",
      main = "The normal-kernel Fourier Integral Estimates")
