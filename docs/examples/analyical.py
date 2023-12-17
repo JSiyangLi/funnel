@@ -36,7 +36,7 @@ doubleexp_results = np.zeros(iter)
 norm_results = np.zeros(iter)
 simulation_results = np.zeros(iter)
 simR_results = np.zeros(iter)
-
+simR_lpriorlike = np.zeros(iter)
 
 
 
@@ -103,8 +103,8 @@ for j in range(iter):
         a = np.abs(np.prod(np.sin(R * (evaluation_sample - ref)) / (evaluation_sample - ref), axis=1))
         post_dens = np.abs(np.sum(a) / (n * np.pi**p))
 
-    lpriorlike = g(ref, v=v)
-    simR_results[j] = lpriorlike - np.log(post_dens)
+    simR_lpriorlike[j] = g(ref, v=v)
+    simR_results[j] = simR_lpriorlike[j] - np.log(post_dens)
 
     print(f"iteration{j + 1}")
 
