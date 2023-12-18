@@ -48,13 +48,15 @@ def fi_ln_evidence(
 def get_fi_lnz_list(
     posterior_samples: pd.DataFrame,
     r_vals: np.array = [],
-    num_ref_params: int = 10,
+    num_ref_proportion: float = 0.05,
     weight_samples_by_lnl: bool = False,
     cache_fn="",
 ) -> Tuple[np.array, np.array, pd.DataFrame]:
     if os.path.exists(cache_fn):
         data = np.load(cache_fn)
         return data["lnzs"], data["r_vals"], data["samp"]
+
+    num_ref_params = np.ceil(num_ref_proportion * len(posterior_samples))
 
     if len(r_vals) == 0:
         r_vals = np.geomspace(1e-3, 1e10, 2000)
@@ -65,6 +67,7 @@ def get_fi_lnz_list(
     # unpacking posterior data
     ln_pri = posterior_samples["log_prior"].values
     ln_lnl = posterior_samples["log_likelihood"].values
+    ln_ker = np.array(ln_pri) + np.array(ln_lnl) # posterior kernel value
     post = posterior_samples[
         posterior_samples.columns.drop(["log_prior", "log_likelihood"])
     ].values
@@ -79,10 +82,10 @@ def get_fi_lnz_list(
     # randomly select reference points
     ref_idx = np.random.choice(len(post), num_ref_params, replace=False)
     if weight_samples_by_lnl:
-        p = np.exp(ln_lnl - np.nanmax(ln_lnl))
+        p = np.exp(ln_lnl - np.nanmax(ln_ker))
         p /= np.nansum(p)
         # ref_idx = np.random.choice(len(post), num_ref_params, replace=False, p=p)
-        # get the reference points with the highest likelihoods
+        # get the reference points with the highest posterior kernel values - we are converting the kernel to a density, not just the likelihood
         ref_idx = np.argsort(ln_lnl)[-num_ref_params:]
 
     lnzs = np.zeros((num_ref_params, len(r_vals)))
