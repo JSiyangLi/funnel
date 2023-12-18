@@ -121,6 +121,7 @@ def get_fi_lnz_list(
         lnzri = lnzs[:, ri]
 
         # estimate the variance of the rightmost cluster in the evidence vs. kernel plot
+        rightmost_lnz = lnzri[np.argmax(ln_ker)]
         rightmost_var[ri] = np.var(lnzri[ln_ker >= left_bound])
 
         # estimate the angular bias
@@ -132,4 +133,4 @@ def get_fi_lnz_list(
     if cache_fn:
         np.savez(cache_fn, lnzs=lnzs, r_vals=r_vals, samp=samp)
 
-    return lnzs, r_vals, samp, rightmost_var, pca_rotation
+    return lnzs, r_vals, samp, rightmost_var, pca_rotation, rightmost_lnz
