@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 from tqdm.auto import trange
 from typing import Tuple
+from sklearn.decomposition import PCA
 
 from .logger import logger
 from .utils import get_post_mask
@@ -50,6 +51,7 @@ def get_fi_lnz_list(
     r_vals: np.array = [],
     num_ref_proportion: float = 0.05,
     weight_samples_by_lnl: bool = False,
+    select_rightmost_cluster: bool = False,
     cache_fn="",
 ) -> Tuple[np.array, np.array, pd.DataFrame]:
     if os.path.exists(cache_fn):
@@ -82,11 +84,11 @@ def get_fi_lnz_list(
     # randomly select reference points
     ref_idx = np.random.choice(len(post), num_ref_params, replace=False)
     if weight_samples_by_lnl:
-        p = np.exp(ln_lnl - np.nanmax(ln_ker))
+        p = np.exp(ln_ker - np.nanmax(ln_ker))
         p /= np.nansum(p)
         # ref_idx = np.random.choice(len(post), num_ref_params, replace=False, p=p)
         # get the reference points with the highest posterior kernel values - we are converting the kernel to a density, not just the likelihood
-        ref_idx = np.argsort(ln_lnl)[-num_ref_params:]
+        ref_idx = np.argsort(ln_ker)[-num_ref_params:]
 
     lnzs = np.zeros((num_ref_params, len(r_vals)))
     median_lnzs = np.zeros(num_ref_params)
@@ -110,8 +112,24 @@ def get_fi_lnz_list(
             pbar.set_postfix_str(f"FI LnZ: {med_:.2f}")
             pbar.update()
 
-    samp = post[ref_idx]
+    # find the left bound of the rightmost cluster
+    left_bound = np.sort(ln_ker)[::-1][num_ref_params - 1]
+
+    rightmost_var, pca_rotation = np.zeros(len(r_vals)), np.zeros(len(r_vals))
+    for ri in r_vals:
+        # the specific evidence sample for each R[i]
+        lnzri = lnzs[:, ri]
+
+        # estimate the variance of the rightmost cluster in the evidence vs. kernel plot
+        rightmost_var[ri] = np.var(lnzri[ln_ker >= left_bound])
+
+        # estimate the angular bias
+        pca_data = np.column_stack((ln_ker, lnzri))
+        pca = PCA().fit(pca_data)
+        pca_rotation[ri] = min(np.abs(np.arccos(pca.components_[0, 0]) - np.pi), np.arccos(pca.components_[0, 0]))
+
+    samp = post[ref_idx] # the selected reference points
     if cache_fn:
         np.savez(cache_fn, lnzs=lnzs, r_vals=r_vals, samp=samp)
 
-    return lnzs, r_vals, samp
+    return lnzs, r_vals, samp, rightmost_var, pca_rotation
