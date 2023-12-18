@@ -102,3 +102,7 @@ def get_median_and_error_str(s: np.array):
     s = r"${{{0}}}_{{-{1}}}^{{+{2}}}$"
     s = s.format(fmt(med), fmt(lower), fmt(upper))
     return s
+
+# Loss function (can be altered to other sensible function)
+def loss(rotation_bias, cluster_variance):
+    return np.exp(2 * rotation_bias) + cluster_variance
