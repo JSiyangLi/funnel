@@ -127,7 +127,7 @@ def get_fi_lnz_list(
         # estimate the angular bias
         pca_data = np.column_stack((ln_ker, lnzri))
         pca = PCA().fit(pca_data)
-        pca_rotation[ri] = min(np.arccos(np.pi - pca.components_[0, 0]), np.abs(np.arccos(pca.components_[0, 0]) - 0.5 * np.pi), np.arccos(pca.components_[0, 0]))
+        pca_rotation[ri] = min(np.pi - np.arccos(pca.components_[0, 0]), np.abs(np.arccos(pca.components_[0, 0]) - 0.5 * np.pi), np.arccos(pca.components_[0, 0]))
 
     samp = post[ref_idx] # the selected reference points
     if cache_fn:
