@@ -1,16 +1,19 @@
 set.seed(42)
 library(matrixStats)
 library(mvtnorm)
+library(ggfortify)
 
 inflation <- 1
+iter <- 300
 n = 1e3
 v = 0.01
-p = 1
-R = 40
+p = 10
+R = 400
 Rt = 2000
 Re = 360
 tau = exp(-7.25)
 eta = exp(-7.75)
+extraction_index <- 4
 
 target.mean = rep(0, p)
 target.var = diag(x = v/(v + 1), ncol = p, nrow = p)
@@ -30,16 +33,17 @@ g = function(theta, v){
   return(like + prior)
 }
 
-epanechnikov.results = triangle.results = doubleexp.results = norm.results = simulation.results = rep(NA, 300)
+epanechnikov.results = triangle.results = doubleexp.results = norm.results = simulation.results = rep(NA, iter)
+simR_results = simR_lpriorlike = rep(NA, iter)
 ptm <- proc.time()
 # we choose to evaluate the posterior density at 0
-for (i in 1:300){
+for (i in 1:iter){
   if (p == 1){
     # FI
     target.sample = rnorm(n = n, sd = sqrt(target.var))
     
     a = sin(R * target.sample) / target.sample
-    post.dens = sum(a) / (n * pi)
+    post.dens = abs(sum(a)) / (n * pi)
     lpriorlike = g(0, v = v)
     simulation.results[i] = lpriorlike - log(post.dens)
     
@@ -61,6 +65,7 @@ for (i in 1:300){
   if (p >= 2){
     target.sample = rnorm(p * n, mean = 0, sd = sqrt(v / (v + 1))) * inflation
     target.sample = matrix(c(target.sample), nrow = n, ncol = p, byrow = T)
+    
     a = abs(rowProds(sin(R * target.sample) / target.sample)) # multiplying together different dimensions
     post.dens = sum(a) / (n * pi^p)
     lpriorlike = g(rep(0, p), v = v)
@@ -71,15 +76,75 @@ for (i in 1:300){
     lpriorlike = g(0, v = v)
     norm.results[i] = lpriorlike - log(post.dens)
   }
+  if (i == extraction_index) {
+    test_sample = target.sample
+  }
   print(paste0("iteration", i))
 }
 proc.time() - ptm
 mean(is.na(simulation.results))
 mean(simulation.results)
-sd(simulation.results) / sqrt(300)
-square.diff = (simulation.results - rep(ltrue.c, 300))^2
-(1 / 300) * sum(square.diff)
+sd(simulation.results) / sqrt(iter)
+square.diff = (simulation.results - rep(ltrue.c, iter))^2
+(1 / iter) * sum(square.diff)
 
+#############
+# testing alternating the reference points for FI (density comparison)
+#############
+test_evaluation_index = sample(1:iter, iter, replace = TRUE)
+if (p == 1) {
+  for (j in 1:iter) {
+    ref_index = test_evaluation_index[j]
+    ref = test_sample[ref_index]
+    evaluation_sample = test_sample[-ref_index]
+    
+    a = sin(R * (evaluation_sample - ref)) / (evaluation_sample - ref)
+    post.dens = abs(sum(a) / (n * pi))
+    simR_lpriorlike[j] = g(ref, v = v)
+    simR_results[j] = simR_lpriorlike[j] - log(post.dens)
+    
+    print(paste0("iteration", j))
+  }
+} else {
+  for (j in 1:iter) {
+    ref_index = test_evaluation_index[j]
+    ref = test_sample[ref_index, ]
+    evaluation_sample = test_sample[-ref_index, ]
+    
+    a = abs(rowProds(sin(R * (evaluation_sample - ref)) / (evaluation_sample - ref))) # multiplying together different dimensions
+    post.dens = abs(sum(a)) / (n * pi^p)
+    simR_lpriorlike[j] = g(ref, v = v)
+    simR_results[j] = simR_lpriorlike[j] - log(post.dens)
+    
+    print(paste0("iteration", j))
+  }
+  
+}
+mean(is.na(simR_results))
+mean(simR_results)
+sd(simR_results) / sqrt(iter)
+square.diff = (simulation.results - rep(ltrue.c, iter))^2
+(1 / iter) * sum(square.diff)
+
+# OLS and PCA
+simR_fit <- lm(simR_results ~ simR_lpriorlike)
+simR_fit |> summary()
+simR_pc <- prcomp(cbind(simR_lpriorlike, simR_results))
+
+# derive the rightmost cluster variance using the rightmost r% points
+left_bound <- sort(simR_lpriorlike, decreasing = TRUE)[ceiling(0.05 * length(simR_lpriorlike))]
+rightmost_var <- var(simR_results[which(simR_lpriorlike >= left_bound)])
+
+# derive the 'angular' bias estimate
+simR_rotation <- min(abs(acos(simR_pc$rotation[1, 1]) - pi), acos(simR_pc$rotation[1, 1]))
+
+# loss function
+simR_loss <- function(rotation_bias, cluster_variance) {
+  exp(2 * rotation_bias) + cluster_variance
+}
+simR_loss(simR_rotation, rightmost_var)
+
+####### plotting
 pdf("GFIcase4.pdf")
 plot(density(simulation.results), xlab = "estimates of marginal likelihood",
      main = "The Fourier Integral Estimates")
@@ -88,6 +153,19 @@ mtext(substitute(paste("R = ", v),
                  list(v = R)),
       side = 1, line = 4, col = "blue")
 #legend("topright", legend = c("density of estimates", "true value"), col = c("black", "red"), lwd = 2, lty = 1)
+
+plot(density(simR_results), xlab = "estimates of marginal likelihood",
+     main = "The Fourier Integral Estimates randomising reference")
+abline(v = ltrue.c, col = "red")
+mtext(substitute(paste("R = ", v), 
+                 list(v = R)),
+      side = 1, line = 4, col = "blue")
+
+plot(simR_lpriorlike, simR_results, pch = 19,
+     xlab = "reference kernel value", ylab = "marginal likelihood estimate",
+     main = "Marginal likelihood vs. reference", sub = "R too large")
+lines(simR_lpriorlike, fitted(simR_fit), col = "red")
+autoplot(simR_pc)
 
 plot(density(norm.results), xlab = "estimates of marginal likelihood",
      main = "The normal-kernel Fourier Integral Estimates")
@@ -119,10 +197,10 @@ mtext(substitute(paste("R = ", v),
 dev.off()
 
 mean(norm.results)
-sd(norm.results) / sqrt(300)
+sd(norm.results) / sqrt(iter)
 mean(doubleexp.results)
-sd(doubleexp.results) / sqrt(300)
+sd(doubleexp.results) / sqrt(iter)
 mean(triangle.results)
-sd(triangle.results) / sqrt(300)
+sd(triangle.results) / sqrt(iter)
 mean(epanechnikov.results)
-sd(epanechnikov.results) / sqrt(300)
+sd(epanechnikov.results) / sqrt(iter)

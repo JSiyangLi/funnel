@@ -82,7 +82,7 @@ def plot_two_part_model_samples_and_data(samples_df: pd.DataFrame, x, y):
     lnz_str = get_median_and_error_str(samples_df['lnz'])
     r_str = get_median_and_error_str(samples_df['r'])
     plt.plot([], [], color="k", label="Data")
-    plt.plot([], [], color="C0", label="2-part model")
+    plt.plot([], [], color="C0", label="change-point model")
     plt.plot([], [], color="C1", label="LnZ: " + lnz_str)
     plt.plot([], [], color="C2", label="R: " + r_str)
     plt.legend(loc='upper right', fontsize=12)
@@ -102,3 +102,72 @@ def get_median_and_error_str(s: np.array):
     s = r"${{{0}}}_{{-{1}}}^{{+{2}}}$"
     s = s.format(fmt(med), fmt(lower), fmt(upper))
     return s
+
+####################################
+# Loss function (can be altered to other sensible functions)
+def loss(rotation_bias, cluster_variance):
+    return np.exp(2 * rotation_bias) + cluster_variance
+
+def loss_best_r(r_vals, rightmost_lnz, rightmost_var, pca_rotation):
+    loss_r = np.zeros(len(r_vals))
+    for j in range(len(r_vals)):
+        loss_r[j] = loss(rotation_bias=pca_rotation[j], cluster_variance=rightmost_var[j])
+    result = []
+    result.r = r_vals[np.argmin(loss_r)]
+    result.lnz = rightmost_lnz[np.argmin(loss_r)]
+    result.loss = loss_r
+    return result
+
+def plot_reference_rotation_and_data(samples_df: pd.DataFrame, loss_result, x, y):
+    fig = plt.figure()
+    plt.scatter(x, y, marker='o', color='k', s=0.1, zorder=10)
+
+    plt.plot(x, samples_df['lnzs'], color='k', alpha=0.1)
+    plt.axhline(loss_result.lnz, color='C1', alpha=0.3, zorder=-100)
+    plt.axvline(loss_result.r, color='C2', alpha=0.3, zorder=-100)
+    plt.plot(loss_result.loss_r, color='C0', alpha='overlapping')
+    plt.plot([], [], color="k", label="Evidence estimates")
+    plt.plot([], [], color="C0", label="loss function")
+    plt.plot([], [], color="C1", label="LnZ: " + loss_result.lnz)
+    plt.plot([], [], color="C2", label="R: " + loss_result.r)
+    plt.legend(loc='upper right', fontsize=12)
+
+    plt.xlim(min(x), max(x))
+    plt.ylim(min(y), max(y));
+    plt.xlabel(r"$\ln R$")
+    plt.ylabel(r"$\ln\mathcal{Z}$")
+    return fig
+
+def plot_two_part_model_reference_rotation_and_data(samples_df: pd.DataFrame, loss_result, x, y):
+    fig = plt.figure()
+    plt.scatter(x, y, marker='o', color='k', s=0.1, zorder=10)
+    if 'lnz' not in samples_df:
+        samples_df = __post_processing(samples_df, x, y)
+    samples_df = samples_df.sort_values('lnz')
+    samples_df = samples_df.sample(100)
+    samps = samples_df.to_dict('records')
+    for s in samps:
+        plt.plot(x, model(x, **s), color='C0', alpha=0.1)
+        plt.axhline(s['lnz'], color='C1', alpha=0.3, zorder=-100)
+        plt.axvline(np.log(s['r']), color='C2', alpha=0.3, zorder=-100)
+
+    plt.axhline(loss_result.lnz, color='C3', alpha=0.3, zorder=-100)
+    plt.axvline(loss_result.r, color='C4', alpha=0.3, zorder=-100)
+    plt.plot(loss_result.loss_r, color='C5', alpha='overlapping')
+
+    lnz_str = get_median_and_error_str(samples_df['lnz'])
+    r_str = get_median_and_error_str(samples_df['r'])
+    plt.plot([], [], color="k", label="Evidence estimates")
+    plt.plot([], [], color="C0", label="change-point model")
+    plt.plot([], [], color="C1", label="change-point LnZ: " + lnz_str)
+    plt.plot([], [], color="C2", label="change-point R: " + r_str)
+    plt.plot([], [], color="C3", label="reference-rotation LnZ: " + loss_result.lnz)
+    plt.plot([], [], color="C4", label="reference-rotation R: " + loss_result.r)
+    plt.plot([], [], color="C5", label="reference-rotation loss function")
+    plt.legend(loc='upper right', fontsize=12)
+
+    plt.xlim(min(x), max(x))
+    plt.ylim(min(y), max(y));
+    plt.xlabel(r"$\ln R$")
+    plt.ylabel(r"$\ln\mathcal{Z}$")
+    return fig
