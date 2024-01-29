@@ -28,5 +28,11 @@ Chains
 *.RData
 *.dta
 *.Rhistory
+<<<<<<< HEAD
+.Rproj.user
+*.pdf
+
+=======
 *.pdf
 /studies/nested_sampling_lartillot/nested_sampling_lnzs.dat
+>>>>>>> 4bd9076b7b2414ae692d66982ee0786dfd3e6bba

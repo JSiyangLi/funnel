@@ -26,6 +26,10 @@ Funnel (FoUrier iNtegratioN Evidence calcuLation)
    :target: https://github.com/psf/black
    :alt: Black
 
+Corresponding Paper
+------------
+https://www.overleaf.com/read/hytzvjcqxxqv#bfbf31
+
 Contributing
 ------------
 

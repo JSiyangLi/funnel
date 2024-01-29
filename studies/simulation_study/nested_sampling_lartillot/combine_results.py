@@ -1,54 +1,45 @@
-import glob
+"""Get the results from the nested sampling runs and combine them into a single file.
 
-import numpy as np
+Get the dimension number and seed number from the file name
+"results_ns_d{dim}_seed{seed}.txt"
 
-OUTDIR = "out"
-
-
-def get_data_from_file(f):
-    """Get data from file"""
-    data = []
-    with open(f, "r") as f:
-        for line in f:
-            char0 = line[0]
-            if char0.isdigit() or char0 == "-":
-                data.append([float(x) for x in line.split()])
-    if len(data) > 0:
-        return np.array(data)
+Each file will have the following columns:
+logZ, H, iterations, time
 
 
-def get_combined_data(files):
-    """Combine files into a single file"""
-    data = []
-    for f in files:
-        di = get_data_from_file(f)
-        if di is not None:
-            data.append(di)
-    if len(data) > 0:
-        return np.vstack(data)
+Put all this data into a single file with the following columns:
+dim, seed, logZ, H, iterations, time
+"""
 
+import os
+import re
+import pandas as pd
 
-def main():
-    data = []
-    for d in [1, 20, 100]:
-        data_di = get_combined_data(glob.glob(f"{OUTDIR}/*_d{d}_v*.dat"))
-        if data_di is not None:
-            data_di = np.hstack([np.ones((data_di.shape[0], 1)) * d, data_di])
-            data.append(data_di)
-    if len(data) > 0:
-        data = np.vstack(data)
-        # counts of samples for each dimension
-        counts = np.unique(data[:, 0], return_counts=True)
-        print(f"Saving combined data")
-        np.savetxt(
-            f"{OUTDIR}/nested_sampling_lnzs.dat",
-            data,
-            header="dim ns_lnz ns_lnz_err",
-            fmt=["%03d", "%.5e", "%.5e"],
-        )
-        for d, c in zip(*counts):
-            print(f"Dimension {int(d)}: {c} samples")
+# Directory containing the result files
+results_directory = "results_ns"
 
+# Initialize an empty DataFrame to store the combined data
+combined_data = pd.DataFrame(columns=["dim", "seed", "logZ", "H", "iterations", "time"])
 
-if __name__ == "__main__":
-    main()
+# Regular expression pattern to match file names
+pattern = re.compile(r"results_ns_d(\d+)_seed(\d+).txt")
+
+# Iterate through the files in the directory
+for filename in os.listdir(results_directory):
+    # Match the filename pattern
+    match = pattern.match(filename)
+    if match:
+        dim = int(match.group(1))
+        seed = int(match.group(2))
+        file_path = os.path.join(results_directory, filename)
+        # Read data from the file into a DataFrame
+        data = pd.read_csv(file_path, sep='\s+', header=None, names=["logZ", "H", "iterations", "time"])
+        # Add dimension and seed columns
+        data["dim"] = dim
+        data["seed"] = seed
+        # Reorder columns
+        data = data[["dim", "seed", "logZ", "H", "iterations", "time"]]
+        combined_data = pd.concat([combined_data, data], ignore_index=True)
+
+# Save the combined data to an output file
+combined_data.to_csv("combined_results.csv", index=False)

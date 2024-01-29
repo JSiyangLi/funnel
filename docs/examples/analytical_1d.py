@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from bilby.core.prior import Normal
 from funnel.fi_core import get_fi_lnz_list
 from funnel.plotting import plot_fi_evidence_results
-from funnel.r_estimator import estimate_best_r, plot_two_part_model_samples_and_data
+from funnel.r_estimator import estimate_best_r, plot_two_part_model_samples_and_data, plot_two_part_model_reference_rotation_and_data, loss_best_r
 from scipy.stats import multivariate_normal, cauchy, norm
 
 # Set seed for reproducibility
@@ -49,30 +49,35 @@ def generate_posterior(v=0.01):
 
 
 # Initialize arrays for results
-epanechnikov_results = np.zeros(300)
-triangle_results = np.zeros(300)
-doubleexp_results = np.zeros(300)
-norm_results = np.zeros(300)
-simulation_results = np.zeros(300)
+#epanechnikov_results = np.zeros(300)
+#triangle_results = np.zeros(300)
+#doubleexp_results = np.zeros(300)
+#norm_results = np.zeros(300)
+#simulation_results = np.zeros(300)
 
 posterior_samples = generate_posterior(v)
 
 results = get_fi_lnz_list(posterior_samples, r_vals=np.geomspace(1e-2, 1e5, 2000), num_ref_params=10, )
-lnzs, r_vals, samp = results
+lnzs, r_vals, samp, rightmost_var, pca_rotation, rightmost_lnz = results
 plt_kwgs = dict(lnzs=lnzs, r_vals=r_vals, sampling_lnz=[log_true_c], )
 
 x = np.log(r_vals)
 change_point_posterior = estimate_best_r(x, lnzs[0], n_steps=500)
+rotation_r_posterior = loss_best_r(r_vals, rightmost_lnz, rightmost_var, pca_rotation)
 
 fig = plot_fi_evidence_results(**plt_kwgs)
 ax = fig.axes[0]
 ax.axhline(np.median(change_point_posterior.posterior["lnz"]), color="tab:orange", linestyle="dashed",
-           label="Estimated LnZ")
+           label="Estimated LnZ (change point)")
+ax.axhline(np.median(rotation_r_posterior.posterior["lnz"]), color="tab:purple", linestyle="dashed",
+           label="Estimated LnZ (reference rotation)")
 fig.tight_layout()
 fig.savefig("GFIcase4.png")
 
 fig = plot_two_part_model_samples_and_data(change_point_posterior.posterior, x, lnzs[0])
 fig.savefig("changept.png")
+fig = plot_two_part_model_reference_rotation_and_data(rotation_r_posterior.posterior, rotation_r_posterior, x, lnzs[0])
+fig.savefig("R_selection.png")
 
 #
 #
