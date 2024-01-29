@@ -29,3 +29,5 @@ Chains
 *.Rhistory
 *.pdf
 /studies/nested_sampling_lartillot/nested_sampling_lnzs.dat
+
+*.nz
