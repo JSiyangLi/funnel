@@ -6,6 +6,7 @@
 /dist/
 /docs/_build/
 /src/*.egg-info/
+studies/simulation_study/nested_sampling_lartillot/nested_sampling_lnzs.dat
 __pycache__/
 out*
 *.png
