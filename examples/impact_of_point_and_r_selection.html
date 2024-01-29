@@ -444,31 +444,16 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>17:02 bilby INFO    : Running for label &#39;gaussian_example&#39;, output will be saved to &#39;outdir_gaussian_example&#39;
-/home/avaj040/.cache/pypoetry/virtualenvs/funnel-ZrW66eTN-py3.8/lib/python3.8/site-packages/bilby/core/utils/log.py:73: DeprecationWarning: Accessing attr.__version__ is deprecated and will be removed in a future release. Use importlib.metadata directly to query for attrs&#39;s packaging metadata.
-  vdict[key] = str(getattr(sys.modules[key], &quot;__version__&quot;, &quot;N/A&quot;))
-17:02 bilby INFO    : Analysis priors:
-17:02 bilby INFO    : x0=Uniform(minimum=-5, maximum=5, name=&#39;x0&#39;, latex_label=&#39;x0&#39;, unit=None, boundary=None)
-17:02 bilby INFO    : x1=Uniform(minimum=-5, maximum=5, name=&#39;x1&#39;, latex_label=&#39;x1&#39;, unit=None, boundary=None)
-17:02 bilby INFO    : Analysis likelihood class: &lt;class &#39;__main__.MultiGaussian&#39;&gt;
-17:02 bilby INFO    : Analysis likelihood noise evidence: nan
-17:02 bilby INFO    : Single likelihood evaluation took 2.523e-05 s
-17:02 bilby INFO    : Using sampler Dynesty with kwargs {&#39;nlive&#39;: 5000, &#39;bound&#39;: &#39;live&#39;, &#39;sample&#39;: &#39;act-walk&#39;, &#39;periodic&#39;: None, &#39;reflective&#39;: None, &#39;update_interval&#39;: 600, &#39;first_update&#39;: None, &#39;npdim&#39;: None, &#39;rstate&#39;: None, &#39;queue_size&#39;: 1, &#39;pool&#39;: None, &#39;use_pool&#39;: None, &#39;live_points&#39;: None, &#39;logl_args&#39;: None, &#39;logl_kwargs&#39;: None, &#39;ptform_args&#39;: None, &#39;ptform_kwargs&#39;: None, &#39;gradient&#39;: None, &#39;grad_args&#39;: None, &#39;grad_kwargs&#39;: None, &#39;compute_jac&#39;: False, &#39;enlarge&#39;: None, &#39;bootstrap&#39;: None, &#39;walks&#39;: 10, &#39;facc&#39;: 0.2, &#39;slices&#39;: None, &#39;fmove&#39;: 0.9, &#39;max_move&#39;: 100, &#39;update_func&#39;: None, &#39;ncdim&#39;: None, &#39;blob&#39;: False, &#39;save_history&#39;: False, &#39;history_filename&#39;: None, &#39;maxiter&#39;: None, &#39;maxcall&#39;: None, &#39;dlogz&#39;: 0.1, &#39;logl_max&#39;: inf, &#39;n_effective&#39;: None, &#39;add_live&#39;: True, &#39;print_progress&#39;: True, &#39;print_func&#39;: &lt;bound method Dynesty._print_func of &lt;bilby.core.sampler.dynesty.Dynesty object at 0x7f16297d7040&gt;&gt;, &#39;save_bounds&#39;: False, &#39;checkpoint_file&#39;: None, &#39;checkpoint_every&#39;: 60, &#39;resume&#39;: False}
-17:02 bilby INFO    : Checkpoint every check_point_delta_t = 600s
-17:02 bilby INFO    : Using dynesty version 2.1.2
-17:02 bilby INFO    : Using the bilby-implemented rwalk sampling tracking the autocorrelation function and thinning by 2 with maximum length 10000
-17:02 bilby INFO    : Generating initial points from the prior
-</pre></div>
-</div>
-<script type="application/vnd.jupyter.widget-view+json">{"version_major": 2, "version_minor": 0, "model_id": "cd5415ebaf5d40f6bb2163ff40c566ca"}</script><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>17:03 bilby INFO    : Written checkpoint file outdir_gaussian_example/gaussian_example_resume.pickle
-17:03 bilby INFO    : Rejection sampling nested samples to obtain 13690 posterior samples
-17:03 bilby INFO    : Sampling time: 0:00:25.395743
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>17:03 bilby INFO    : Summary of results:
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>14:12 bilby INFO    : Running for label &#39;gaussian_example&#39;, output will be saved to &#39;outdir_gaussian_example&#39;
+14:12 bilby INFO    : Analysis priors:
+14:12 bilby INFO    : x0=Uniform(minimum=-5, maximum=5, name=&#39;x0&#39;, latex_label=&#39;x0&#39;, unit=None, boundary=None)
+14:12 bilby INFO    : x1=Uniform(minimum=-5, maximum=5, name=&#39;x1&#39;, latex_label=&#39;x1&#39;, unit=None, boundary=None)
+14:12 bilby INFO    : Analysis likelihood class: &lt;class &#39;__main__.MultiGaussian&#39;&gt;
+14:12 bilby INFO    : Analysis likelihood noise evidence: nan
+14:12 bilby INFO    : Single likelihood evaluation took 2.286e-05 s
+14:12 bilby INFO    : Checkpoint every check_point_delta_t = 600s
+14:12 bilby WARNING : Using cached result
+14:12 bilby INFO    : Summary of results:
 nsamples: 13690
 ln_noise_evidence:    nan
 ln_evidence: -4.646 +/-  0.028
@@ -489,17 +474,12 @@ ln_bayes_factor:    nan +/-  0.028
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-4.605170185988092, -4.605170185988092]
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">funnel.fi_core</span> <span class="kn">import</span> <span class="n">fi_ln_evidence</span>
 
-<span class="n">r_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">geomspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="mi">5000</span><span class="p">)</span>
+<span class="n">r_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">geomspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">5000</span><span class="p">)</span>
 <span class="c1"># FI lnz for the reference points</span>
 <span class="n">post</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">posterior</span><span class="p">[[</span><span class="s2">&quot;x0&quot;</span><span class="p">,</span> <span class="s2">&quot;x1&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
 <span class="n">ln_pri</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">posterior</span><span class="p">[</span><span class="s2">&quot;log_prior&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
@@ -593,13 +573,36 @@ ln_bayes_factor:    nan +/-  0.028
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;&gt;:50: DeprecationWarning: invalid escape sequence \l
-&lt;&gt;:50: DeprecationWarning: invalid escape sequence \l
-/tmp/ipykernel_848372/1405741115.py:50: DeprecationWarning: invalid escape sequence \l
-  ax2.axhline(expected_ln_evidence, color=posterior_color, linestyle=&#39;--&#39;, label=&#39;Analytical $\ln Z$&#39;, lw=3, zorder=1,
+<img alt="../_images/eb9c72bd7dc4275ba781e8bea120655770bfbbbaed519a45144295f37772c57c.png" src="../_images/eb9c72bd7dc4275ba781e8bea120655770bfbbbaed519a45144295f37772c57c.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">lnzs</span><span class="p">[:,</span> <span class="p">(</span><span class="n">r_vals</span><span class="o">&gt;</span><span class="mi">2</span><span class="p">)</span><span class="o">&amp;</span><span class="p">(</span><span class="n">r_vals</span><span class="o">&lt;</span><span class="mi">20</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-<img alt="../_images/3ba4d0c28a665c04e9cfb82cb9989aea8598d76108a4f568d5c27394c663b51f.png" src="../_images/3ba4d0c28a665c04e9cfb82cb9989aea8598d76108a4f568d5c27394c663b51f.png" />
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-4.58982227, -4.97749208])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython2 notranslate"><div class="highlight"><pre><span></span><span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="c1"># fill below 1</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">reference_param</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">reference_params</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">r_vals</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lnzs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">expected_ln_evidence</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">threshold</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;C</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$R$&#39;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;fontsize&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">})</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\Delta \ln Z &lt; 0.01$&#39;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;fontsize&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">})</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/49b856d54812fe12dd57d223fda6b524f4315c315b78e39f10b0d4c5a54910c9.png" src="../_images/49b856d54812fe12dd57d223fda6b524f4315c315b78e39f10b0d4c5a54910c9.png" />
 </div>
 </div>
 </section>
