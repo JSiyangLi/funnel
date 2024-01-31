@@ -46,5 +46,5 @@ def plot(df):
     #
     plt.show()
 
-data = pd.read_csv("LISA1PSE.csv").transpose()
+data = pd.read_csv("LISA_1pse.csv").transpose()
 plot(data)

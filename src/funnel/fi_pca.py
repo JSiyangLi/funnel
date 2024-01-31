@@ -1,15 +1,19 @@
 """Core functions for Fourier Integration evidence approximation."""
 import os
+import sys
 
 import numpy as np
 import pandas as pd
 from tqdm.auto import trange
 from typing import Tuple
 
+
 from .logger import logger
 from .utils import get_post_mask
+import numba
 
 
+@numba.jit(parallel=True)
 def fi_ln_evidence(
     posterior_samples: np.ndarray,
     ref_samp: np.array,
@@ -45,13 +49,16 @@ def fi_ln_evidence(
 def get_fi_lnz_list(
     posterior_samples: pd.DataFrame,
     r_vals: np.array = [],
-    num_ref_params: int = 10,
+    num_ref_proportion: float = 0.05,
     weight_samples_by_lnl: bool = False,
+    select_rightmost_cluster: bool = False,
     cache_fn="",
 ) -> Tuple[np.array, np.array, pd.DataFrame]:
     if os.path.exists(cache_fn):
         data = np.load(cache_fn)
         return data["lnzs"], data["r_vals"], data["samp"]
+
+    num_ref_params = np.ceil(num_ref_proportion * len(posterior_samples))
 
     if len(r_vals) == 0:
         r_vals = np.geomspace(1e-3, 1e10, 2000)
@@ -62,6 +69,7 @@ def get_fi_lnz_list(
     # unpacking posterior data
     ln_pri = posterior_samples["log_prior"].values
     ln_lnl = posterior_samples["log_likelihood"].values
+    ln_ker = np.array(ln_pri) + np.array(ln_lnl) # posterior kernel value
     post = posterior_samples[
         posterior_samples.columns.drop(["log_prior", "log_likelihood"])
     ].values
@@ -76,11 +84,11 @@ def get_fi_lnz_list(
     # randomly select reference points
     ref_idx = np.random.choice(len(post), num_ref_params, replace=False)
     if weight_samples_by_lnl:
-        p = np.exp(ln_lnl - np.nanmax(ln_lnl))
+        p = np.exp(ln_ker - np.nanmax(ln_ker))
         p /= np.nansum(p)
         # ref_idx = np.random.choice(len(post), num_ref_params, replace=False, p=p)
-        # get the reference points with the highest likelihoods
-        ref_idx = np.argsort(ln_lnl)[-num_ref_params:]
+        # get the reference points with the highest posterior kernel values - we are converting the kernel to a density, not just the likelihood
+        ref_idx = np.argsort(ln_ker)[-num_ref_params:]
 
     lnzs = np.zeros((num_ref_params, len(r_vals)))
     median_lnzs = np.zeros(num_ref_params)
@@ -104,8 +112,25 @@ def get_fi_lnz_list(
             pbar.set_postfix_str(f"FI LnZ: {med_:.2f}")
             pbar.update()
 
-    samp = post[ref_idx]
+    # find the left bound of the rightmost cluster
+    left_bound = np.sort(ln_ker)[::-1][num_ref_params - 1]
+
+    rightmost_var, pca_rotation = np.zeros(len(r_vals)), np.zeros(len(r_vals))
+    for ri in r_vals:
+        # the specific evidence sample for each R[i]
+        lnzri = lnzs[:, ri]
+
+        # estimate the variance of the rightmost cluster in the evidence vs. kernel plot
+        rightmost_lnz = lnzri[np.argmax(ln_ker)]
+        rightmost_var[ri] = np.var(lnzri[ln_ker >= left_bound])
+
+        # estimate the angular bias
+        pca_data = np.column_stack((ln_ker, lnzri))
+        pca = PCA().fit(pca_data)
+        pca_rotation[ri] = min(np.pi - np.arccos(pca.components_[0, 0]), np.abs(np.arccos(pca.components_[0, 0]) - 0.5 * np.pi), np.arccos(pca.components_[0, 0]))
+
+    samp = post[ref_idx] # the selected reference points
     if cache_fn:
         np.savez(cache_fn, lnzs=lnzs, r_vals=r_vals, samp=samp)
 
-    return lnzs, r_vals, samp
+    return lnzs, r_vals, samp, rightmost_var, pca_rotation, rightmost_lnz
