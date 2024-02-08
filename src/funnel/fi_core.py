@@ -30,7 +30,7 @@ def fi_ln_evidence(
     :return: The log of the approximated log-evidence
     """
     # approximating the normalised posterior probability at reference sample
-    diff_from_ref = posterior_samples - ref_samp
+    diff_from_ref = -posterior_samples + ref_samp
     sin_diff = np.sin(r * diff_from_ref)
     integrand = sin_diff / diff_from_ref
     prod_res = np.nanprod(integrand, axis=1)
@@ -39,7 +39,7 @@ def fi_ln_evidence(
     const = 1 / (n_samp * np.power(np.pi, n_dim))
     approx_ln_post = np.log(sum_res * const)
     # using bayes theorem to get the approximated log-evidence
-    return 2 * np.pi * (ref_lnpri + ref_lnl - approx_ln_post)
+    return ref_lnpri + ref_lnl - approx_ln_post
 
 
 def get_fi_lnz_list(

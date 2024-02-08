@@ -13,7 +13,7 @@ os.makedirs(OUTDIR, exist_ok=True)
 
 
 def lnl_const(p, v):
-    return (-p / 2) * np.log(2 * np.pi * v)
+    return 0 # (p / 2) * np.log(2 * np.pi * v)
 
 def true_lnZ(p, v):
     return (p / 2) * np.log(v / (1 + v)) + lnl_const(p, v)
@@ -128,9 +128,9 @@ def main():
 
 def main2():
     dims = np.geomspace(1, 100, 30).astype(int)
-    rs = np.geomspace(500, 1000, 100)
+    rs = np.geomspace(500, 1000, 50)
     v = 1
-    nsamples = int(1e4)
+    nsamples = int(1e5)
 
     errors = []
     uncs = []
@@ -162,11 +162,18 @@ def main2():
     plt.savefig("sim_error.png")
 
 if __name__ == '__main__':
-    p = 1
+    p = 10
     v = 1
     run_simulations(p, v=v, c="C1")
     true_ = true_lnZ(p, v)
     plt.ylabel('Error')
     plt.savefig("sim_error_curve.png")
+    # tru = true_lnZ(p, v)
+    # print(tru)
+    # lnl = log_like(np.zeros(p), p, v)
+    # print(lnl)
+    # lnp = log_prior(np.zeros(p))
+    # print(lnp)
+
 
 
