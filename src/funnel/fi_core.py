@@ -11,11 +11,11 @@ from .utils import get_post_mask
 
 
 def fi_ln_evidence(
-    posterior_samples: np.ndarray,
-    ref_samp: np.array,
-    r: float,
-    ref_lnpri: float,
-    ref_lnl: float,
+        posterior_samples: np.ndarray,
+        ref_samp: np.array,
+        r: float,
+        ref_lnpri: float,
+        ref_lnl: float,
 ):
     """
     Returns the approx log-evidence of some posterior samples (using a reference parameter value).
@@ -39,15 +39,15 @@ def fi_ln_evidence(
     const = 1 / (n_samp * np.power(np.pi, n_dim))
     approx_ln_post = np.log(sum_res * const)
     # using bayes theorem to get the approximated log-evidence
-    return ref_lnpri + ref_lnl - approx_ln_post
+    return 2 * np.pi * (ref_lnpri + ref_lnl - approx_ln_post)
 
 
 def get_fi_lnz_list(
-    posterior_samples: pd.DataFrame,
-    r_vals: np.array = [],
-    num_ref_params: int = 10,
-    weight_samples_by_lnl: bool = False,
-    cache_fn="",
+        posterior_samples: pd.DataFrame,
+        r_vals: np.array = [],
+        num_ref_params: int = 10,
+        weight_samples_by_lnl: bool = False,
+        cache_fn="",
 ) -> Tuple[np.array, np.array, pd.DataFrame]:
     if os.path.exists(cache_fn):
         data = np.load(cache_fn)
