@@ -4,7 +4,7 @@ from scipy.stats import multivariate_normal, cauchy, norm
 import matplotlib.pyplot as plt
 from funnel.fi_core import fi_ln_evidence
 import os
-from bilby.core.prior import PriorDict, Normal
+from scipy.stats import multivariate_normal
 
 np.random.seed(0)
 
@@ -25,11 +25,11 @@ def log_like(theta, p, v):
 def log_prior(theta):
     return np.sum(norm.logpdf(theta, loc=0, scale=1))
 
-
-def simulate_posterior_samples(p, v, nsamples, inflation=1):
+def simulate_posterior_samples(p, v, nsamples):
     mean = np.zeros(p)
-    std = np.sqrt(v / (v + 1))
-    return np.array([np.random.normal(mean, std) for _ in range(nsamples)]).reshape(-1, p)
+    cov_matrix = v / (v + 1) * np.eye(p)
+    # np.array([np.random.normal(mean, std) for _ in range(nsamples)]).reshape(-1, p)
+    return multivariate_normal(mean=mean, cov=cov_matrix).rvs(size=nsamples)
 
 
 def fi_lnZ(p, v, r, nsamples, inflation=1):
