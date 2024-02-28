@@ -72,7 +72,7 @@ def plot_lnz_vs_r_curve(p, v, nsamples):
     plt.savefig(os.path.join(OUTDIR, f"lnz_vs_r_p={p}_v={v}_nsamp={nsamples}.png"))
 
 
-def run_simulations(p, v=0.01, nsamples=int(1e4), n_simulation=300):
+def run_simulations(p, v=0.1, nsamples=int(1e4), n_simulation=300):
     # ref_samples = np.random.multivariate_normal(np.zeros(p), np.identity(p), size=n_simulation)
     simulation_results = np.array([
         fi_lnZ(p, v, r=400, nsamples=nsamples)
@@ -83,6 +83,6 @@ def run_simulations(p, v=0.01, nsamples=int(1e4), n_simulation=300):
 
 
 if __name__ == '__main__':
-    # run_simulations(1)
+    run_simulations(1)
     run_simulations(20)
-    # run_simulations(100)
+    run_simulations(100)

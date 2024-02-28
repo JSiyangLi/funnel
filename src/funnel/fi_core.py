@@ -34,7 +34,7 @@ def fi_ln_evidence(
     sin_diff = np.sin(r * diff_from_ref)
     integrand = sin_diff / diff_from_ref
     prod_res = np.nanprod(integrand, axis=1)
-    sum_res = np.abs(np.nansum(prod_res))
+    sum_res = np.nansum(prod_res)
     n_samp, n_dim = posterior_samples.shape
     const = 1 / (n_samp * np.power(np.pi, n_dim))
     approx_ln_post = np.log(sum_res * const)
