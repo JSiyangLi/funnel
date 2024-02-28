@@ -119,7 +119,7 @@ test_posterior_samples(d, v)
 test_lnl_lnpri_functions(d, v)
 
 
-def run_sims(maxn=int(10**6), numruns=10 ,ndims=[1, 10, 20, 100], v=V_DEFAULT):
+def run_sims(maxn=int(10**6), numruns=10 ,ndims=[1, 10, 20], v=V_DEFAULT):
     data = {}
     for d in tqdm(ndims):
         data['ns'], data[f'd{d}'] = error_vs_ns(d=d, v=v, num_runs=numruns, maxn=maxn)
