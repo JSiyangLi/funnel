@@ -151,5 +151,5 @@ def plot_results(df):
         plt.close('all')
 
 
-df = run_sims(maxn=10 ** 8)
+df = run_sims(maxn=10 ** 8, numruns=100, ndims=[1,5, 10])
 plot_results(df)
