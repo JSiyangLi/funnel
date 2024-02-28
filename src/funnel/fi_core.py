@@ -11,11 +11,11 @@ from .utils import get_post_mask
 
 
 def fi_ln_evidence(
-    posterior_samples: np.ndarray,
-    ref_samp: np.array,
-    r: float,
-    ref_lnpri: float,
-    ref_lnl: float,
+        posterior_samples: np.ndarray,
+        ref_samp: np.array,
+        r: float,
+        ref_lnpri: float,
+        ref_lnl: float,
 ):
     """
     Returns the approx log-evidence of some posterior samples (using a reference parameter value).
@@ -30,7 +30,7 @@ def fi_ln_evidence(
     :return: The log of the approximated log-evidence
     """
     # approximating the normalised posterior probability at reference sample
-    diff_from_ref = posterior_samples - ref_samp
+    diff_from_ref = -posterior_samples + ref_samp
     sin_diff = np.sin(r * diff_from_ref)
     integrand = sin_diff / diff_from_ref
     prod_res = np.nanprod(integrand, axis=1)
@@ -43,11 +43,11 @@ def fi_ln_evidence(
 
 
 def get_fi_lnz_list(
-    posterior_samples: pd.DataFrame,
-    r_vals: np.array = [],
-    num_ref_params: int = 10,
-    weight_samples_by_lnl: bool = False,
-    cache_fn="",
+        posterior_samples: pd.DataFrame,
+        r_vals: np.array = [],
+        num_ref_params: int = 10,
+        weight_samples_by_lnl: bool = False,
+        cache_fn="",
 ) -> Tuple[np.array, np.array, pd.DataFrame]:
     if os.path.exists(cache_fn):
         data = np.load(cache_fn)
