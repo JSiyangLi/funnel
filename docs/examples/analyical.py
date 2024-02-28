@@ -21,7 +21,7 @@ if not os.path.exists(OUTDIR):
 
 PI = jnp.pi
 R_DEFAULT = 100
-V_DEFAULT =1
+V_DEFAULT = 1
 
 
 @jit
@@ -72,7 +72,7 @@ def sample_θ(d: int = 1, v: float = V_DEFAULT, nsamples: int = int(1e6)):
     return np.random.normal(loc=0, scale=np.sqrt(v / (v + 1)), size=(nsamples, d))
 
 
-def error_vs_ns(d=1, v=V_DEFAULT, r=R_DEFAULT, num_runs=10, maxn=int(10**6)):
+def error_vs_ns(d=1, v=V_DEFAULT, r=R_DEFAULT, num_runs=10, maxn=int(10 ** 6)):
     ns = np.linspace(500, maxn, num_runs, dtype=int)
     err = np.zeros(num_runs)
     θstar = jnp.zeros((1, d))
@@ -119,7 +119,7 @@ test_posterior_samples(d, v)
 test_lnl_lnpri_functions(d, v)
 
 
-def run_sims(maxn=int(10**6), numruns=10 ,ndims=[1, 10, 20], v=V_DEFAULT):
+def run_sims(maxn=int(10 ** 6), numruns=10, ndims=[1, 10, 20], v=V_DEFAULT):
     data = {}
     for d in tqdm(ndims):
         data['ns'], data[f'd{d}'] = error_vs_ns(d=d, v=v, num_runs=numruns, maxn=maxn)
@@ -127,10 +127,10 @@ def run_sims(maxn=int(10**6), numruns=10 ,ndims=[1, 10, 20], v=V_DEFAULT):
     df = df.set_index('ns')
     fname = 'fi_errors.csv'
 
-    # if fname exists load dataframe, append new data and save
+    # if fname exists load dataframe, add the data tto the same columns
     if os.path.exists(fname):
         df0 = pd.read_csv(fname, index_col=0)
-        df = pd.concat([df0, df], axis=1)
+        df = pd.concat([df0, df])
 
     df.to_csv('fi_errors.csv')
     plot_results(df)
@@ -139,18 +139,17 @@ def run_sims(maxn=int(10**6), numruns=10 ,ndims=[1, 10, 20], v=V_DEFAULT):
 
 def plot_results(df):
     for col in df.columns:
-
         plt.figure(figsize=(5, 1.5))
         plt.axhline(0, color='k')
         plt.scatter(df.index, df[col], label=col)
         plt.xlabel('N Samples')
         plt.ylabel("LnZ Error")
         plt.legend()
-        plt.tight_layout()
         plt.title(f"R={R_DEFAULT}, v={V_DEFAULT}")
+        plt.tight_layout()
         plt.savefig(f"{col}_fi_errors.png")
         plt.close('all')
 
 
-df = run_sims(maxn=10**7)
+df = run_sims(maxn=10 ** 8)
 plot_results(df)
