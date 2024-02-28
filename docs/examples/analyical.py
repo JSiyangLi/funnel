@@ -70,8 +70,8 @@ def sample_θ(d: int = 1, v: float = 1, nsamples: int = int(1e6)):
     return np.random.normal(loc=0, scale=np.sqrt(v / (v + 1)), size=(nsamples, d))
 
 
-def error_vs_ns(d=1, v=1, r=100, num_runs=10):
-    ns = np.linspace(500, int(2e7), num_runs, dtype=int)
+def error_vs_ns(d=1, v=1, r=100, num_runs=10, maxn=int(10**6)):
+    ns = np.linspace(500, maxn, num_runs, dtype=int)
     err = np.zeros(num_runs)
     θstar = jnp.zeros((1, d))
     for i in trange(num_runs):
@@ -117,11 +117,11 @@ test_posterior_samples(d, v)
 test_lnl_lnpri_functions(d, v)
 
 
-def run_sims(ndims=[1, 10, 20, 100]):
+def run_sims(maxn=int(10**6), numruns=10 ,ndims=[1, 10, 20, 100]):
     data = {}
     v = 1
     for d in tqdm(ndims):
-        data['ns'], data[f'd{d}'] = error_vs_ns(d=d, v=v, num_runs=100)
+        data['ns'], data[f'd{d}'] = error_vs_ns(d=d, v=v, num_runs=numruns, maxn=maxn)
     df = pd.DataFrame(data)
     df = df.set_index('ns')
     df.to_csv('fi_errors.csv')
@@ -142,5 +142,5 @@ def plot_results(df):
         plt.close('all')
 
 
-df = run_sims()
+df = run_sims(maxn=10000)
 plot_results(df)
