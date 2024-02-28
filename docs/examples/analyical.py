@@ -1,179 +1,146 @@
+import pandas as pd
 import numpy as np
-from tqdm import trange, tqdm
-from scipy.stats import multivariate_normal, cauchy, norm
+from tqdm.auto import tqdm, trange
 import matplotlib.pyplot as plt
-from funnel.fi_core import fi_ln_evidence
+import jax
+import jax.numpy as jnp
+from jax import random
+from jax.scipy.stats import norm
+from jax.scipy.special import logsumexp
+from jax.numpy import prod, sum, sin, nansum, nanprod, power, log, exp, sqrt
+from jax import jit
 import os
-from bilby.core.prior import PriorDict, Normal
+import jax
+from jax import config
 
-np.random.seed(0)
+config.update("jax_enable_x64", True)
 
 OUTDIR = 'out_simulation'
-os.makedirs(OUTDIR, exist_ok=True)
+if not os.path.exists(OUTDIR):
+    os.makedirs(OUTDIR)
+
+PI = jnp.pi
 
 
-def lnl_const(p, v):
-    return 0 # (p / 2) * np.log(2 * np.pi * v)
-
-def true_lnZ(p, v):
-    return (p / 2) * np.log(v / (1 + v)) + lnl_const(p, v)
-
-def log_like(theta, p, v):
-    return -np.sum(np.power(theta, 2) / (2 * v)) + lnl_const(p, v)
-
-
-def log_prior(theta):
-    return np.sum(norm.logpdf(theta, loc=0, scale=1))
+@jit
+def ln_fi_post(θstar, θ, r):
+    n, d = θ.shape
+    assert θstar.shape == (1, d)
+    integrand = sin(r * (θstar - θ)) / (θstar - θ)
+    sum_prod_integrand = nansum(nanprod(integrand, axis=1))
+    return log(sum_prod_integrand / (n * power(PI, d)))
 
 
-def simulate_posterior_samples(p, v, nsamples, inflation=1):
-    mean = np.zeros(p)
-    std = np.sqrt(v / (v + 1))
-    return np.array([np.random.normal(mean, std) for _ in range(nsamples)]).reshape(-1, p)
+@jit
+def ln_fi_z(θstar, θ, d=1, v=1, r=100):
+    return ln_likelihood(θstar, v=v) + ln_prior(θstar) - ln_fi_post(θstar, θ, r=r)
 
 
-def fi_lnZ(p, v, r, nsamples, inflation=1):
-    post_samples = simulate_posterior_samples(p=p, v=v, nsamples=nsamples)
-    assert post_samples.shape == (nsamples, p)
-    # ref_sample = np.mean(post_samples, axis=0)
+@jit
+def get_err(θstar, θ, d=1, v=1, r=100):
+    return ln_fi_z(θstar, θ, d=d, v=v, r=r) - ln_true_z(d=d, v=v)
 
-    ref_sample = np.zeros(p)
-    return fi_ln_evidence(
-        posterior_samples=post_samples,
-        ref_samp=ref_sample,
-        ref_lnpri=log_prior(ref_sample),
-        ref_lnl=log_like(ref_sample,  p=p, v=v),
-        r=r,
+
+@jit
+def ln_true_z(d, v=1):
+    return log(power(2. * PI * (1 + v), -d / 2.))
+
+
+@jit
+def ln_true_post(θ, v=1):
+    return sum(norm.logpdf(θ, loc=0, scale=jnp.sqrt(v / (v + 1))))
+
+
+@jit
+def ln_likelihood(θ, v=1):
+    n, d = θ.shape
+    return log(
+        power(2. * PI * v, -d / 2) * nanprod(exp(-power(θ, 2) / (2 * v)))
     )
 
 
-def plot_simulation_hist(fi_lnzs, p, v, n, n_simulation):
-    plt.figure()
-    label = f"FI LnZ ({np.mean(fi_lnzs):.2f} +- {np.std(fi_lnzs):.2f})"
-    plt.hist(fi_lnzs, bins=30, density=True, label=label)
-    tru_lnz = true_lnZ(p, v)
-    plt.axvline(x=true_lnZ(p, v), color="r", label=f"True LnZ ({tru_lnz:.2f})")
-    plt.xlabel("LnZ")
-    plt.title(f"p={p}, v={v}, nsamp={n}, n_sim={n_simulation}")
-
-    plt.legend()
-    plt.tight_layout()
-    plt.savefig(os.path.join(OUTDIR, f"hist_p={p}_v={v}_nsamp={n}.png"))
+@jit
+def ln_prior(θ):
+    return log(
+        prod(norm.pdf(θ, loc=0, scale=1))
+    )
 
 
-def plot_lnz_vs_r_curve(p, v, nsamples, c="C0"):
-    rs = np.geomspace(10, 1000, 50)
-    tru_lnz = true_lnZ(p, v)
-    print(f"True LnZ: {tru_lnz:.2f}")
-    pbar = tqdm(total=len(rs), desc=f"FI LnZ(R) p={p}, v={v}")
-    fi_lnzs = np.zeros(len(rs))
-    # post the median last 5 values of fi_lnZ
-    for i, r in enumerate(rs):
-        fi_lnz = fi_lnZ(p=p, v=v, r=r, nsamples=nsamples)
-        pbar.set_postfix({"FI LnZ": f"{fi_lnz:.2f}"})
-        pbar.update()
-        fi_lnzs[i] = fi_lnz
-
-    plt.axhline(y=tru_lnz, color=c, alpha=0.4, zorder=-1)
-    plt.xlabel("R")
-    plt.title(f"p={p}, v={v}, nsamp={nsamples}")
-    # label = f"P={p:002d}, med err={np.median(tru_lnz-fi_lnzs[rs>100]):.2f}"
-    plt.plot(rs, fi_lnzs, color=c)
-    plt.xscale("log")
-
-    med_err = np.nanmedian(tru_lnz - fi_lnzs[rs > 100])
-    const = np.log(np.power(2*np.pi * v, -p/2))
-    txt1 = f"Median Error: {med_err:.2f}"
-    txt2 = f"Const: {const:.2f}"
-    print(txt1)
-    print(txt2)
+def sample_θ(d: int = 1, v: float = 1, nsamples: int = int(1e6)):
+    return np.random.normal(loc=0, scale=np.sqrt(v / (v + 1)), size=(nsamples, d))
 
 
-    # add text to plot top left corner
-    plt.text(0.05, 0.95, txt1, ha='left', va='top', transform=plt.gca().transAxes)
-    plt.text(0.05, 0.90, txt2, ha='left', va='top', transform=plt.gca().transAxes)
+def error_vs_ns(d=1, v=1, r=100, num_runs=10):
+    ns = np.linspace(500, int(2e7), num_runs, dtype=int)
+    err = np.zeros(num_runs)
+    θstar = jnp.zeros((1, d))
+    for i in trange(num_runs):
+        err[i] = get_err(
+            θstar=θstar,
+            θ=sample_θ(d=d, v=v, nsamples=ns[i]),
+            d=d, v=v, r=r
+        )
+
+    return ns, err
 
 
-    # plt.legend()
-    # plt.tight_layout()
-    # plt.savefig(os.path.join(OUTDIR, f"lnz_vs_r_p={p}_v={v}_nsamp={nsamples}.png"))
+def test_lnl_lnpri_functions(d, v):
+    θstar = jnp.zeros((1, d))
+
+    lnl = ln_likelihood(θstar, v=v)
+    lnpri = ln_prior(θstar)
+    lnpost = ln_true_post(θstar, v=v)
+    lnz = lnl + lnpri - lnpost
+    truelnz = ln_true_z(d, v=v)
+    print(f"lnl={lnl}")
+    print(f"lnpri={lnpri}")
+    print(f"lnpost={lnpost}")
+    print(f'lnz={lnz}')
+    assert lnz == truelnz, ('LnZ using analytical ln-posterior doenst matches the analytical ln_z!!')
 
 
-def run_simulations(p, v=1, nsamples=int(1e4), n_simulation=100, c="C0"):
-    # ref_samples = np.random.multivariate_normal(np.zeros(p), np.identity(p), size=n_simulation)
-    # simulation_results = np.array([
-    #     fi_lnZ(p, v, r=400, nsamples=nsamples)
-    #     for _ in trange(n_simulation, desc=f"p={p}, nsamp={nsamples}")
-    # ])
-    # plot_simulation_hist(simulation_results, p, v, nsamples, n_simulation)
-    plot_lnz_vs_r_curve(p, v, nsamples, c)
+def test_posterior_samples(d, v, n=int(1e5)):
+    θ = sample_θ(d, v, nsamples=n)
+    assert θ.shape == (n, d), f"θ.shape ={θ.shape} !={(n, d)}"
+    expected_std = np.sqrt(v / (v + 1))
+    obs_std = np.std(θ, axis=0)
+    assert obs_std.shape == (d,), f"obs_std.shape={obs_std.shape}"
+    check = jnp.all(jnp.isclose(expected_std, obs_std, atol=0.005))
+    assert check, f"expected_std ! = std(θ) => {expected_std:.3f}, {obs_std}"
+    θ1 = sample_θ(d=2, v=1, nsamples=4)
+    θ2 = sample_θ(d=2, v=1, nsamples=4)
+    assert np.sum(θ1 - θ2) != 0, 'samples not unique!'
 
 
-def main():
-    plt.figure(figsize=(10, 5))
-    run_simulations(1, c="C0")
-    run_simulations(5, c="C1")
-    run_simulations(10, c="C2")
-    run_simulations(25, c="C3")
-    run_simulations(50, c="C4")
-    run_simulations(100, c="C5")
-    # add legend to outside righthand side of plot
-    plt.ylabel(r"True LnZ - FI LnZ")
-    plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-    plt.tight_layout()
-    plt.savefig(os.path.join(OUTDIR, f"lnz_vs_r.png"))
+d, v = 20, 2
+test_posterior_samples(d, v)
+test_lnl_lnpri_functions(d, v)
 
 
-
-
-def main2():
-    dims = np.geomspace(1, 100, 30).astype(int)
-    rs = np.geomspace(500, 1000, 50)
+def run_sims(ndims=[1, 10, 20, 100]):
+    data = {}
     v = 1
-    nsamples = int(1e5)
-
-    errors = []
-    uncs = []
-
-    for d in tqdm(dims, desc='Dims'):
-        fi_lnzs = np.array([fi_lnZ(d, v, r=r, nsamples=nsamples) for r in rs])
-        tru_lnz = true_lnZ(d, v)
-        error = tru_lnz - fi_lnzs
-        uncs.append(np.std(error))
-        errors.append(np.median(error))
-    # save dim, error, unc
-    np.savetxt('errors.csv', np.array([dims, errors, uncs]).T, delimiter=',', header='dim,error,unc', comments='')
-
-    # load dim, error, unc
-    data = np.loadtxt('errors.csv', delimiter=',', skiprows=1)
-    dims = data[:, 0]
-    errors = data[:, 1]
-    uncs = data[:, 2]
-
-    # plot dim vs error and then shade in uncertain region
-    plt.figure()
-    plt.fill_between(dims, np.array(errors) - np.array(uncs), np.array(errors) + np.array(uncs), alpha=0.3,
-                     color="tab:orange")
-    plt.plot(dims, errors, label='Median Error', color="tab:orange")
-    plt.xlabel('Dimension')
-    plt.ylabel('True LnZ - FI LnZ')
-    plt.xscale('log')
-    plt.tight_layout()
-    plt.savefig("sim_error.png")
-
-if __name__ == '__main__':
-    p = 10
-    v = 1
-    run_simulations(p, v=v, c="C1")
-    true_ = true_lnZ(p, v)
-    plt.ylabel('Error')
-    plt.savefig("sim_error_curve.png")
-    # tru = true_lnZ(p, v)
-    # print(tru)
-    # lnl = log_like(np.zeros(p), p, v)
-    # print(lnl)
-    # lnp = log_prior(np.zeros(p))
-    # print(lnp)
+    for d in tqdm(ndims):
+        data['ns'], data[f'd{d}'] = error_vs_ns(d=d, v=v, num_runs=100)
+    df = pd.DataFrame(data)
+    df = df.set_index('ns')
+    df.to_csv('fi_errors.csv')
+    plot_results(df)
+    return df
 
 
+def plot_results(df):
+    for col in df.columns:
 
+        plt.figure(figsize=(5, 1.5))
+        plt.axhline(0, color='k')
+        plt.scatter(df.index, df[col], label=col)
+        plt.xlabel('N Samples')
+        plt.ylabel("LnZ Error")
+        plt.legend()
+        plt.savefig(f"{col}_fi_errors.png")
+        plt.close('all')
+
+
+df = run_sims()
+plot_results(df)

@@ -42,7 +42,7 @@ for (i in 1:iter){
     # FI
     target.sample = rnorm(n = n, sd = sqrt(target.var))
     
-    a = sin(R * target.sample) / target.sample
+    a = sin(R * target.sample ) / target.sample
     post.dens = abs(sum(a)) / (n * pi)
     lpriorlike = g(0, v = v)
     simulation.results[i] = lpriorlike - log(post.dens)

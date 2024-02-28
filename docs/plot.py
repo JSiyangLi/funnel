@@ -3,6 +3,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy.stats as stats
 from scipy.stats import norm
+from tqdm import tqdm
+
+
+
+import corner
 
 # def lnl_const(p, v):
 #     return (p / 2) * np.log(2 * np.pi * v)
@@ -27,7 +32,7 @@ from scipy.stats import norm
 
 
 def lnl_const(p, v):
-    return 0 # (p / 2) * np.log(2 * np.pi * v)
+    return -(p / 2) * np.log(2 * np.pi * v)
 
 def true_lnZ(p, v):
     return (p / 2) * np.log(v / (1 + v)) + lnl_const(p, v)
@@ -41,11 +46,13 @@ def log_prior(theta):
 
 
 def simulate_posterior_samples(p, v, nsamples, inflation=1):
-    mean = np.zeros(p)
     std = np.sqrt(v / (v + 1))
-    return np.array([np.random.normal(mean, std) for _ in range(nsamples)]).reshape(-1, p)
-
-
+    post_pdf = norm(0, std)
+    # sample from the posterior 'NSAMPLES' times, and repeat each sample 'P' times
+    return np.array([
+        post_pdf.rvs(size=p)
+        for _ in range(nsamples)
+    ]).reshape(-1, p)
 
 def fi_ln_post(
         posterior_samples: np.ndarray,
@@ -76,28 +83,40 @@ def fi_ln_post(
     # using bayes theorem to get the approximated log-evidence
     return approx_ln_post
 
-p = 1
+
 v = 1
 true_post =  norm(0, np.sqrt(v/(v+1)))
+
+
+rs = np.geomspace(50, 100000, 5000)
+
+
+def plot_fi_error(p, v, color='C0'):
+    post_samples = simulate_posterior_samples(p=p, v=v, nsamples=10000)
+    fi_posts = np.exp([fi_ln_post(post_samples, ref_samp=np.zeros(p), r=r) for r in tqdm(rs)])
+    tru_pdf_at_0 = true_post.pdf(0) ** p
+    # plot error vs rs
+    plt.plot(rs, tru_pdf_at_0 - fi_posts, label=f'p{p:002d}, v={v}', color=color)
+    plt.axhline(np.nanmedian(tru_pdf_at_0 - fi_posts), color='r', label='Median error')
+# plt.xscale('log')
+
+
 plt.figure()
-x = np.linspace(-3, 3, 100)
-# plt.plot(x, true_post.pdf(x), label='True posterior')
+for p in [2]:
+    plot_fi_error(p, v, color=f'C{p-1}')
 
-post_samples = simulate_posterior_samples(p=p, v=v, nsamples=10000)
-# cache post samples
-
-rs = np.geomspace(50, 1000000, 1000)
-fi_posts =np.exp([fi_ln_post(post_samples, ref_samp=np.zeros(1), r=r) for r in rs])
-tru_pdf_at_0 = true_post.pdf(0)  * p
-# plot error vs rs
-plt.plot(rs, tru_pdf_at_0 - fi_posts, label='Error')
-plt.xscale('log')
 plt.xlabel('R')
 plt.ylabel('Error')
+
+
+
 # draw a line through 0
 plt.axhline(y=0, color='k', linestyle='--')
-plt.title(f"p={p}, v={v}")
 plt.legend()
 plt.show()
 
 
+
+# p = 10
+# corner.corner(simulate_posterior_samples(p=p, v=1, nsamples=10000), truths=np.zeros(p))
+# plt.show()
