@@ -125,6 +125,13 @@ def run_sims(maxn=int(10**6), numruns=10 ,ndims=[1, 10, 20], v=V_DEFAULT):
         data['ns'], data[f'd{d}'] = error_vs_ns(d=d, v=v, num_runs=numruns, maxn=maxn)
     df = pd.DataFrame(data)
     df = df.set_index('ns')
+    fname = 'fi_errors.csv'
+
+    # if fname exists load dataframe, append new data and save
+    if os.path.exists(fname):
+        df0 = pd.read_csv(fname, index_col=0)
+        df = pd.concat([df0, df], axis=1)
+
     df.to_csv('fi_errors.csv')
     plot_results(df)
     return df
