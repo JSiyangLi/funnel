@@ -30,6 +30,8 @@ Chains
 *.Rhistory
 .Rproj.user
 *.pdf
+fi_blocked
+*.gnu
 
 *.pdf
 /studies/nested_sampling_lartillot/nested_sampling_lnzs.dat
