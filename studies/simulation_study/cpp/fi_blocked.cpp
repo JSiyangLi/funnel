@@ -67,6 +67,19 @@ void create_histogram_plot(string label) {
     cout << "Histogram saved" << endl;
 }
 
+void write_simulation_results(const vector<double>& simulation_results, const string& filename) {
+    ofstream outFile(filename);
+    if (outFile.is_open()) {
+        for (size_t i = 0; i < simulation_results.size(); ++i) {
+            outFile << simulation_results[i] << endl;
+        }
+        outFile.close();
+        cout << "Simulation results saved to " << filename << endl;
+    } else {
+        cerr << "Unable to open file " << filename << " for writing." << endl;
+    }
+}
+
 int main(int argc, char *argv[]) {
     int N = 10000000;
     double V = 1.0;
@@ -98,6 +111,8 @@ int main(int argc, char *argv[]) {
 
     vector<double> density_results(ITERATIONS);
     vector<double> simulation_results(ITERATIONS);
+    string label = "simulation_results_ppb" + to_string(PPB) + "_block" + to_string(BLOCK) + "_n" + to_string(N) + "_r" + to_string(R) + "_v" + to_string(V);
+
 
     cout << "Progress: ";
     for (int i = 0; i < ITERATIONS; ++i) {
@@ -116,13 +131,16 @@ int main(int argc, char *argv[]) {
         double lpriorlike = g(theta, PPB, V);
         simulation_results[i] = lpriorlike - post_dens;
 
-        // Print progress bar
+        // Print progress bar + cache current results
         if ((i + 1) % (ITERATIONS / 30) == 0) {
             cout << "\rProgress: " << ((i + 1) * 100) / ITERATIONS << "%";
             cout.flush();
+            write_simulation_results(simulation_results, label + ".txt");
         }
     }
     cout << "\rProgress: 100%" << endl;
+    write_simulation_results(simulation_results, label + ".txt");
+
 
     double mean_simulation_results = 0.0;
     for (int i = 0; i < ITERATIONS; ++i) {
@@ -130,21 +148,12 @@ int main(int argc, char *argv[]) {
     }
     mean_simulation_results /= ITERATIONS;
 
+
     cout << "Mean Simulation Results: " << mean_simulation_results << endl;
     cout << "True C: " << ltrue_c << endl;
     cout << "Difference (Simulation Results - True C): " << mean_simulation_results - ltrue_c << endl;
 
-    string label = "simulation_results_ppb" + to_string(PPB) + "_block" + to_string(BLOCK) + "_n" + to_string(N) + "_r" + to_string(R) + "_v" + to_string(V);
-    ofstream outFile(label + ".txt");
-    if (outFile.is_open()) {
-        for (int i = 0; i < ITERATIONS; ++i) {
-            outFile << simulation_results[i]-ltrue_c << endl;
-        }
-        outFile.close();
-        cout << "Simulation results saved to simulation_results.txt" << endl;
-    } else {
-        cerr << "Unable to open file for writing." << endl;
-    }
+
     create_histogram_plot(label);
 
     return 0;
