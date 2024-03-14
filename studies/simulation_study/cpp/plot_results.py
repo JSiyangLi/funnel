@@ -28,6 +28,10 @@ def load_result(filename):
     data['true_lnz'] = true_lnz(data['ppb'], data['block'], data['v'])
     data['d'] = data['ppb'] * data['block']
     data['lnz_estimates'] = np.loadtxt(filename)
+    # drop nans, 0s, and infinities
+    data['lnz_estimates'] = data['lnz_estimates'][~np.isnan(data['lnz_estimates'])]
+    data['lnz_estimates'] = data['lnz_estimates'][data['lnz_estimates'] != 0]
+    data['lnz_estimates'] = data['lnz_estimates'][np.isfinite(data['lnz_estimates'])]
     # only keep up to 300 lnz-estimates
     if len(data['lnz_estimates']) > 300:
         data['lnz_estimates'] = data['lnz_estimates'][:300]
