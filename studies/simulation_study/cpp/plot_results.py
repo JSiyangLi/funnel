@@ -1,9 +1,13 @@
 """Plot all the results from the simulation study."""
-import os
-import numpy as np
-import matplotlib.pyplot as plt
 import glob
+import os
+import sys
 from collections import namedtuple
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+NBIN = 30
 
 
 def true_lnz(ppb, block, v):
@@ -27,24 +31,42 @@ def load_result(filename):
     # only keep up to 300 lnz-estimates
     if len(data['lnz_estimates']) > 300:
         data['lnz_estimates'] = data['lnz_estimates'][:300]
+    t = namedtuple('Result', data.keys())(*data.values())
+    data['label'] = f"n={t.n}, r={t.r}, v={t.v}, d={t.d} ({t.block}bocks x {t.ppb}params/block)"
     return namedtuple('Result', data.keys())(*data.values())
 
 
-results = glob.glob('simulation_results_ppb*_block*_n*_r*_v*.txt')
-results = [load_result(filename) for filename in results]
-# plot histograms of lnz estimates for each result, add label with n, r, v, ppb, block, d,
-# overplot true lnz as a vertical line
-
-fig, axes = plt.subplots(len(results), 1, figsize=(5, 5*len(results)))
-for i, result in enumerate(results):
-    ax = axes[i]
-    ax.hist(result.lnz_estimates, bins=100, density=True)
+def main_single(fname):
+    result = load_result(fname)
+    fig, ax = plt.subplots()
+    ax.hist(result.lnz_estimates, bins=NBIN, density=True)
     ax.axvline(result.true_lnz, color='r', label='True lnz')
-    ax.set_title(f"n={result.n}, r={result.r}, v={result.v}, d={result.d} ({result.block}x{result.ppb})")
+    ax.set_title(result.label)
     ax.legend()
-plt.tight_layout()
-plt.savefig('simulation_study_results.png')
+    plt.tight_layout()
+    plt.savefig(fname.replace('.txt', '.png'))
 
 
+def main():
+    results = glob.glob('simulation_results_ppb*_block*_n*_r*_v*.txt')
+    results = [load_result(filename) for filename in results]
+    # plot histograms of lnz estimates for each result, add label with n, r, v, ppb, block, d,
+    # overplot true lnz as a vertical line
+
+    fig, axes = plt.subplots(len(results), 1, figsize=(5, 5 * len(results)))
+    for i, result in enumerate(results):
+        ax = axes[i]
+        ax.hist(result.lnz_estimates, bins=NBIN, density=True)
+        ax.axvline(result.true_lnz, color='r', label='True lnz')
+        ax.set_title(result.label)
+        ax.legend()
+    plt.tight_layout()
+    plt.savefig('simulation_study_results.png')
 
 
+if __name__ == '__main__':
+
+    if len(sys.argv) > 1:
+        main_single(sys.argv[1])
+    else:
+        main()
